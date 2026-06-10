@@ -377,7 +377,17 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   background: var(--deep-green);
   margin-top: 40px;
 }
-.hero-banner img { display: block; width: 100%; height: auto; }
+.hero-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 88vh;
+  object-fit: cover;
+  object-position: center;
+}
+@media (max-width: 768px) {
+  .hero-banner img { max-height: 60vh; }
+}
 
 .hero-banner.sticky-hero {
   position: sticky;
