@@ -225,3 +225,57 @@
   });
 
 })();
+
+/* ============================================================
+   PAGE TRANSITION — wipe-fill effect between internal pages
+   ============================================================ */
+(function () {
+  "use strict";
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Inject overlay if not already in DOM
+  let panel = document.getElementById("page-transition");
+  if (!panel) {
+    panel = document.createElement("div");
+    panel.id = "page-transition";
+    panel.setAttribute("aria-hidden", "true");
+    panel.innerHTML = '<span class="pt-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 7 6 11 6 14a6 6 0 0 0 12 0c0-3-2-7-6-12z"/></svg></span>';
+    document.body.appendChild(panel);
+  }
+
+  // Play reveal-in on entry
+  if (!reduce) {
+    panel.classList.add("pt-in");
+    requestAnimationFrame(() => {
+      setTimeout(() => panel.classList.remove("pt-in"), 700);
+    });
+  }
+
+  // Intercept internal navigation
+  document.addEventListener("click", (e) => {
+    if (reduce) return;
+    const a = e.target.closest("a[href]");
+    if (!a) return;
+    if (a.target === "_blank" || a.hasAttribute("download")) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    const href = a.getAttribute("href");
+    if (!href) return;
+    // Only intercept same-origin .html links
+    if (!/\.html(\?|#|$)/.test(href) && !/^\/(?!\/)/.test(href)) return;
+    if (/^https?:\/\//i.test(href) && !href.startsWith(location.origin)) return;
+    // Skip same-page hash
+    if (href.startsWith("#")) return;
+    e.preventDefault();
+    panel.classList.add("pt-out");
+    setTimeout(() => { window.location.href = a.href; }, 520);
+  });
+
+  // Reset overlay on bfcache restore
+  window.addEventListener("pageshow", (e) => {
+    if (e.persisted) {
+      panel.classList.remove("pt-out");
+      panel.classList.add("pt-in");
+      setTimeout(() => panel.classList.remove("pt-in"), 700);
+    }
+  });
+})();

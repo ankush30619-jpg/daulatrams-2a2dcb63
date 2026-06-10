@@ -856,6 +856,52 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
    FLOATING WHATSAPP
    ============================================================ */
 .wa-float {
+}
+
+/* ============================================================
+   PAGE TRANSITION OVERLAY
+   ============================================================ */
+#page-transition {
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  background: linear-gradient(135deg, #0B5132 0%, #0d6b3e 50%, #5B9B2A 100%);
+  transform: translateY(100%);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.85);
+}
+#page-transition .pt-mark {
+  width: 64px; height: 64px; opacity: 0;
+  transform: scale(0.6);
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.25));
+}
+#page-transition .pt-mark svg { width: 100%; height: 100%; color: #F4A82C; }
+#page-transition.pt-out {
+  animation: ptWipeOut 520ms cubic-bezier(0.77,0,0.18,1) forwards;
+  pointer-events: all;
+}
+#page-transition.pt-out .pt-mark { animation: ptMarkIn 520ms ease-out forwards; animation-delay: 180ms; }
+#page-transition.pt-in {
+  animation: ptWipeIn 700ms cubic-bezier(0.77,0,0.18,1) forwards;
+  pointer-events: all;
+}
+@keyframes ptWipeOut {
+  0%   { transform: translateY(100%); }
+  100% { transform: translateY(0%); }
+}
+@keyframes ptWipeIn {
+  0%   { transform: translateY(0%); }
+  100% { transform: translateY(-100%); }
+}
+@keyframes ptMarkIn {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #page-transition { display: none !important; }
+}
+
+.wa-float-end {
   position: fixed; bottom: 24px; right: 24px; z-index: 800;
   width: 56px; height: 56px; border-radius: 50%; background: #25D366;
   display: flex; align-items: center; justify-content: center;
