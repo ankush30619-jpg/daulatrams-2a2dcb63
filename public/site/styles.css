@@ -855,9 +855,6 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    FLOATING WHATSAPP
    ============================================================ */
-.wa-float {
-}
-
 /* ============================================================
    PAGE TRANSITION OVERLAY
    ============================================================ */
@@ -901,7 +898,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   #page-transition { display: none !important; }
 }
 
-.wa-float-end {
+.wa-float {
   position: fixed; bottom: 24px; right: 24px; z-index: 800;
   width: 56px; height: 56px; border-radius: 50%; background: #25D366;
   display: flex; align-items: center; justify-content: center;
