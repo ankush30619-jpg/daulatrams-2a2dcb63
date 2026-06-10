@@ -1,32 +1,33 @@
 ## Goal
-Jab website open hoti hai (aur jab bhi page transition hota hai) wo deep-green wipe screen ke beech mein Daulatram's logo dikhna chahiye — ek subtle entrance animation ke saath, taaki brand reveal feel ho.
+Cream-coloured section backgrounds (Find What Your Body Needs, Legacy, Concern, Testimonials, Ingredients, Media Trust) ko clean white karna, aur sab cards/boxes ke piche ek subtle elevated shadow add karna taaki wo white bg par "float" karein aur premium feel aaye.
 
-## Changes
+## Changes — sirf `public/site/styles.css`
 
-### 1. `public/site/site.js` — transition overlay markup
-Currently overlay ke andar ek leaf SVG hai (`<span class="pt-mark"><svg…leaf…/></span>`). Use replace karke logo image use karenge:
+### 1. Section backgrounds → white
+Inhe `#fff` kar denge (cream/cream-deep hata ke):
+- `.legacy` (Trust the Legacy)
+- `.cat-sec` (Find What Your Body Needs)
+- `.concern` (Find Your Wellness)
+- `.testi` (What Our Family Says)
+- `.ingredients` (Nature's Most Powerful Herbs)
+- `.media-trust` (press logos strip)
 
-```html
-<span class="pt-mark">
-  <img src="<daulatrams-logo CDN url>" alt="Daulatram's" />
-</span>
-```
+Cream rahega: hero overlay, dark-green sections (spotlight, ugc, why-choose, footer), product image placeholders inside cards (taaki cards par image bg natural rahe).
 
-Logo URL `public/site/assets/daulatrams-logo.png.asset.json` se aayega (already uploaded asset).
+### 2. Cards par soft elevated shadow
+White bg par cards visible/premium dikhein iske liye:
+- `.cat-card` (concern circles) → `box-shadow: 0 8px 24px rgba(11,81,50,0.08), 0 2px 6px rgba(0,0,0,0.04)`; hover par deeper (`0 14px 36px rgba(11,81,50,0.14)`) + slight translateY(-4px)
+- `.pc-card` (product cards) → same elevated shadow scale; hover deeper
+- `.testi-card` → soft shadow same family
+- `.ing-detail` panel → same
+- Border thin `1px solid rgba(11,81,50,0.06)` add karenge taaki edges crisp lagein
 
-### 2. `public/site/styles.css` — logo reveal styling
-`.pt-mark img` ke liye styles:
-- Width ~clamp(140px, 22vw, 240px), height auto
-- Drop-shadow / subtle glow for depth on green bg
-- Apna khud ka entrance animation: `ptLogoReveal` — fade + scale (0.85 → 1) + slight upward drift, ~700ms ease-out, slight delay (~150ms) so it appears after green panel slides in
-- Exit animation: fade-out as panel wipes away
-- `prefers-reduced-motion`: no scale/drift, just instant show
+### 3. Subtle separation between white sections
+Saari sections white hone se monotony na lage — `.legacy`, `.cat-sec` etc. ke beech ek hair-thin divider feel ke liye section ke top par `border-top: 1px solid rgba(11,81,50,0.05)` (sirf alternating white sections par, optional).
 
-Existing wipe keyframes (`ptWipeIn` / `ptWipeOut`) aur timing untouched rehnge — sirf logo center mein add ho raha hai.
-
-### 3. No other files touched
-HTML pages, navbar, hero — sab same. Sirf transition overlay ka content + CSS update.
+## Out of scope
+- HTML markup, JS, hero, dark-green sections, fonts, layout — sab untouched.
+- Cream tokens (`--cream-warm`, `--cream-deep`) variables file me rahenge (other components use karte hain), bas section-level usages override honge.
 
 ## Result
-- Initial load: green panel upar se neeche slide karega, beech mein Daulatram's logo gracefully appear hoga, fir panel slide-out hoga revealing hero — premium brand reveal moment.
-- Same effect every internal nav (Home ↔ Shop ↔ About etc.).
+Page ka rhythm: dark hero → white (legacy) → white (categories, cards float karte hue) → white (new arrivals) → dark green spotlight → white (concern) → dark green ugc → white (testi) → white (bestsellers) → dark green why-choose → white (ingredients) → white (media trust) → dark footer. Cards visibly elevated, clean modern e-commerce feel.
