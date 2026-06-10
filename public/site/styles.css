@@ -361,10 +361,21 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* Content wrapper that slides over the sticky hero */
 .page-flow { position: relative; z-index: 2; }
 
-/* Simple hero banner (replaces sticky hero) */
-.hero-banner { display: block; width: 100%; padding-top: 116px; background: var(--deep-green); }
+/* Simple hero banner — sits flush under the announcement bar; header floats transparent on top */
+.hero-banner { display: block; width: 100%; background: var(--deep-green); margin-top: 40px; }
 .hero-banner img { display: block; width: 100%; height: auto; }
-@media (max-width: 700px) { .hero-banner { padding-top: 106px; } }
+
+/* Floating transparent header over banner */
+.home-floating-header .header:not(.scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.home-floating-header .header:not(.scrolled) .nav-center {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.35);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
 
 /* ============================================================
    MARQUEE STRIP
