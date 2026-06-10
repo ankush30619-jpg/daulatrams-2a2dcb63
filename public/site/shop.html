@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop All Products — Daulatram's</title>
+<title>Shop Pure Ayurveda — Daulatram's</title>
+<meta name="description" content="Shop authentic Ayurvedic wellness — men's & women's wellness, hair care, skin care, desi ghee, raw honey and more. Free shipping over ₹499.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,16 +14,56 @@
 <body>
 <script>document.documentElement.classList.add('js-anim'); window.ACTIVE_NAV = 'shop';</script>
 
-<!-- Page hero -->
-<div class="page-hero">
-  <div class="breadcrumb"><a href="home.html">Home</a> &rsaquo; <span>Shop</span></div>
-  <h1>All Products</h1>
-  <p>Pure Ayurvedic formulas — crafted with three generations of wisdom.</p>
-</div>
+<!-- ============ SHOP HERO ============ -->
+<section class="shop-hero">
+  <div class="container shop-hero-inner">
+    <div class="breadcrumb"><a href="home.html">Home</a> &rsaquo; <span>Shop</span></div>
+    <span class="sh-eyebrow">PURE · POTENT · PROVEN</span>
+    <h1>Shop Pure <em>Ayurveda</em></h1>
+    <p>Three generations of Ayurvedic wisdom — distilled into formulas your body recognizes. Crafted in Karnal, trusted across India.</p>
+    <form class="sh-search" onsubmit="event.preventDefault(); window.__SHOP_SEARCH(this.q.value)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input name="q" type="search" placeholder="Search Shilajit, Ashwagandha, Hair Oil…" autocomplete="off">
+      <button type="submit">Search</button>
+    </form>
+    <div class="sh-trust">
+      <span>🚚 Free Shipping ₹499+</span>
+      <span>💵 COD Available</span>
+      <span>✓ 100% Authentic</span>
+      <span>🏆 GMP Certified</span>
+    </div>
+  </div>
+</section>
 
 <main id="main-content">
-  <!-- Toolbar -->
-  <div class="shop-toolbar">
+
+  <!-- ============ SHOP BY CATEGORY ============ -->
+  <section class="section shop-cats">
+    <div class="container">
+      <div class="sec-head">
+        <span class="label label-green">Shop by Category</span>
+        <h2 class="t-h2">Find What Your Body Needs</h2>
+      </div>
+      <div class="cat-card-grid" id="cat-card-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ BESTSELLERS STRIP ============ -->
+  <section class="section shop-bestsellers" style="background:var(--cream-warm);">
+    <div class="container">
+      <div class="sec-head sec-head-row">
+        <div>
+          <span class="label label-orange">★ Bestsellers</span>
+          <h2 class="t-h2">India's Favourites</h2>
+        </div>
+        <a href="#all-products" class="link-arrow">Browse all →</a>
+      </div>
+      <div class="bestsellers-strip" id="bestsellers-strip"></div>
+    </div>
+  </section>
+
+  <!-- ============ STICKY TOOLBAR ============ -->
+  <div class="shop-toolbar" id="all-products">
     <div class="container tb-inner">
       <span class="count" id="prod-count">Loading...</span>
       <div class="cat-filter-pills" id="cat-pills">
@@ -44,7 +85,7 @@
     </div>
   </div>
 
-  <!-- Product grid -->
+  <!-- ============ MAIN PRODUCT GRID ============ -->
   <section class="section" style="background:var(--cream-warm); padding-top:40px;">
     <div class="container">
       <div class="shop-grid sr-stagger" id="shop-grid"></div>
@@ -56,6 +97,67 @@
       </div>
     </div>
   </section>
+
+  <!-- ============ WHY US TRUST SECTION ============ -->
+  <section class="section shop-trust">
+    <div class="container">
+      <div class="sec-head">
+        <span class="label label-green">Why Daulatram's</span>
+        <h2 class="t-h2">Trusted Since 1952</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card"><div class="ti-ic">🌿</div><h3>3-Generation Heritage</h3><p>Authentic Ayurvedic formulas passed down through three generations of master vaidyas.</p></div>
+        <div class="trust-card"><div class="ti-ic">🧪</div><h3>Lab-Tested Purity</h3><p>Every batch tested for heavy metals, pesticides and microbial safety. Zero compromise.</p></div>
+        <div class="trust-card"><div class="ti-ic">🌱</div><h3>100% Natural</h3><p>No chemicals, no fillers, no preservatives. Just pure herbs sourced from their native soils.</p></div>
+        <div class="trust-card"><div class="ti-ic">🚚</div><h3>Fast & Free Shipping</h3><p>Free delivery on orders ₹499+. Dispatched within 24 hours from our Karnal facility.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section shop-testimonials" style="background:var(--cream-deep);">
+    <div class="container">
+      <div class="sec-head">
+        <span class="label label-orange">★★★★★ 4.8 / 5</span>
+        <h2 class="t-h2">What Our Family Says</h2>
+      </div>
+      <div class="testi-row">
+        <figure class="testi-mini">
+          <div class="tm-stars">★★★★★</div>
+          <blockquote>"Veer Ved Shakti+ ne meri energy completely change kar di. 3 months me result dikha — natural, no side effects."</blockquote>
+          <figcaption><b>Rohit S.</b> · Verified Buyer · Delhi</figcaption>
+        </figure>
+        <figure class="testi-mini">
+          <div class="tm-stars">★★★★★</div>
+          <blockquote>"Amla Bhringraj oil is magic for hairfall. My grandmother used to swear by Daulatram's and now I understand why."</blockquote>
+          <figcaption><b>Priya M.</b> · Verified Buyer · Mumbai</figcaption>
+        </figure>
+        <figure class="testi-mini">
+          <div class="tm-stars">★★★★★</div>
+          <blockquote>"Pure desi cow ghee like ghar ka banaya hua. Aroma alone tells you it's the real thing."</blockquote>
+          <figcaption><b>Anita K.</b> · Verified Buyer · Bangalore</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OFFER BANNER ============ -->
+  <section class="section shop-offer">
+    <div class="container">
+      <div class="offer-card" data-newsletter-wrap>
+        <div class="offer-left">
+          <span class="label label-orange">FIRST ORDER OFFER</span>
+          <h2>Get <em>10% OFF</em> your first order</h2>
+          <p>Join 50,000+ families on their Ayurvedic journey. Wellness tips, launches & exclusive drops.</p>
+        </div>
+        <form class="offer-form email-form" data-newsletter data-success="🎉 Check your inbox — your 10% code is on the way!">
+          <input type="email" required placeholder="Your email address">
+          <button class="btn btn-primary" type="submit">Claim 10% OFF</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <div id="tweaks-root"></div>
@@ -72,15 +174,57 @@
   const emptyEl = document.getElementById('empty-state');
   const pills = document.querySelectorAll('.cat-pill');
   const sortSel = document.getElementById('sort-sel');
+  const catGridEl = document.getElementById('cat-card-grid');
+  const bestEl = document.getElementById('bestsellers-strip');
   let activeCat = 'all';
+  let searchQ = '';
 
-  // Read URL param
-  const urlCat = new URLSearchParams(location.search).get('cat');
+  const params = new URLSearchParams(location.search);
+  const urlCat = params.get('cat');
   if (urlCat) activeCat = urlCat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+  const urlQ = params.get('q');
+  if (urlQ) searchQ = urlQ.toLowerCase();
+
+  window.__SHOP_SEARCH = function(q){
+    searchQ = (q||'').toLowerCase();
+    activeCat = 'all';
+    pills.forEach(p=>p.classList.toggle('active', p.dataset.cat==='all'));
+    renderGrid();
+    document.getElementById('all-products').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  function cardHTML(p) {
+    const off = p.orig ? Math.round((1-p.price/p.orig)*100) : 0;
+    const badges = [];
+    if (off) badges.push(`<span class="pc-badge discount">-${off}%</span>`); else badges.push('<span></span>');
+    if (p.tag==='bestseller') badges.push('<span class="pc-badge best">★ BESTSELLER</span>');
+    else if (p.tag==='new') badges.push('<span class="pc-badge new">NEW</span>');
+    else badges.push('<span></span>');
+    const stars = '★★★★★☆☆☆☆☆'.slice(0, Math.round(p.rating||4.5))+'☆☆☆☆☆'.slice(0,5-Math.round(p.rating||4.5));
+    return `<article class="product-card">
+      <a href="product.html?id=${p.id}" style="display:contents">
+      <div class="pc-img"><div class="pc-badges">${badges.join('')}</div>
+        <button class="pc-wish" aria-label="Wishlist" onclick="event.stopPropagation();event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#F0E8D8,#EDE0C8)'">
+      </div></a>
+      <div class="pc-body">
+        <div class="pc-rating"><span class="stars">${stars}</span> ${p.rating||4.5} (${(p.reviews||0).toLocaleString('en-IN')})</div>
+        <a href="product.html?id=${p.id}"><h3 class="pc-name">${p.name} <span style="font-size:0.7em;color:var(--text-muted)">${p.variant}</span></h3></a>
+        <div class="pc-price"><span class="sale">₹${p.price.toLocaleString('en-IN')}</span>${p.orig?`<span class="orig">₹${p.orig.toLocaleString('en-IN')}</span>`:''} ${off?`<span class="off">${off}% OFF</span>`:''}</div>
+        <a href="product.html?id=${p.id}" class="btn btn-primary btn-block btn-sm">View Product</a>
+      </div>
+    </article>`;
+  }
 
   function renderGrid() {
     const catalog = window.__CATALOG || [];
     let items = activeCat === 'all' ? [...catalog] : catalog.filter(p => p.category.toLowerCase() === activeCat.toLowerCase());
+    if (searchQ) items = items.filter(p =>
+      (p.name||'').toLowerCase().includes(searchQ) ||
+      (p.category||'').toLowerCase().includes(searchQ) ||
+      (p.short||'').toLowerCase().includes(searchQ) ||
+      (p.ingredients||[]).some(i=>i.toLowerCase().includes(searchQ))
+    );
     const sort = sortSel.value;
     if (sort==='low') items.sort((a,b)=>a.price-b.price);
     else if (sort==='high') items.sort((a,b)=>b.price-a.price);
@@ -88,43 +232,63 @@
     countEl.textContent = items.length + ' products';
     if (!items.length) { grid.innerHTML=''; emptyEl.style.display='block'; return; }
     emptyEl.style.display = 'none';
-    grid.innerHTML = items.map(p => {
-      const off = p.orig ? Math.round((1-p.price/p.orig)*100) : 0;
-      const badges = [];
-      if (off) badges.push(`<span class="pc-badge discount">-${off}%</span>`); else badges.push('<span></span>');
-      if (p.tag==='bestseller') badges.push('<span class="pc-badge best">★ BESTSELLER</span>');
-      else if (p.tag==='new') badges.push('<span class="pc-badge new">NEW</span>');
-      else badges.push('<span></span>');
-      const stars = '★★★★★☆☆☆☆☆'.slice(0, Math.round(p.rating||4.5))+'☆☆☆☆☆'.slice(0,5-Math.round(p.rating||4.5));
-      return `<article class="product-card">
-        <a href="product.html?id=${p.id}" style="display:contents">
-        <div class="pc-img"><div class="pc-badges">${badges.join('')}</div>
-          <button class="pc-wish" aria-label="Wishlist" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-          <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#F0E8D8,#EDE0C8)'">
-        </div></a>
-        <div class="pc-body">
-          <div class="pc-rating"><span class="stars">${stars}</span> ${p.rating||4.5} (${(p.reviews||0).toLocaleString('en-IN')})</div>
-          <a href="product.html?id=${p.id}"><h3 class="pc-name">${p.name} <span style="font-size:0.7em;color:var(--text-muted)">${p.variant}</span></h3></a>
-          <div class="pc-price"><span class="sale">₹${p.price.toLocaleString('en-IN')}</span>${p.orig?`<span class="orig">₹${p.orig.toLocaleString('en-IN')}</span>`:''} ${off?`<span class="off">${off}% OFF</span>`:''}</div>
-          <a href="product.html?id=${p.id}" class="btn btn-primary btn-block btn-sm">View Product</a>
-        </div>
-      </article>`;
-    }).join('');
-    // re-init scroll reveals
+    grid.innerHTML = items.map(cardHTML).join('');
     grid.querySelectorAll('.product-card').forEach((el,i)=>{el.style.transitionDelay=(i*60)+'ms';el.style.opacity='1';});
   }
 
-  // Sync active pill to URL cat
+  function renderCategoryCards() {
+    const catalog = window.__CATALOG || [];
+    const cats = [
+      {name:"Men's Wellness", emoji:'⚡', color:'#0B5132'},
+      {name:"Women's Wellness", emoji:'🌸', color:'#B85A8C'},
+      {name:"Hair Care", emoji:'💆', color:'#7A5530'},
+      {name:"Skin Care", emoji:'✨', color:'#D08E54'},
+      {name:"Desi Ghee", emoji:'🥛', color:'#E0A93C'},
+      {name:"Honey", emoji:'🍯', color:'#C8821C'},
+      {name:"Weight Loss", emoji:'🌿', color:'#5B9B2A'}
+    ];
+    catGridEl.innerHTML = cats.map(c => {
+      const count = catalog.filter(p=>p.category===c.name).length;
+      const slug = c.name.toLowerCase().replace(/['']/g,'').replace(/\s+/g,'-');
+      return `<a class="cat-card" href="?cat=${slug}#all-products" style="--cc:${c.color}">
+        <div class="cc-ic">${c.emoji}</div>
+        <div class="cc-body"><h3>${c.name}</h3><span>${count} product${count===1?'':'s'}</span></div>
+        <div class="cc-arrow">→</div>
+      </a>`;
+    }).join('');
+    catGridEl.querySelectorAll('.cat-card').forEach(a=>{
+      a.addEventListener('click',(e)=>{
+        e.preventDefault();
+        const cat = a.getAttribute('href').match(/cat=([^#&]+)/)[1];
+        const display = cat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+        activeCat = display;
+        pills.forEach(p=>p.classList.toggle('active', p.dataset.cat.toLowerCase()===display.toLowerCase()));
+        history.pushState({}, '', '?cat='+cat+'#all-products');
+        renderGrid();
+        document.getElementById('all-products').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+
+  function renderBestsellers() {
+    const catalog = window.__CATALOG || [];
+    const best = catalog.filter(p=>p.tag==='bestseller' || (p.rating||0) >= 4.7).slice(0,8);
+    bestEl.innerHTML = best.map(cardHTML).join('');
+  }
+
   pills.forEach(p=>{
     if(activeCat==='all' && p.dataset.cat==='all') p.classList.add('active');
-    else if(p.dataset.cat.toLowerCase()===activeCat.toLowerCase()) { p.classList.remove('active'); document.querySelector('[data-cat=all]').classList.remove('active'); p.classList.add('active'); }
+    else if(p.dataset.cat.toLowerCase()===activeCat.toLowerCase()) { pills.forEach(x=>x.classList.remove('active')); p.classList.add('active'); }
     p.addEventListener('click',()=>{
       pills.forEach(x=>x.classList.remove('active')); p.classList.add('active');
-      activeCat = p.dataset.cat; renderGrid();
+      activeCat = p.dataset.cat; searchQ=''; renderGrid();
     });
   });
   sortSel.addEventListener('change', renderGrid);
+  renderCategoryCards();
+  renderBestsellers();
   renderGrid();
+  if (urlCat) setTimeout(()=>document.getElementById('all-products').scrollIntoView({behavior:'smooth'}), 300);
 })();
 </script>
 
