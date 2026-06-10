@@ -215,27 +215,4 @@
     });
   });
 
-  /* ---------- Social proof toast ---------- */
-  const toast = document.querySelector(".sp-toast");
-  if (toast) {
-    const data = [
-      { n: "Rohit", c: "Lucknow", p: "Shakti+ Capsules", t: "2 minutes" },
-      { n: "Priya", c: "Delhi", p: "Nari Kalp", t: "5 minutes" },
-      { n: "Gurpreet", c: "Chandigarh", p: "Desi Cow Ghee", t: "8 minutes" },
-      { n: "Megha", c: "Pune", p: "Multiflora Honey", t: "11 minutes" },
-      { n: "Amit", c: "Jaipur", p: "Amla Bhringraj Oil", t: "13 minutes" }
-    ];
-    let ti = 0;
-    function showToast() {
-      const d = data[ti % data.length]; ti++;
-      toast.querySelector(".sp-txt").innerHTML =
-        `<b>${d.n}</b> from ${d.c} purchased <b>${d.p}</b><div class="sp-time">${d.t} ago • Verified ✓</div>`;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 4200);
-    }
-    setTimeout(function loop() {
-      showToast();
-      setTimeout(loop, 11000);
-    }, 6000);
-  }
 })();
