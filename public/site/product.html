@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" data-anim="full">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — Daulatram's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="pages.css">
+<link rel="stylesheet" href="pdp.css">
+</head>
+<body>
+<script>document.documentElement.classList.add('js-anim'); window.ACTIVE_NAV = 'shop';</script>
+
+<main id="main-content" style="padding-top:116px;">
+
+  <!-- ===== HERO ===== -->
+  <section class="pdp-hero">
+    <div class="container">
+      <div class="breadcrumb" style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">
+        <a href="home.html" style="color:var(--text-muted)">Home</a> ›
+        <a href="shop.html" style="color:var(--text-muted)">Shop</a> ›
+        <span id="bc-cat" style="color:var(--text-muted)"></span>
+        <span id="bc-name" style="color:var(--charcoal)"></span>
+      </div>
+      <div class="pdp-hero-inner">
+        <!-- Gallery -->
+        <div class="pdp-gallery2">
+          <div class="pdp-main-wrap">
+            <div class="pdp-badge-tl" id="hero-badge-tl"></div>
+            <div class="pdp-badge-tr" id="hero-badge-tr"></div>
+            <img id="main-img2" src="" alt="Product" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#F0E8D8,#EDE0C8)'">
+          </div>
+          <div class="pdp-thumbrow" id="thumb-row"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="pdp-info">
+          <div class="pdp-cat-label" id="h-cat"></div>
+          <h1 class="pdp-title" id="h-name"></h1>
+          <p class="pdp-tagline" id="h-tag"></p>
+          <div class="pdp-stars-row">
+            <span class="stars" id="h-stars"></span>
+            <span class="score" id="h-score"></span>
+            <span class="sep">|</span>
+            <span class="cnt" id="h-cnt"></span>
+            <span class="sep">|</span>
+            <a href="#reviews" style="font-size:13px;color:var(--brand-green);font-weight:600;">See all reviews →</a>
+          </div>
+
+          <!-- Variants -->
+          <div class="pdp-variants2" id="variant-wrap">
+            <span class="lbl">Choose Pack</span>
+            <div class="variant-pills" id="variant-cards"></div>
+          </div>
+
+          <!-- Price -->
+          <div class="pdp-price2">
+            <span class="sale" id="h-price"></span>
+            <span class="orig" id="h-orig"></span>
+          </div>
+          <div id="h-save" class="pdp-save-badge" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="m9 12 2 2 4-4"/></svg>
+            <span></span>
+          </div>
+
+          <!-- Qty + CTAs -->
+          <div class="pdp-qty2">
+            <span class="lbl">Qty</span>
+            <div class="qty2-ctrl">
+              <button id="q-minus">−</button>
+              <span id="q-val">1</span>
+              <button id="q-plus">+</button>
+            </div>
+          </div>
+          <div class="pdp-cta-row2">
+            <button class="btn-buynow" id="buy-btn">Buy Now — Order Today →</button>
+            <button class="btn-cart2" id="cart-btn">Add to Cart</button>
+          </div>
+
+          <!-- Trust -->
+          <div class="pdp-trust2">
+            <div class="pdp-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="18.5" cy="18.5" r="1.8"/></svg>Free Shipping ₹1000+</div>
+            <div class="pdp-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>FSSAI Approved</div>
+            <div class="pdp-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure Payment</div>
+            <div class="pdp-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 1 3 6.7M3 12V7M3 12h5"/></svg>Easy Returns</div>
+          </div>
+          <div class="pdp-pay">
+            <span>Pay via:</span>
+            <span class="pay-chip">UPI</span><span class="pay-chip">VISA</span><span class="pay-chip">MASTERCARD</span><span class="pay-chip">COD</span><span class="pay-chip">RAZORPAY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BANNER ===== -->
+  <div class="trust-banner">
+    <div class="inner">
+      <div class="ti-item"><div class="ico">🏭</div><div class="txt">Own Manufacturing<small>Karnal &amp; Yamuna Nagar</small></div></div>
+      <div class="trust-banner-sep"></div>
+      <div class="ti-item"><div class="ico">🌿</div><div class="txt">100% Natural<small>Zero chemicals</small></div></div>
+      <div class="trust-banner-sep"></div>
+      <div class="ti-item"><div class="ico">✅</div><div class="txt">FSSAI Approved<small>Lab tested every batch</small></div></div>
+      <div class="trust-banner-sep"></div>
+      <div class="ti-item"><div class="ico">🤝</div><div class="txt">3 Generations<small>Trusted family brand</small></div></div>
+      <div class="trust-banner-sep"></div>
+      <div class="ti-item"><div class="ico">🚚</div><div class="txt">Fast Delivery<small>19,000+ pincodes</small></div></div>
+    </div>
+  </div>
+
+  <!-- ===== PROBLEMS ===== -->
+  <section class="problems-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">THIS IS FOR YOU</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Do You Feel <span style="color:var(--brand-orange);">Any Of These</span> Problems?</h2>
+      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:560px;margin:12px auto 0;">If you relate to even one of these, <strong>this product was made for you.</strong></p>
+      <div class="problems-grid sr-stagger" id="problems-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== DOCTOR ===== -->
+  <section class="doctor-sec sr">
+    <div class="container doctor-inner">
+      <div class="doctor-img-wrap">
+        <div class="doctor-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" width="64" height="64"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div style="font-family:var(--font-label);font-size:12px;letter-spacing:0.1em;opacity:0.5">DOCTOR PHOTO PLACEHOLDER</div>
+          <div style="font-size:32px;margin-top:8px;">🩺</div>
+        </div>
+        <div class="doctor-badge">
+          <div class="db-ico">🩺</div>
+          <div><div class="db-txt">Ayurvedic Expert</div><div class="db-sub">Recommended by practitioners</div></div>
+        </div>
+      </div>
+      <div class="doctor-content">
+        <span class="label label-green">EXPERT RECOMMENDATION</span>
+        <h2 class="t-h2" style="color:var(--charcoal);margin-bottom:12px;" id="doc-title"></h2>
+        <p style="font-size:16px;color:var(--text-medium);line-height:1.75;margin-bottom:20px;" id="doc-desc"></p>
+        <div class="benefit-list2" id="doc-benefits"></div>
+        <button class="btn-buynow" style="max-width:280px;margin-top:20px;" onclick="document.getElementById('buy-btn').click()">Order Now — Limited Stock →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INGREDIENTS ===== -->
+  <section class="ingredients-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">WHAT GOES INSIDE</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Nature's Most Powerful <span style="color:var(--brand-green);">Herbs</span></h2>
+      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:500px;margin:12px auto 0;">Every ingredient chosen for a reason. Every formula crafted with care.</p>
+      <div class="ing-cards-grid sr-stagger" id="ing-cards"></div>
+    </div>
+  </section>
+
+  <!-- ===== WHATSAPP TESTIMONIALS ===== -->
+  <section class="wa-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">REAL PEOPLE, REAL RESULTS</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">What Customers Are Saying on <span style="color:#25D366;">WhatsApp</span></h2>
+      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:500px;margin:12px auto 0;">Unfiltered, unsponsored messages from our real customers.</p>
+      <div class="wa-grid sr-stagger" id="wa-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== RATING SUMMARY ===== -->
+  <section class="rating-sum-sec" id="reviews">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:860px;">
+      <div>
+        <span class="label" style="color:var(--brand-orange);display:block;margin-bottom:16px;">VERIFIED REVIEWS</span>
+        <div class="rating-big" id="sum-score">4.7</div>
+        <div class="rating-stars-big">★★★★★</div>
+        <div class="rating-count" id="sum-cnt"></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:20px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;"><span style="color:#25D366;font-size:20px;">✓</span><span style="font-size:14px;color:rgba(255,255,255,0.8);">Verified Purchase only</span></div>
+        </div>
+      </div>
+      <div class="rating-bars2">
+        <div class="rb2-row"><span class="lbl">5★</span><div class="bar"><div class="fill" style="width:80%"></div></div><span class="pct">80%</span></div>
+        <div class="rb2-row"><span class="lbl">4★</span><div class="bar"><div class="fill" style="width:13%"></div></div><span class="pct">13%</span></div>
+        <div class="rb2-row"><span class="lbl">3★</span><div class="bar"><div class="fill" style="width:5%"></div></div><span class="pct">5%</span></div>
+        <div class="rb2-row"><span class="lbl">2★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
+        <div class="rb2-row"><span class="lbl">1★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
+        <div style="margin-top:28px;">
+          <button class="btn-buynow" onclick="document.getElementById('buy-btn').click()">Buy Now — <span id="sum-price2"></span> →</button>
+        </div>
+      </div>
+    </div>
+    @media(max-width:640px){.rating-sum-sec .container{grid-template-columns:1fr!important;}}
+  </section>
+
+  <!-- ===== TEXT REVIEWS ===== -->
+  <section class="section" style="background:var(--cream-deep);padding:60px 0 80px;">
+    <div class="container">
+      <div class="reviews-grid sr-stagger" id="text-reviews"></div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO REVIEWS ===== -->
+  <section class="video-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">CUSTOMER VIDEO REVIEWS</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">See Real Results <span style="color:var(--brand-green);">on Video</span></h2>
+      <div class="video-grid sr-stagger" id="video-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== HOW TO USE ===== -->
+  <section class="htu-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">SIMPLE TO TAKE</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Just <span style="color:var(--brand-green);">3 Easy Steps</span></h2>
+      <div class="htu-steps" id="htu-steps"></div>
+      <div style="text-align:center;margin-top:40px;background:rgba(91,155,42,0.08);border-radius:16px;padding:24px 32px;max-width:680px;margin-left:auto;margin-right:auto;">
+        <div style="font-size:17px;font-weight:600;color:var(--charcoal);margin-bottom:8px;">📋 Important Note</div>
+        <div id="how-note" style="font-size:15px;color:var(--text-medium);line-height:1.7;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAMILY STORY ===== -->
+  <section class="family-sec sr">
+    <div class="container family-inner">
+      <div>
+        <span class="label label-green">OUR HERITAGE</span>
+        <blockquote>"This product was not built in a factory — it was built by a <span>family</span>."</blockquote>
+        <p style="font-size:16px;color:var(--text-medium);line-height:1.8;margin-bottom:18px;">For three generations, Daulatram's has been a name of trust in Ayurveda. What began as Shri Daulat Ram Ji's Ayurvedic practice in Karnal, Haryana, is today a brand trusted by 50,000+ Indian families across the country.</p>
+        <p style="font-size:16px;color:var(--text-medium);line-height:1.8;margin-bottom:28px;">Every formula we make carries the weight of that heritage — tested by time, refined by science, and prepared with the purity that only a family brand can promise.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="about.html" class="btn btn-secondary">Our Full Story →</a>
+          <a href="shop.html" class="btn btn-primary">Shop All Products</a>
+        </div>
+      </div>
+      <div class="family-img-grid">
+        <div class="family-img-placeholder" style="grid-row:span 2;aspect-ratio:unset;height:100%;min-height:280px;">👨‍⚕️</div>
+        <div class="family-img-placeholder">🌿</div>
+        <div class="family-img-placeholder">🏭</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">YOUR QUESTIONS</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Our <span style="color:var(--brand-green);">Honest Answers</span></h2>
+      <div class="faq-grid" id="faq-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section class="final-cta-sec">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="label" style="color:var(--brand-orange);display:block;margin-bottom:14px;">DON'T WAIT</span>
+      <h2>What Are You Waiting For?<br>Make the Decision Today.</h2>
+      <p id="final-p"></p>
+      <div class="cta-wrap">
+        <button class="btn-buynow" style="max-width:320px;" onclick="document.getElementById('buy-btn').click()">Order Now — Get the Best Price →</button>
+        <a href="https://wa.me/918860600134" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:16px 28px;border-radius:50px;font-weight:700;font-size:16px;box-shadow:0 6px 24px rgba(37,211,102,0.40);">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <p style="margin-top:18px;font-size:13px;color:rgba(255,255,255,0.5);">✓ Free Shipping on ₹1000+  ·  ✓ FSSAI Approved  ·  ✓ 100% Natural  ·  ✓ Easy Returns</p>
+    </div>
+  </section>
+
+  <!-- ===== RELATED ===== -->
+  <section class="section" style="background:var(--cream-warm);">
+    <div class="container">
+      <div class="sec-head-row sr">
+        <div><span class="label label-green">EXPLORE MORE</span><h2 class="t-h2" style="color:var(--charcoal)">You May Also Like</h2></div>
+        <a href="shop.html" class="link-arrow">View All →</a>
+      </div>
+      <div class="product-grid sr-stagger" id="related-grid"></div>
+    </div>
+  </section>
+</main>
+
+<!-- Mobile sticky ATC -->
+<div class="satc2" id="satc2">
+  <div style="flex:1;min-width:0;"><div class="sn" id="sn2"></div><div class="sp" id="sp2"></div></div>
+  <button class="btn-buynow sb" onclick="document.getElementById('buy-btn').click()">Buy Now</button>
+</div>
+
+<div id="tweaks-root"></div>
+<script src="catalog.js"></script>
+<script src="data.js"></script>
+<script src="render.js"></script>
+<script src="page-shell.js"></script>
+<script src="site.js"></script>
+
+<script>
+(function(){
+  /* ---- load product ---- */
+  const id = new URLSearchParams(location.search).get('id') || 'veer-ved-shakti-60';
+  const p  = window.__CATALOG && window.__CATALOG.find_by_id(id);
+  const root = document.getElementById('main-content');
+  if(!p){ root.innerHTML='<div style="padding:100px 20px;text-align:center"><h2>Product not found.</h2><a href="shop.html" class="btn btn-primary" style="margin-top:20px">Browse All</a></div>'; return; }
+  document.title = p.name + ' — Daulatram\'s';
+  const stars5 = n => '★'.repeat(Math.round(n||4.5))+'☆'.repeat(5-Math.round(n||4.5));
+  const off = p.orig ? Math.round((1-p.price/p.orig)*100) : 0;
+
+  /* ---- hero ---- */
+  document.getElementById('bc-cat').innerHTML = `<a href="shop.html?cat=${encodeURIComponent(p.category)}" style="color:var(--text-muted)">${p.category}</a> › `;
+  document.getElementById('bc-name').textContent = p.name;
+  document.getElementById('h-cat').textContent   = p.category;
+  document.getElementById('h-name').textContent  = p.name;
+  document.getElementById('h-tag').textContent   = p.short;
+  document.getElementById('h-stars').textContent = stars5(p.rating);
+  document.getElementById('h-score').textContent = (p.rating||4.5)+'/5';
+  document.getElementById('h-cnt').textContent   = (p.reviews||0).toLocaleString('en-IN')+' verified ratings';
+  document.getElementById('h-price').textContent = '₹'+p.price.toLocaleString('en-IN');
+  if(p.orig){ document.getElementById('h-orig').textContent='₹'+p.orig.toLocaleString('en-IN'); }
+  if(off){
+    const sd=document.getElementById('h-save'); sd.style.display='inline-flex';
+    sd.querySelector('span').textContent='SAVE ₹'+(p.orig-p.price).toLocaleString('en-IN')+' · '+off+'% OFF';
+  }
+  if(p.tag==='bestseller') document.getElementById('hero-badge-tr').innerHTML='<span class="pc-badge best" style="font-size:12px">★ BESTSELLER</span>';
+  if(off) document.getElementById('hero-badge-tl').innerHTML='<span class="pc-badge discount">−'+off+'%</span>';
+
+  /* gallery */
+  const mi = document.getElementById('main-img2');
+  if(p.images&&p.images.length){ mi.src=p.images[0]; mi.alt=p.name; }
+  const tr = document.getElementById('thumb-row');
+  if(p.images&&p.images.length>1){
+    tr.innerHTML=p.images.map((src,i)=>`<div class="pdp-thumb2${i===0?' active':''}" data-img="${src}"><img src="${src}" alt="${p.name}" loading="lazy"></div>`).join('');
+    tr.querySelectorAll('.pdp-thumb2').forEach(t=>t.addEventListener('click',()=>{
+      tr.querySelectorAll('.pdp-thumb2').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active'); mi.src=t.dataset.img;
+    }));
+  }
+
+  /* variants */
+  const vw=document.getElementById('variant-wrap'), vc=document.getElementById('variant-cards');
+  if(p.variants&&p.variants.length>1){
+    vc.innerHTML=p.variants.map(v=>{
+      const vo=v.orig?Math.round((1-v.price/v.orig)*100):0;
+      return `<a href="product.html?id=${v.id}" class="pdp-variant-card${v.id===id?' active':''}">
+        <div class="vc-check"><svg viewBox="0 0 24 24" width="12" fill="none" stroke="#fff" stroke-width="3"><path d="m5 12 5 5L19 7"/></svg></div>
+        <div class="vc-label">${v.label}</div>
+        <div class="vc-price">₹${v.price.toLocaleString('en-IN')}</div>
+        ${v.orig?`<div class="vc-orig">₹${v.orig.toLocaleString('en-IN')}</div><div class="vc-save">Save ${vo}%</div>`:''}
+      </a>`;
+    }).join('');
+  } else { vw.style.display='none'; }
+
+  /* qty */
+  let qty=1;
+  document.getElementById('q-minus').onclick=()=>{if(qty>1){qty--;document.getElementById('q-val').textContent=qty;}};
+  document.getElementById('q-plus').onclick=()=>{qty++;document.getElementById('q-val').textContent=qty;};
+
+  /* CTA feedback */
+  function fb(el,txt){const o=el.textContent;el.textContent='✓ '+txt+'!';el.style.background='var(--success)';setTimeout(()=>{el.textContent=o;el.style.background='';},1800);}
+  document.getElementById('buy-btn').onclick=function(){fb(this,'Processing');};
+  document.getElementById('cart-btn').onclick=function(){fb(this,'Added to Cart');};
+
+  /* rating summary */
+  document.getElementById('sum-score').textContent=p.rating||4.5;
+  document.getElementById('sum-cnt').textContent='Based on '+(p.reviews||0).toLocaleString('en-IN')+' verified ratings';
+  document.getElementById('sum-price2').textContent='₹'+p.price.toLocaleString('en-IN');
+
+  /* mobile sticky */
+  const satc=document.getElementById('satc2');
+  document.getElementById('sn2').textContent=p.name+' · '+p.variant;
+  document.getElementById('sp2').textContent='₹'+p.price.toLocaleString('en-IN');
+  if(window.IntersectionObserver){
+    const obs=new IntersectionObserver(([e])=>satc.classList.toggle('vis',!e.isIntersecting),{threshold:0});
+    obs.observe(document.getElementById('buy-btn'));
+  }
+  document.getElementById('final-p').textContent='Join '+((p.reviews||1000)+48000).toLocaleString('en-IN')+' Indian families who already trust Daulatram\'s. Start your Ayurvedic wellness journey today.';
+
+  /* ---- DYNAMIC SECTIONS by category ---- */
+  const cat=p.category.toLowerCase();
+  const isMens=cat.includes("men");
+  const isWomen=cat.includes("women");
+  const isHair=cat.includes("hair");
+  const isSkin=cat.includes("skin");
+  const isGhee=cat.includes("ghee");
+  const isHoney=cat.includes("honey");
+
+  /* PROBLEMS */
+  const PROBLEMS={
+    mens:[{ico:'😴',l:'Low Energy',s:'Always tired, no drive to work or exercise'},
+          {ico:'💪',l:'Poor Strength',s:'Feeling physically weak despite effort'},
+          {ico:'😤',l:'Stress & Anxiety',s:'Mental fog and constant tension'},
+          {ico:'🏋️',l:'Low Stamina',s:'Getting tired too quickly at work or gym'},
+          {ico:'😞',l:'Loss of Confidence',s:'Feeling less like yourself lately'}],
+    womens:[{ico:'😟',l:'Hormonal Imbalance',s:'Irregular cycles and mood swings'},
+            {ico:'😩',l:'Constant Fatigue',s:'Low energy even after full sleep'},
+            {ico:'🤯',l:'PMS Discomfort',s:'Painful periods and bloating'},
+            {ico:'💆',l:'Anxiety & Stress',s:'Feeling overwhelmed and drained'},
+            {ico:'💇',l:'Hair & Skin Issues',s:'Dull skin and hair fall from hormonal causes'}],
+    hair:[{ico:'😩',l:'Heavy Hair Fall',s:'Losing more than 100 strands daily'},
+          {ico:'🪥',l:'Dry Scalp',s:'Itching, flaking and dandruff'},
+          {ico:'⬛',l:'Premature Greying',s:'Grey hair appearing too early'},
+          {ico:'💤',l:'Weak Roots',s:'Hair breaks easily at roots'},
+          {ico:'✨',l:'Dull Hair',s:'No shine, volume or bounce'}],
+    skin:[{ico:'🔴',l:'Acne & Breakouts',s:'Frequent pimples and dark spots'},
+          {ico:'😞',l:'Dull & Dry Skin',s:'Lack of glow and hydration'},
+          {ico:'🌞',l:'Sun Damage',s:'Tan, pigmentation and uneven tone'},
+          {ico:'⌛',l:'Ageing Signs',s:'Early wrinkles and fine lines'},
+          {ico:'🏃',l:'Oily Skin',s:'Excessive sebum and open pores'}],
+    ghee:[{ico:'🤢',l:'Poor Digestion',s:'Bloating, constipation, acidity'},
+          {ico:'🧠',l:'Mental Fog',s:'Difficulty concentrating or remembering'},
+          {ico:'🦴',l:'Joint Stiffness',s:'Morning stiffness and joint aches'},
+          {ico:'😴',l:'Low Immunity',s:'Falling sick frequently'},
+          {ico:'🍳',l:'Chemical Cooking Oils',s:'Concerned about refined oils in your food'}],
+    honey:[{ico:'🤒',l:'Low Immunity',s:'Catching cold and infections frequently'},
+           {ico:'😮‍💨',l:'Respiratory Issues',s:'Cough, congestion and throat irritation'},
+           {ico:'🍬',l:'Sugar Cravings',s:'Addicted to refined sugar and sweets'},
+           {ico:'🦠',l:'Gut Imbalance',s:'Bloating and digestive discomfort'},
+           {ico:'🪫',l:'Low Energy',s:'Feeling sluggish through the day'}]
+  };
+  const probs=isMens?PROBLEMS.mens:isWomen?PROBLEMS.womens:isHair?PROBLEMS.hair:isSkin?PROBLEMS.skin:isGhee?PROBLEMS.ghee:PROBLEMS.honey;
+  document.getElementById('problems-grid').innerHTML=probs.map(pr=>`
+    <div class="prob-card">
+      <span class="p-ico">${pr.ico}</span>
+      <div class="p-label">${pr.l}</div>
+      <div class="p-sub">${pr.s}</div>
+    </div>`).join('');
+
+  /* DOCTOR section */
+  document.getElementById('doc-title').textContent='Daulatram\'s '+p.name+' — Trusted by Practitioners';
+  document.getElementById('doc-desc').textContent=p.description||p.short;
+  document.getElementById('doc-benefits').innerHTML=(p.benefits||[]).slice(0,4).map(b=>`
+    <div class="benefit-item2">
+      <div class="bi-ico">✅</div>
+      <div><h4>${b.split('–')[0].split('—')[0].trim()}</h4><p>${b.includes('–')||b.includes('—')?b.split(/[–—]/)[1].trim():''}</p></div>
+    </div>`).join('');
+
+  /* INGREDIENT CARDS */
+  const ING_IMGS={
+    'Shilajit':'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=400&q=70',
+    'Ashwagandha':'https://images.unsplash.com/photo-1509475826633-fed577a2c71b?auto=format&fit=crop&w=400&q=70',
+    'Amla':'https://images.unsplash.com/photo-1550259979-ed79b48d2a30?auto=format&fit=crop&w=400&q=70',
+    'Aloe Vera':'https://images.unsplash.com/photo-1596148838773-a2d2f4cf9cc3?auto=format&fit=crop&w=400&q=70',
+    'Tulsi':'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=400&q=70'
+  };
+  const ingData=window.__INGREDIENTS||{};
+  const ingKeys=Object.keys(ingData).slice(0,6);
+  const mainIngredients=ingKeys.length?ingKeys.map(k=>ingData[k]):[];
+  const prodIngNames=(p.ingredients||[]).slice(0,6);
+  let ingHTML='';
+  if(mainIngredients.length&&(isMens||p.id.includes('shakti'))){
+    ingHTML=ingKeys.slice(0,6).map(k=>{
+      const d=ingData[k];
+      return `<div class="ing-card2">
+        <div class="ic-img"><span style="font-size:56px">${d.emoji||'🌿'}</span></div>
+        <div class="ic-body">
+          <div class="ic-name">${d.name}</div>
+          <div class="ic-sanskrit">${d.sanskrit||''}</div>
+          <div class="ic-desc">${(d.desc||'').slice(0,100)}…</div>
+          <div class="ic-tags">${(d.tags||[]).map(t=>`<span class="ic-tag">${t}</span>`).join('')}</div>
+        </div></div>`;}).join('');
+  } else {
+    ingHTML=prodIngNames.map(name=>`<div class="ing-card2">
+      <div class="ic-img"><span style="font-size:56px">🌿</span></div>
+      <div class="ic-body">
+        <div class="ic-name">${name.split(' ')[0]}</div>
+        <div class="ic-sanskrit">${name}</div>
+        <div class="ic-desc">A key ingredient in this formula, carefully selected for its proven Ayurvedic benefits.</div>
+        <div class="ic-tags"><span class="ic-tag">Natural</span><span class="ic-tag">Pure</span></div>
+      </div></div>`).join('');
+  }
+  document.getElementById('ing-cards').innerHTML=ingHTML||'<p style="text-align:center;color:var(--text-muted);">See packaging for full ingredient list.</p>';
+
+  /* WHATSAPP REVIEWS */
+  const waReviews=[
+    {name:'Rohit V.',city:'Lucknow',txt:'Bhai 3 hafte mein farak mahsoos hua. Pehle gym mein thak jaata tha but ab stamina kaafi better hai. Pure natural product — no side effects!',stars:5,av:'https://daulatrams.com/wp-content/uploads/2026/01/Rohit-Verma.png'},
+    {name:'Gurpreet S.',city:'Chandigarh',txt:'Maine 2 months liya. Genuinely effective. Family brand hai toh quality pe trust hai. Agli baar bhi yahi lunga. Highly recommend! 🙏',stars:5,av:'https://daulatrams.com/wp-content/uploads/2026/01/Gurpreet-Singh.png'},
+    {name:'Priya S.',city:'Delhi',txt:'Bahut achha product hai. Natural aur side effect zero. Mujhe kafi fayda hua. Delivery bhi fast thi. Daulatram\'s is the best! ⭐⭐⭐⭐⭐',stars:5,av:'https://daulatrams.com/wp-content/uploads/2026/01/Priya-Sharma.png'}
+  ];
+  document.getElementById('wa-grid').innerHTML=waReviews.map(w=>`
+    <div class="wa-card">
+      <div class="wa-card-head">
+        <div class="av"><img src="${w.av}" alt="${w.name}" onerror="this.style.display='none'"></div>
+        <div><div class="name">${w.name}</div><div class="status">${w.city}</div></div>
+      </div>
+      <div class="wa-card-body">
+        <div class="wa-bubble">${w.txt}</div>
+        <div class="wa-stars">${'★'.repeat(w.stars)}</div>
+        <div class="wa-time">Delivered ✓✓</div>
+      </div>
+    </div>`).join('');
+
+  /* TEXT REVIEWS */
+  const revs=[
+    {n:'Rohit Verma',c:'Lucknow',t:'After trying many products, this is the only one that actually worked. '+p.name+' gave me results I could feel within 2 weeks. Completely natural and no side effects whatsoever.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Rohit-Verma.png',s:5},
+    {n:'Priya Sharma',c:'Delhi',t:'Daulatram\'s quality is unmatched. You can feel the purity. I\'ve been recommending this to my entire family. '+p.name+' is now a household essential.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Priya-Sharma.png',s:5},
+    {n:'Gurpreet Singh',c:'Chandigarh',t:'Genuine Ayurvedic quality. The heritage and care that goes into each product is clearly visible. Worth every rupee.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Gurpreet-Singh.png',s:5},
+    {n:'Megha Patil',c:'Pune',t:'Fast delivery, beautiful packaging and most importantly — it works. Three generations of knowledge truly shows in the effectiveness. Worth every rupee.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Megha-Patil.png',s:5}
+  ];
+  document.getElementById('text-reviews').innerHTML=revs.map(r=>`
+    <div class="testi-card">
+      <div class="quote-mark">"</div>
+      <p class="review">${r.t}</p>
+      <div class="stars">${'★'.repeat(r.s)+'☆'.repeat(5-r.s)}</div>
+      <div class="testi-foot">
+        <img src="${r.av}" alt="${r.n}" onerror="this.style.display='none'">
+        <div><div class="name">${r.n}</div><div class="city">${r.c}</div></div>
+      </div>
+      <span class="testi-prod">✓ Verified Purchase</span>
+    </div>`).join('');
+
+  /* VIDEO REVIEWS */
+  const ugcFiles=['12.png','11.png','10.png','9.png','8.png','7.png','6.png','5-1.png'];
+  const U='https://daulatrams.com/wp-content/uploads/2026/01/';
+  document.getElementById('video-grid').innerHTML=ugcFiles.slice(0,4).map((f,i)=>{
+    const names=['Rajesh K.','Anita M.','Suresh P.','Kavita R.'];
+    const cities=['Mumbai','Jaipur','Bangalore','Hyderabad'];
+    return `<div class="video-card">
+      <img src="${U+f}" alt="Customer review video" loading="lazy" onerror="this.style.display='none'">
+      <div class="v-overlay"></div>
+      <div class="v-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><div class="v-name">${names[i]}, ${cities[i]}</div><div class="v-stars">★★★★★</div></div>
+    </div>`;}).join('');
+
+  /* HOW TO USE */
+  const htuDefault=[
+    {n:'1',h:'Take 2 Capsules',d:'Take the recommended dose as per your pack instructions.'},
+    {n:'2',h:'With Warm Milk',d:'Best taken with warm milk or water for maximum absorption.'},
+    {n:'3',h:'Stay Consistent',d:'Use daily for at least 90 days for full, lasting results.'}
+  ];
+  const htuHair=[
+    {n:'1',h:'Warm the Oil',d:'Warm a small amount between your palms or in a bowl.'},
+    {n:'2',h:'Massage Scalp',d:'Apply from root to tip, massage gently in circular motions.'},
+    {n:'3',h:'Leave & Wash',d:'Leave for 1–2 hours or overnight. Rinse with mild shampoo.'}
+  ];
+  const htuHoney=[
+    {n:'1',h:'Take 1–2 Teaspoons',d:'Measure out the recommended daily amount.'},
+    {n:'2',h:'With Warm Water',d:'Mix with warm (not hot) water for best absorption.'},
+    {n:'3',h:'Daily on Empty Stomach',d:'Best consumed every morning before meals.'}
+  ];
+  const steps=isHair?htuHair:isHoney||isGhee?htuHoney:htuDefault;
+  document.getElementById('htu-steps').innerHTML=steps.map((s,i)=>`
+    <div class="htu-step" style="position:relative;">
+      <div class="htu-num">${s.n}</div>
+      <h3>${s.h}</h3>
+      <p>${s.d}</p>
+      ${i<steps.length-1?'<div style="display:none" class="htu-connector"></div>':''}
+    </div>`).join('');
+  document.getElementById('how-note').textContent=p.how_to_use||(isMens?'For best results use consistently for at least 90 days. Consult an Ayurvedic practitioner before use if you have any medical condition.':'For best results use as directed consistently.');
+
+  /* FAQ */
+  const faqMens=[
+    {q:'Is Veer Ved Max Shakti+ safe?',a:'Yes, it is made from 100% natural Ayurvedic herbs, is FSSAI approved, and has no known side effects when used as directed.'},
+    {q:'How long until I see results?',a:'Most customers notice improved energy within 7–14 days. For complete benefits, we recommend a 90-day course.'},
+    {q:'Can I take it with other medicines?',a:'It is generally safe alongside most medications. However, consult your doctor if you are on prescription medicine.'},
+    {q:'What if I don\'t see results?',a:'We offer easy returns and refunds if you are not satisfied. Your trust is our priority.'},
+    {q:'How many capsules per day?',a:'Take 2 capsules twice daily (4 total) with warm milk or water, preferably after meals.'},
+    {q:'Is it suitable for vegetarians?',a:'Yes, all our capsules are 100% vegetarian (HPMC shell) with no animal products.'}
+  ];
+  const faqGeneral=[
+    {q:'Is this product safe to use?',a:'Yes, '+p.name+' is made from 100% natural ingredients, is FSSAI approved and free from artificial additives or side effects.'},
+    {q:'How soon will I see results?',a:'Most customers see a noticeable difference within 2–4 weeks of consistent use.'},
+    {q:'What is your return policy?',a:'We offer hassle-free returns within 7 days if you are not satisfied with the product.'},
+    {q:'How do I use this product?',a:p.how_to_use||'Use as directed on the packaging. For best results, use consistently every day.'},
+    {q:'Is it suitable for all ages?',a:'This product is recommended for adults (18+). For children or special conditions, please consult a doctor.'},
+    {q:'Where is it manufactured?',a:'All Daulatram\'s products are manufactured in our own FSSAI-approved facilities in Karnal and Yamuna Nagar, Haryana.'}
+  ];
+  const faqs=isMens?faqMens:faqGeneral;
+  // split into 2 cols
+  const half=Math.ceil(faqs.length/2);
+  document.getElementById('faq-grid').innerHTML=faqs.map((f,i)=>`
+    <div class="faq-item">
+      <div class="faq-q" data-i="${i}"><span>${f.q}</span><span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>${f.a}</p></div>
+    </div>`).join('');
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const isO=q.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open');});
+      if(!isO){q.classList.add('open');q.nextElementSibling.classList.add('open');}
+    });
+  });
+
+  /* RELATED */
+  const all=window.__CATALOG||[];
+  const rel=all.filter(x=>x.id!==p.id&&x.category===p.category).slice(0,4);
+  const fallback=all.filter(x=>x.id!==p.id).slice(0,4);
+  const relProds=(rel.length>=2?rel:fallback);
+  const rpc=window.renderProductCard;
+  document.getElementById('related-grid').innerHTML=rpc?relProds.map(rp=>rpc({...rp,img:rp.images[0]})).join(''):'';
+})();
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+</body>
+</html>
