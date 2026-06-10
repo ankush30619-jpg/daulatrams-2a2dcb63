@@ -1,0 +1,218 @@
+/* ============================================================
+   DAULATRAM'S — Product Catalog (full detail for PDPs)
+   ============================================================ */
+(function () {
+  const U = "https://daulatrams.com/wp-content/uploads/";
+  window.__CATALOG = [
+    {
+      id: "veer-ved-shakti-60",
+      name: "Veer Ved Max Shakti+",
+      variant: "60 Capsules",
+      category: "Men's Wellness",
+      tag: "bestseller",
+      images: [U+"2026/05/All-ings.jpg", U+"2026/05/bowl-ings.jpg"],
+      price: 5270, orig: 6200,
+      rating: 4.8, reviews: 17719,
+      short: "Ayurveda's most complete formula for men's energy, stamina and vitality — crafted from 14 ancient herbs.",
+      description: "Veer Ved Max Shakti+ is a premium men's wellness supplement that blends 14 time-honoured Ayurvedic herbs into one powerful capsule. Backed by generations of Ayurvedic knowledge and validated by modern nutritional science, it supports energy, stamina, strength and overall male vitality without any chemical additives or side effects.",
+      benefits: ["Natural energy boost without stimulants","Supports lean muscle strength & endurance","Testosterone support for peak performance","Reduces stress & mental fatigue","Improves overall vitality & confidence","Deep sleep & faster recovery"],
+      ingredients: ["Shilajit 50mg","Ashwagandha 200mg","Safed Musli 100mg","Kaunch Beej 100mg","Gokshur 75mg","Kesar 15mg","Vidarikand 75mg","Akarkara 50mg","Shatavari 75mg","Shwet Musli 75mg","Jaiphal 25mg","Javitri 25mg","Amla 100mg","Haritaki 75mg"],
+      how_to_use: "Take 2 capsules twice daily with warm milk or water, preferably after meals. For best results, continue for at least 90 days.",
+      certifications: ["FSSAI Approved","GMP Certified","100% Vegetarian","No Heavy Metals"],
+      variants: [
+        {id:"veer-ved-shakti-30", label:"30 Caps", price:2495, orig:3199},
+        {id:"veer-ved-shakti-60", label:"60 Caps", price:5270, orig:6200}
+      ]
+    },
+    {
+      id: "veer-ved-shakti-30",
+      name: "Veer Ved Max Shakti+",
+      variant: "30 Capsules",
+      category: "Men's Wellness",
+      tag: "bestseller",
+      images: [U+"2026/05/bowl-ings.jpg", U+"2026/05/All-ings.jpg"],
+      price: 2495, orig: 3199,
+      rating: 4.7, reviews: 12480,
+      short: "Ayurveda's most complete formula for men's energy, stamina and vitality — 30 capsule starter pack.",
+      description: "Veer Ved Max Shakti+ 30-capsule pack is perfect for those starting their Ayurvedic wellness journey. Same powerful 14-herb formula as the 60-cap pack — now available in a trial size so you can experience the difference before committing to a full course.",
+      benefits: ["Natural energy boost without stimulants","Supports lean muscle strength & endurance","Testosterone support for peak performance","Reduces stress & mental fatigue","Improves overall vitality & confidence"],
+      ingredients: ["Shilajit 50mg","Ashwagandha 200mg","Safed Musli 100mg","Kaunch Beej 100mg","Gokshur 75mg","Kesar 15mg","Vidarikand 75mg","Akarkara 50mg","Shatavari 75mg","Shwet Musli 75mg","Jaiphal 25mg","Javitri 25mg","Amla 100mg","Haritaki 75mg"],
+      how_to_use: "Take 2 capsules twice daily with warm milk or water, preferably after meals.",
+      certifications: ["FSSAI Approved","GMP Certified","100% Vegetarian"],
+      variants: [
+        {id:"veer-ved-shakti-30", label:"30 Caps", price:2495, orig:3199},
+        {id:"veer-ved-shakti-60", label:"60 Caps", price:5270, orig:6200}
+      ]
+    },
+    {
+      id: "van-tulsi-honey",
+      name: "Van Tulsi Honey",
+      variant: "315gm",
+      category: "Honey",
+      tag: "new",
+      images: [U+"2026/03/van-tulsi-honey-2.png"],
+      price: 360,
+      rating: 4.6, reviews: 842,
+      short: "Raw forest honey infused with the healing power of Tulsi — pure, unprocessed, naturally antibacterial.",
+      description: "Daulatram's Van Tulsi Honey is sourced from pristine forest regions and naturally infused with Tulsi (Holy Basil) — one of Ayurveda's most revered herbs. Cold-extracted and never heat-treated, it retains all natural enzymes, antioxidants and antibacterial properties. A perfect daily tonic for immunity and respiratory health.",
+      benefits: ["Boosts immunity naturally","Soothes throat & respiratory tract","Powerful antioxidant & antibacterial","Rich in natural enzymes","No added sugar or preservatives","Supports digestion"],
+      ingredients: ["Wild Forest Honey 100%","Natural Tulsi Infusion"],
+      how_to_use: "Take 1–2 teaspoons daily on an empty stomach with warm water, or drizzle over food. Avoid heating above 40°C to preserve enzymes.",
+      certifications: ["FSSAI Approved","100% Pure","No Added Sugar","Unprocessed"],
+      variants: [{id:"van-tulsi-honey", label:"315gm", price:360}]
+    },
+    {
+      id: "multiflora-honey",
+      name: "Multiflora Honey",
+      variant: "500gm",
+      category: "Honey",
+      tag: "new",
+      images: [U+"2026/03/multiflora-honey-3.png"],
+      price: 499,
+      rating: 4.7, reviews: 1190,
+      short: "Pure multiflora honey from wild meadows — raw, unfiltered, with a rich complex flavour profile.",
+      description: "Our Multiflora Honey is harvested from bees that forage across diverse wildflower meadows, producing a honey with rich, layered flavour and exceptional nutritional depth. Unheated and unfiltered, it preserves all the natural goodness — from enzymes and pollen to antimicrobial compounds.",
+      benefits: ["Rich in natural antioxidants","Supports energy & immunity","Natural wound healing properties","Rich source of minerals & enzymes","Great for skin & hair when applied topically","Supports digestive health"],
+      ingredients: ["100% Pure Multiflora Honey"],
+      how_to_use: "Consume 1–2 teaspoons daily with warm water, milk or as a natural sweetener. For external use, apply directly to skin.",
+      certifications: ["FSSAI Approved","100% Pure","Cold Extracted","No Additives"],
+      variants: [{id:"multiflora-honey", label:"500gm", price:499}]
+    },
+    {
+      id: "amla-bhringraj-oil",
+      name: "Amla Bhringraj Hair Oil",
+      variant: "100ml",
+      category: "Hair Care",
+      images: [U+"2026/03/amla-bhringraj-hair-oil-4.png"],
+      price: 350,
+      rating: 4.5, reviews: 660,
+      short: "Ancient Ayurvedic hair oil combining Amla and Bhringraj for deep nourishment, reduced hair fall and natural shine.",
+      description: "A time-tested Ayurvedic formulation that brings together Amla (Indian gooseberry) and Bhringraj (Eclipta alba) — two of the most potent herbs for hair health. Regular use strengthens hair roots, prevents premature greying, reduces hair fall and leaves hair with natural shine and volume.",
+      benefits: ["Reduces hair fall significantly","Strengthens hair from roots","Prevents premature greying","Deep scalp nourishment","Natural shine & volume","Cooling & soothing for scalp"],
+      ingredients: ["Sesame Oil base","Amla (Emblica officinalis) extract","Bhringraj (Eclipta alba) extract","Brahmi extract","Neem extract"],
+      how_to_use: "Warm slightly and massage gently into scalp with fingertips. Leave for at least 1 hour (overnight for best results). Wash with mild shampoo. Use 2–3 times per week.",
+      certifications: ["FSSAI Approved","No Mineral Oil","No Paraben","100% Natural Ingredients"],
+      variants: [{id:"amla-bhringraj-oil", label:"100ml", price:350}]
+    },
+    {
+      id: "aloe-vera-gel",
+      name: "Pure Aloe Vera Gel",
+      variant: "250gm",
+      category: "Skin Care",
+      images: [U+"2025/12/aloevera-gel-4.png"],
+      price: 499, orig: 540,
+      rating: 4.6, reviews: 980,
+      short: "99% pure Aloe Vera gel for skin hydration, cooling sunburn relief and natural hair care.",
+      description: "Extracted from organically grown Aloe Vera plants, Daulatram's Pure Aloe Vera Gel is a multi-purpose skincare essential. Free of parabens, mineral oil and artificial fragrance, it absorbs instantly into skin and hair, delivering deep moisture and soothing relief.",
+      benefits: ["Deep skin hydration","Soothes sunburn & skin irritation","Reduces acne & dark spots","Natural hair conditioner","Lightweight, non-greasy formula","Anti-inflammatory & wound healing"],
+      ingredients: ["Aloe Vera Gel 99%","Vitamin E","Chamomile Extract","Glycerin (plant-derived)"],
+      how_to_use: "Apply a generous layer to cleansed skin or hair. Leave as is — no need to wash off. For face: use as a moisturiser or overnight mask. For hair: apply as a leave-in conditioner.",
+      certifications: ["FSSAI Approved","Dermatologically Safe","Paraben Free","Mineral Oil Free"],
+      variants: [{id:"aloe-vera-gel", label:"250gm", price:499, orig:540}]
+    },
+    {
+      id: "desi-cow-ghee",
+      name: "Desi Cow Ghee",
+      variant: "500ml",
+      category: "Desi Ghee",
+      tag: "bestseller",
+      images: [U+"2025/12/Daulatrams-Desi-Cow-Ghee-500ml-1.png"],
+      price: 849, orig: 999,
+      rating: 4.9, reviews: 3120,
+      short: "Traditional Bilona-method Desi Cow Ghee — slow-churned from A2 milk for golden purity and rich Ayurvedic benefits.",
+      description: "Daulatram's Desi Cow Ghee is prepared using the ancient Bilona method — fresh curd from desi cow A2 milk is hand-churned to extract white butter, which is then slow-cooked to pure golden ghee. The result is a ghee that carries the full nutritional and spiritual significance Ayurveda attributes to it: rich in CLA, Omega-3, fat-soluble vitamins and beneficial saturated fats.",
+      benefits: ["Rich in Omega-3 & CLA","Fat-soluble vitamins A, D, E & K","Supports digestion & gut health","Boosts immunity","Brain nourishment & memory","Traditional cooking medium — high smoke point"],
+      ingredients: ["A2 Desi Cow Milk 100%","(Bilona Churning Method — no additives)"],
+      how_to_use: "Use 1 teaspoon daily — in warm milk, on rice/roti, or in cooking. Ideal for Ayurvedic Panchakarma preparations.",
+      certifications: ["FSSAI Approved","A2 Milk Source","No Preservatives","Bilona Method Certified"],
+      variants: [{id:"desi-cow-ghee", label:"500ml", price:849, orig:999}]
+    },
+    {
+      id: "nari-kalp",
+      name: "Nari Kalp",
+      variant: "60 Capsules",
+      category: "Women's Wellness",
+      tag: "bestseller",
+      images: [U+"2026/01/nari-kalp-2.png"],
+      price: 1499, orig: 1799,
+      rating: 4.7, reviews: 2210,
+      short: "A holistic women's wellness blend — balances hormones, supports energy and eases monthly discomfort naturally.",
+      description: "Nari Kalp is Daulatram's flagship formula for women's complete wellbeing. Crafted from select Ayurvedic herbs traditionally used for women's health, it supports hormonal balance, reduces PMS symptoms, improves energy and nourishes the body through every stage of life — from reproductive years through perimenopause.",
+      benefits: ["Hormonal balance & menstrual regularity","Reduces PMS cramps & mood swings","Improves energy & vitality","Supports bone & joint health","Natural glow for skin & hair","Manages stress & anxiety naturally"],
+      ingredients: ["Shatavari 200mg","Ashwagandha 150mg","Lodhra 100mg","Dashamoola 100mg","Amla 100mg","Gokshur 75mg","Brahmi 75mg","Punarnava 75mg"],
+      how_to_use: "Take 2 capsules twice daily with warm milk or water after meals. For best results, use for at least 90 days continuously.",
+      certifications: ["FSSAI Approved","100% Vegetarian","GMP Certified","No Synthetic Hormones"],
+      variants: [{id:"nari-kalp", label:"60 Caps", price:1499, orig:1799}]
+    },
+    {
+      id: "shilajit-raisin",
+      name: "Shilajit Raisin",
+      variant: "20gm",
+      category: "Men's Wellness",
+      images: [U+"2026/03/shilajit-4.png"],
+      price: 899, orig: 1100,
+      rating: 4.7, reviews: 1330,
+      short: "Pure Himalayan Shilajit processed with premium Munakka raisins for enhanced bioavailability and palatability.",
+      description: "Daulatram's Shilajit Raisin combines purified Himalayan Shilajit with the natural sweetness and nourishing properties of Munakka (large raisins). Shilajit — the 'destroyer of weakness' — is one of Ayurveda's most potent rejuvenators, containing fulvic acid, humic acid and over 84 trace minerals. The raisin base enhances absorption and makes consumption convenient and pleasant.",
+      benefits: ["Powerful energy & stamina rejuvenator","Rich in fulvic acid & 84+ minerals","Supports testosterone naturally","Anti-aging & cellular regeneration","Enhances cognitive function","Supports joint & bone health"],
+      ingredients: ["Purified Himalayan Shilajit 50%","Premium Munakka Raisins 50%"],
+      how_to_use: "Consume 1–2 raisins daily on an empty stomach. For best results, chew slowly and follow with a glass of warm milk.",
+      certifications: ["FSSAI Approved","Purified Shilajit","No Additives","Lab Tested"],
+      variants: [{id:"shilajit-raisin", label:"20gm", price:899, orig:1100}]
+    },
+    {
+      id: "real-herbs-hair-oil",
+      name: "Real Herbs Hair Oil",
+      variant: "200ml",
+      category: "Hair Care",
+      images: [U+"2026/03/real-herbs-oil-2.png"],
+      price: 420, orig: 480,
+      rating: 4.6, reviews: 540,
+      short: "A herbal blend of 10+ Ayurvedic herbs in a pure sesame oil base for complete hair nourishment.",
+      description: "Real Herbs Hair Oil is an intensive herbal hair treatment made from over 10 Ayurvedic botanicals infused in cold-pressed sesame oil. Designed for all hair types, it tackles multiple concerns simultaneously — hair fall, dandruff, dryness and premature greying — with one powerful, fragrant formulation.",
+      benefits: ["Reduces hair fall & thinning","Controls dandruff naturally","Prevents premature greying","Adds lustrous shine","Deep scalp nourishment","Suitable for all hair types"],
+      ingredients: ["Cold-pressed Sesame Oil","Bhringraj","Amla","Brahmi","Neem","Henna","Hibiscus","Curry Leaf","Fenugreek","Methi extract"],
+      how_to_use: "Apply generously from roots to tips. Massage scalp in circular motion for 5 minutes. Leave for 2+ hours or overnight. Wash thoroughly. Use 2–3 times weekly.",
+      certifications: ["FSSAI Approved","No Mineral Oil","100% Herbal","No Paraben"],
+      variants: [{id:"real-herbs-hair-oil", label:"200ml", price:420, orig:480}]
+    },
+    {
+      id: "castor-oil",
+      name: "Pure Castor Oil",
+      variant: "100ml",
+      category: "Hair Care",
+      images: [U+"2026/03/castor-oil-2.png"],
+      price: 199,
+      rating: 4.5, reviews: 720,
+      short: "Cold-pressed hexane-free castor oil for thick hair growth, strong brows & lashes, and soft skin.",
+      description: "Daulatram's Pure Castor Oil is cold-pressed from organically grown castor beans without hexane or chemical solvents. Naturally rich in ricinoleic acid, it is one of nature's most effective treatments for hair thinning, eyebrow/eyelash growth and skin moisturization.",
+      benefits: ["Promotes thick hair regrowth","Fills brows & lashes naturally","Deep skin moisturizer","Reduces split ends & breakage","Anti-fungal scalp health","Natural stretch mark care"],
+      ingredients: ["100% Pure Cold-Pressed Castor Oil (Ricinus communis)"],
+      how_to_use: "For hair: mix with a lighter carrier oil, massage into scalp, leave overnight, shampoo morning. For brows/lashes: apply with a clean mascara wand nightly.",
+      certifications: ["FSSAI Approved","Hexane Free","Cold Pressed","100% Pure"],
+      variants: [{id:"castor-oil", label:"100ml", price:199}]
+    },
+    {
+      id: "slim-tea",
+      name: "Slim Tea",
+      variant: "100gm (50 cups)",
+      category: "Weight Loss",
+      tag: "new",
+      images: [U+"2025/12/Daulatrams-Slim-Tea-1.png"],
+      price: 399, orig: 499,
+      rating: 4.4, reviews: 510,
+      short: "A detoxifying Ayurvedic tea blend that supports healthy weight management, boosts metabolism and cleanses the gut.",
+      description: "Daulatram's Slim Tea is a carefully balanced blend of Ayurvedic herbs and teas known for their metabolism-boosting and detoxifying properties. Naturally caffeine-balanced and free of laxatives, it gently supports the body's natural fat-burning processes and promotes a clean digestive system.",
+      benefits: ["Boosts metabolism naturally","Reduces bloating & water retention","Gentle digestive detox","Curbs unhealthy cravings","Rich in antioxidants","Supports liver health"],
+      ingredients: ["Green Tea leaves","Cinnamon (Dalchini)","Ginger (Sonth)","Fennel seeds (Saunf)","Triphala","Garcinia Cambogia","Licorice (Mulethi)","Rose petals"],
+      how_to_use: "Steep 1 teaspoon in 200ml hot water (90°C) for 3–4 minutes. Strain and sip. Enjoy 1–2 cups daily, preferably 30 minutes before meals. Do not add milk.",
+      certifications: ["FSSAI Approved","No Laxatives","No Artificial Flavour","100% Natural"],
+      variants: [{id:"slim-tea", label:"100gm", price:399, orig:499}]
+    }
+  ];
+
+  /* Quick lookup by id */
+  const _index = {};
+  window.__CATALOG.forEach((p) => (_index[p.id] = p));
+  window.__CATALOG.find_by_id = (id) => _index[id] || null;
+})();
