@@ -358,12 +358,38 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   .hero-deco { display: none; }
 }
 
-/* Content wrapper that slides over the sticky hero */
-.page-flow { position: relative; z-index: 2; }
+/* ============================================================
+   STICKY SCROLL-REVEAL (a.k.a. "Scroll Stacking" / "Peeling Scroll")
+   - .hero-banner stays pinned at top (z:0)
+   - .page-flow has a solid background and slides up over the hero (z:2)
+   - .page-end (newsletter + footer) is pinned at bottom (z:0); .page-flow
+     scrolls off to reveal it from underneath
+   ============================================================ */
+.page-flow {
+  position: relative;
+  z-index: 2;
+  background: var(--cream);
+}
 
-/* Simple hero banner — sits flush under the announcement bar; header floats transparent on top */
-.hero-banner { display: block; width: 100%; background: var(--deep-green); margin-top: 40px; }
+.hero-banner {
+  display: block;
+  width: 100%;
+  background: var(--deep-green);
+  margin-top: 40px;
+}
 .hero-banner img { display: block; width: 100%; height: auto; }
+
+.hero-banner.sticky-hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+
+.page-end {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+}
 
 /* Floating transparent header over banner */
 .home-floating-header .header:not(.scrolled) {
