@@ -392,6 +392,13 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 .legacy .underline-word { position: relative; display: inline-block; }
 .legacy .underline-word svg { position: absolute; left: 0; right: 0; width: 100%; bottom: -10px; height: 12px; }
 .legacy .underline-word svg path { stroke: var(--brand-green); stroke-width: 7; fill: none; stroke-linecap: round; }
+/* Draw underline left→right on scroll reveal */
+.legacy .underline-word svg path { stroke-dasharray: 320; stroke-dashoffset: 320; }
+.legacy .sr.in .underline-word svg path,
+.legacy .sr-stagger.in .underline-word svg path { stroke-dashoffset: 0; transition: stroke-dashoffset 1100ms cubic-bezier(.65,.05,.36,1) 300ms; }
+@media (prefers-reduced-motion: reduce) {
+  .legacy .underline-word svg path { stroke-dashoffset: 0; transition: none; }
+}
 .legacy p.body { color: var(--text-medium); font-size: 17px; line-height: 1.78; margin: 22px 0 30px; max-width: 540px; }
 .stat-row { display: flex; gap: 0; margin-bottom: 34px; flex-wrap: wrap; }
 .stat {

@@ -1,63 +1,20 @@
-## Overview
+## Goal
+"Daulatram's" ke niche jo green underline SVG hai, usko aisa banayenge ki jab user scroll karke "Our Heritage" section tak aaye, tab woh line **left se right invisible pen se draw** hoti hui dikhe — taaki dhyaan seedha "Daulatram's" pe jaaye.
 
-Your uploaded zip contains a complete, beautifully designed static HTML/CSS/JS website for **Daulatram's** (Ayurvedic wellness brand) with 5 pages: Home, About, Shop, Product Detail, and Contact.
+## Where
+- File: `public/site/home.html` — section `#trust-legacy` (line 144) me already SVG `<path>` maujood hai inside `.underline-word`.
+- File: `public/site/styles.css` — `.legacy .underline-word svg path` styles already defined hain.
+- Existing scroll-reveal system: parent `.sr` element ko `site.js` IntersectionObserver `.in` class deta hai jab woh viewport me aata hai. Isi trigger ko reuse karenge — koi naya JS nahi chahiye.
 
-However, this Lovable project runs on **TanStack Start (React)**, which uses file-based React routes — not direct static HTML files. To get your site live, the pages need to be converted from `.html` to React `.tsx` route components. The design, content, animations, and interactivity will remain **identical** to what you built.
+## Changes (sirf CSS — 1 file edit)
 
-## What We'll Build
+In `public/site/styles.css`, `.legacy .underline-word svg path` ke baad add karenge:
 
-Convert each static HTML page into a TanStack Start route component, preserving all existing styling, layout, and behavior:
+1. Default state: `stroke-dasharray: 300; stroke-dashoffset: 300;` (line poori chhupi hui — invisible pen).
+2. Jab parent `.sr.in` ho jaye (section viewport me aaya): `stroke-dashoffset: 0` with `transition: stroke-dashoffset 900ms ease-out 250ms` — chhoti si delay ke baad line left→right draw hoti hai.
+3. Reduced-motion users ke liye fallback: `@media (prefers-reduced-motion: reduce)` me line turant visible (no animation).
 
-1. **Homepage** (`/`) — Sticky hero, marquee, legacy section, categories, new arrivals carousel, flagship spotlight, shop-by-concern tabs, UGC grid, testimonials, newsletter
-2. **About** (`/about`) — Founder story, heritage collage, timeline, values grid, manufacturing section
-3. **Shop** (`/shop`) — Category filter pills, sort dropdown, product grid with add-to-cart/wishlist
-4. **Product Detail** (`/product/$id`) — Gallery, variants, ingredients, reviews, FAQ, sticky CTA
-5. **Contact** (`/contact`) — Contact cards, form, map placeholder
-
-## Shared Components to Extract
-
-- Announcement bar (marquee)
-- Header (logo, nav-center, icon actions)
-- Mobile drawer (hamburger menu)
-- Footer (brand, links, contact, payment badges)
-- WhatsApp floating button
-- Social proof toast
-
-## Styling Strategy
-
-- Port `styles.css`, `pages.css`, and `pdp.css` into the project's `src/styles.css` as additional CSS layers, preserving all custom properties and animations
-- Keep the brand design system intact (colors, fonts, shadows, spacing tokens)
-- All scroll-reveal, carousel, and tab interactions become React `useEffect` hooks or component state
-
-## Data & Logic Port
-
-- Convert `catalog.js`, `data.js`, and `render.js` into TypeScript data modules (`src/lib/catalog.ts`, `src/lib/products.ts`)
-- Port `site.js` interactions into React hooks (`useScrollReveal`, `useCarousel`, `useCountUp`, `useHeaderScroll`, etc.)
-- Port `page-shell.js` DOM injection into shared React layout components
-
-## Asset Handling
-
-- Upload local images (`assets/hero-bg.jpg`, `assets/about-collage.webp`, `assets/logo.jpg`) to Lovable CDN
-- External images (from `daulatrams.com`) remain as direct URLs
-- Screenshots and reference images stay as-is (not part of the live site)
-
-## SEO & Metadata
-
-- Route-specific `head()` metadata for every page (title, description, OG tags)
-- Update root `__root.tsx` with proper site title and description
-
-## Publishing
-
-- Build and publish to the free Lovable URL
-- After live, you can request changes ("mujhe trse kuch kuch changes karane ha")
-
-## Technical Notes
-
-- Navigation uses TanStack `<Link>` for client-side routing (no full page reloads)
-- Product filtering/sorting uses React state instead of DOM manipulation
-- PDP variant selection, quantity picker, and image gallery use React state
-- All existing animations (hero reveal, scroll triggers, count-up, carousels) are reimplemented with `useEffect` + `IntersectionObserver`
-
-## Timeline
-
-Single implementation session — all 5 pages, shared components, styling, and data modules in one batch. Build verification before publish.
+## Out of scope
+- Koi naya JS / IntersectionObserver nahi.
+- Baaki pages (about, shop, etc.) ka koi underline animation nahi — sirf home page ka heritage section.
+- Underline ka color/shape same rahega, sirf draw-in effect add hoga.
