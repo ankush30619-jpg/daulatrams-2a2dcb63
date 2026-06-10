@@ -1,26 +1,23 @@
 ## Goal
-Header me jo current "Daulatram's" logo dikh raha hai (external WordPress URL se aata hai) usko aapki uploaded **`daulatrams.jpeg`** (green+orange "daulatram's" wordmark) se replace karna — JPEG ka apna white background as-is rakhke (aapne "with background" bola).
+Header me jo white box dikh raha hai (purana JPEG ka white background tha) usko hatana, aur aapki nayi **transparent PNG logo** (`Untitled (2000 x 1000 px).png`) ko har jagah fit karna — header, mobile drawer, footer — sab pages pe.
 
 ## Where
-Header logo 3 jagah render hota hai (har page ka apna copy hai, kyunki yeh static HTML site hai):
-- `public/site/home.html` line 38 — desktop header
-- `public/site/home.html` line 70 — mobile drawer
-- `public/site/about.html` — same do jagah
-- `public/site/shop.html` — same
-- `public/site/product.html` — same
-- `public/site/contact.html` — same
+Logo currently 2 jagah se aata hai:
+- `public/site/page-shell.js` (3 references) — desktop header, mobile drawer, footer (yeh inject hota hai about/shop/product/contact pages me)
+- `public/site/home.html` (3 references) — home page apna khud ka static header/drawer/footer rakhta hai
 
-Sab me current `src` = `https://daulatrams.com/wp-content/uploads/2025/12/Daulatrams.webp`.
-
-Footer me bhi same image use hoti hai (`home.html` line 392 etc.) — uska bhi same swap karenge taaki consistent rahe.
+Sab me current src = previous JPEG asset (`/__l5e/assets-v1/d08a9c14-…/daulatrams-logo.jpeg`).
 
 ## Changes
-1. **Upload logo as CDN asset:**
-   `lovable-assets create --file /mnt/user-uploads/WhatsApp_Image_2026-05-04_at_12.29.26_PM.jpeg --filename daulatrams-logo.jpeg > public/site/assets/daulatrams-logo.jpeg.asset.json`
-2. **Find & replace** the old WordPress URL with the new CDN URL across all 5 HTML files (one `sed` pass). White JPEG background bana rahega — user ne explicitly "with background" maanga hai.
-3. **No CSS changes.** Existing `.brand-logo img` rules header me logo ko proper height/spacing pe rakhte hain — naya logo bhi same constraints follow karega.
+1. **Upload nayi transparent PNG as CDN asset:**
+   `lovable-assets create --file "/mnt/user-uploads/Untitled_2000_x_1000_px.png" --filename daulatrams-logo.png > public/site/assets/daulatrams-logo.png.asset.json`
+
+2. **Find & replace** purani JPEG URL ko nayi PNG URL se — `page-shell.js` + `home.html` (one sed pass). White box gayab ho jayega kyunki naya logo transparent hai.
+
+3. **Purana JPEG asset delete** karenge (CDN se bhi hat jayega) taaki orphan na rahe.
+
+4. **No CSS change needed** — existing `.brand-logo img` height/spacing rules naye logo pe waise ke waise apply ho jayenge. Agar header me logo thoda chhota/bada dikha to ek chhota height tweak (`.brand-logo img { height: 40px; }` type) karenge — but pehle visually verify karenge.
 
 ## Out of scope
-- Logo background transparent karna (user ne nahi maanga).
-- Header layout / colors / nav links.
-- Favicon update (alag asset, alag turn).
+- Header background color / nav / announcement bar — untouched.
+- Favicon update (alag turn me karenge agar mango).
