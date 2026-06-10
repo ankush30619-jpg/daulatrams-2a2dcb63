@@ -17,6 +17,9 @@
     if (header) header.classList.add("revealed");
   }, 1200);
 
+  // If no sticky hero (e.g. banner-only home), keep header in solid "scrolled" state.
+  if (!hero && header) header.classList.add("scrolled");
+
   /* ---------- Header scroll state ---------- */
   const heroHeight = () => (hero ? hero.offsetHeight : window.innerHeight);
   let ticking = false;

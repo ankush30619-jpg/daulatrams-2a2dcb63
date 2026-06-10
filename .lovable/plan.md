@@ -1,23 +1,28 @@
 ## Goal
-Header me jo white box dikh raha hai (purana JPEG ka white background tha) usko hatana, aur aapki nayi **transparent PNG logo** (`Untitled (2000 x 1000 px).png`) ko har jagah fit karna — header, mobile drawer, footer — sab pages pe.
-
-## Where
-Logo currently 2 jagah se aata hai:
-- `public/site/page-shell.js` (3 references) — desktop header, mobile drawer, footer (yeh inject hota hai about/shop/product/contact pages me)
-- `public/site/home.html` (3 references) — home page apna khud ka static header/drawer/footer rakhta hai
-
-Sab me current src = previous JPEG asset (`/__l5e/assets-v1/d08a9c14-…/daulatrams-logo.jpeg`).
+Home page ke current hero section (slider + heading + subtext + Shop Now button + scroll cue) ko hata kar uski jagah ek single full-width **banner image** lagana — bas image, no text/button overlay.
 
 ## Changes
-1. **Upload nayi transparent PNG as CDN asset:**
-   `lovable-assets create --file "/mnt/user-uploads/Untitled_2000_x_1000_px.png" --filename daulatrams-logo.png > public/site/assets/daulatrams-logo.png.asset.json`
 
-2. **Find & replace** purani JPEG URL ko nayi PNG URL se — `page-shell.js` + `home.html` (one sed pass). White box gayab ho jayega kyunki naya logo transparent hai.
+1. **Upload banner image to CDN**
+   `lovable-assets create --file /mnt/user-uploads/86a7bfdc-f7df-40c5-8638-b890766e2a6b.png --filename hero-banner.png > public/site/assets/hero-banner.png.asset.json`
 
-3. **Purana JPEG asset delete** karenge (CDN se bhi hat jayega) taaki orphan na rahe.
+2. **`public/site/home.html`** — replace the entire `<section class="hero">…</section>` block with:
+   ```html
+   <section class="hero-banner">
+     <img src="<CDN url>" alt="Daulatram's — Ayurvedic Strength" />
+   </section>
+   ```
+   Image text already says "Aurvedic Strength / Shop Now" so no overlay needed.
 
-4. **No CSS change needed** — existing `.brand-logo img` height/spacing rules naye logo pe waise ke waise apply ho jayenge. Agar header me logo thoda chhota/bada dikha to ek chhota height tweak (`.brand-logo img { height: 40px; }` type) karenge — but pehle visually verify karenge.
+3. **`public/site/styles.css`** — add `.hero-banner` rule:
+   - `display:block; width:100%; margin-top: <header height>;`
+   - `.hero-banner img { width:100%; height:auto; display:block; }`
+   
+   Header is fixed/transparent over the old hero. Since new banner replaces hero, we add top padding/margin equal to header height so banner sits below header (not hidden behind it).
+
+4. **`public/site/site.js`** — header scroll logic uses `.hero` for scrolled state / parallax. Since `.hero` is gone, header should stay in its "scrolled" (solid) state always on home. Quick tweak: if no `.hero` found, add `header.classList.add('scrolled','revealed')` on load and skip parallax. (No other JS depends on `.hero` for home.)
 
 ## Out of scope
-- Header background color / nav / announcement bar — untouched.
-- Favicon update (alag turn me karenge agar mango).
+- Other sections (concerns, products, testimonials, footer) — untouched.
+- Header logo/colors — already fixed in previous turn.
+- Other pages — unchanged.
