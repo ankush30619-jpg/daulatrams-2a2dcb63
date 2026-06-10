@@ -8,21 +8,6 @@
   const hero = document.querySelector(".hero");
   const header = document.querySelector(".header");
 
-  /* ---------- Sticky scroll-reveal: reserve space for fixed .page-end ---------- */
-  const pageEnd = document.querySelector(".page-end");
-  if (pageEnd) {
-    const syncEndSpace = () => {
-      const h = pageEnd.offsetHeight;
-      document.body.style.paddingBottom = h + "px";
-    };
-    syncEndSpace();
-    window.addEventListener("resize", syncEndSpace);
-    window.addEventListener("load", syncEndSpace);
-    // Re-measure after fonts/images settle
-    setTimeout(syncEndSpace, 400);
-    setTimeout(syncEndSpace, 1500);
-  }
-
   window.addEventListener("load", () => {
     requestAnimationFrame(() => hero && hero.classList.add("revealed"));
     setTimeout(() => header && header.classList.add("revealed"), 500);

@@ -1,34 +1,39 @@
-## Restore "Sticky Reveal" effect + Newsletter background
+Plan:
 
-Wapas wahi effect laana hai jisme hero aur footer/newsletter section apni jagah **fixed** rehte hain aur beech ka content unke upar scroll hoke aata hai (sticky reveal / scroll-overlay).
+1. Restore the footer/end section to normal scrolling
+   - Remove the fixed `.page-end` reveal behavior.
+   - Put newsletter + footer back into the normal page flow.
+   - Remove the body padding script that was added only for the fixed footer.
+   - Keep the footer design clean and consistent instead of changing its structure again.
 
-### 1) Hero — sticky reveal wapas
-`public/site/styles.css` me:
-- `.hero-banner` → `position: sticky; top: 0; z-index: 0;` (height viewport-based)
-- Next sections wrapper → `position: relative; z-index: 2; background: var(--cream);` taaki hero ke upar slide hoke aaye
+2. Apply the sticky effect only to the hero banner
+   - Keep the given hero banner image as the sticky/pinned visual.
+   - As the user scrolls, the next content should slide over that hero image.
+   - This effect is called Sticky Scroll Reveal, Scroll Stacking, or Peeling Scroll.
 
-### 2) Newsletter section — background image + white overlay + sticky reveal
-- Newsletter ke liye ek lush ayurveda/leaves background image generate karunga (`src/assets/newsletter-bg.jpg` via lovable-assets)
-- `.newsletter` CSS:
-  - `background-image: url(...)` cover/center
-  - `::before` pseudo → `background: rgba(255,255,255,0.85)` white overlay
-  - Text colors flip: deep-green heading, dark body (currently white-on-green)
-- Footer wrapper sticky: footer + newsletter ko `position: sticky; bottom: 0;` pattern me rakhunga so previous section uske upar scroll hoke khatam ho
+3. Make “Our Heritage” the section that comes over the hero
+   - Ensure the reveal starts directly after the hero banner image.
+   - Adjust the stacking so the “Our Heritage” section appears over the sticky hero image.
+   - Avoid letting the entire website/footer participate in this effect.
 
-### 3) Layering order
-```text
-[hero sticky top:0 z:0]
-[middle sections z:2 bg:cream]   ← scrolls over hero
-[newsletter sticky bottom:0 z:0]
-[footer normal]
-```
+4. Fix header impact without removing profile icon
+   - Keep the profile/account icon.
+   - Clean up the header positioning/layering so it does not break the hero reveal.
+   - Preserve existing navigation and mobile menu behavior.
 
-### Technical name (jo aap puchh rahe the)
-Is effect ko **"Sticky Scroll Reveal"** ya **"Scroll Stacking / Layered Scroll"** kehte hain. CSS me `position: sticky` + `z-index` layering se banta hai. Kuch log ise **"Peeling Scroll"** ya **"Reveal-on-Scroll"** bhi bolte hain.
+Technical changes:
 
-### Files to change
-- `public/site/styles.css` — sticky rules + newsletter bg/overlay
-- `public/site/home.html` — wrap middle content in `<div class="scroll-stack">` if needed
-- `src/assets/newsletter-bg.jpg.asset.json` — new bg image
+- `public/site/home.html`
+  - Remove the `.page-end` wrapper behavior.
+  - Keep `.sticky-hero` only on the hero banner.
+  - Make `.page-flow` start after the hero, with the Heritage section properly layered.
 
-Koi backend / logic change nahi.
+- `public/site/styles.css`
+  - Replace the current broad sticky/footer rules with hero-only sticky reveal rules.
+  - Remove `position: fixed` from `.page-end`.
+  - Fix z-index/background layers so only the content after hero scrolls over the hero.
+  - Restore footer to normal layout styling.
+
+- `public/site/site.js`
+  - Remove `syncEndSpace()` body padding logic because footer will no longer be fixed.
+  - Keep existing header, drawer, carousel, and newsletter form scripts working.
