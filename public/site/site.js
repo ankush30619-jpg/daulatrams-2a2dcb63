@@ -239,7 +239,7 @@
     panel = document.createElement("div");
     panel.id = "page-transition";
     panel.setAttribute("aria-hidden", "true");
-    panel.innerHTML = '<span class="pt-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 7 6 11 6 14a6 6 0 0 0 12 0c0-3-2-7-6-12z"/></svg></span>';
+    panel.innerHTML = '<span class="pt-mark"><img src="/__l5e/assets-v1/8b91c49d-e362-4b9e-8d22-d4250fc957c2/daulatrams-logo.png" alt="Daulatram\u2019s" /></span>';
     document.body.appendChild(panel);
   }
 
