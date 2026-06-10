@@ -358,12 +358,41 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   .hero-deco { display: none; }
 }
 
-/* Content wrapper that slides over the sticky hero */
-.page-flow { position: relative; z-index: 2; }
+/* ============================================================
+   STICKY SCROLL-REVEAL (a.k.a. "Scroll Stacking" / "Peeling Scroll")
+   - .hero-banner stays pinned at top (z:0)
+   - .page-flow has a solid background and slides up over the hero (z:2)
+   - .page-end (newsletter + footer) is pinned at bottom (z:0); .page-flow
+     scrolls off to reveal it from underneath
+   ============================================================ */
+.page-flow {
+  position: relative;
+  z-index: 2;
+  background: var(--cream);
+}
 
-/* Simple hero banner — sits flush under the announcement bar; header floats transparent on top */
-.hero-banner { display: block; width: 100%; background: var(--deep-green); margin-top: 40px; }
+.hero-banner {
+  display: block;
+  width: 100%;
+  background: var(--deep-green);
+  margin-top: 40px;
+}
 .hero-banner img { display: block; width: 100%; height: auto; }
+
+.hero-banner.sticky-hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+
+.page-end {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+}
 
 /* Floating transparent header over banner */
 .home-floating-header .header:not(.scrolled) {
@@ -755,13 +784,25 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
    NEWSLETTER CTA
    ============================================================ */
 .newsletter {
-  background: radial-gradient(ellipse at 50% 0%, rgba(91,155,42,0.35) 0%, rgba(11,81,50,1) 60%);
-  color: #fff; text-align: center;
+  position: relative;
+  background-image: url("/__l5e/assets-v1/2026a96e-1d09-4d9f-8e7a-446c73f8dd1f/newsletter-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  color: var(--charcoal);
+  text-align: center;
+  isolation: isolate;
 }
-.newsletter .inner { max-width: 680px; margin: 0 auto; }
+.newsletter::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+.newsletter .inner { max-width: 680px; margin: 0 auto; position: relative; }
 .newsletter .label { color: var(--brand-orange); display: inline-block; margin-bottom: 16px; }
-.newsletter h2 { color: #fff; margin-bottom: 16px; }
-.newsletter p.sub { color: rgba(255,255,255,0.72); font-size: 17px; line-height: 1.6; margin-bottom: 30px; }
+.newsletter h2 { color: var(--deep-green); margin-bottom: 16px; }
+.newsletter p.sub { color: rgba(20,30,20,0.72); font-size: 17px; line-height: 1.6; margin-bottom: 30px; }
 .email-form { display: flex; gap: 12px; max-width: 520px; margin: 0 auto 16px; }
 .email-form input {
   flex: 1; height: 56px; border-radius: 50px; border: 2px solid transparent; padding: 0 24px;
@@ -769,8 +810,8 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   transition: border-color 220ms, box-shadow 220ms;
 }
 .email-form input:focus { border-color: var(--brand-green); box-shadow: 0 0 0 4px rgba(91,155,42,0.25); }
-.newsletter .trust-note { font-size: 13px; color: rgba(255,255,255,0.5); }
-.newsletter .success-msg { font-family: var(--font-heading); font-size: 24px; color: #fff; padding: 16px; }
+.newsletter .trust-note { font-size: 13px; color: rgba(20,30,20,0.55); }
+.newsletter .success-msg { font-family: var(--font-heading); font-size: 24px; color: var(--deep-green); padding: 16px; }
 @media (max-width: 560px) { .email-form { flex-direction: column; } .email-form input { text-align: center; } }
 
 /* ============================================================
