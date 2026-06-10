@@ -1,20 +1,30 @@
 ## Goal
-"Daulatram's" ke niche jo green underline SVG hai, usko aisa banayenge ki jab user scroll karke "Our Heritage" section tak aaye, tab woh line **left se right invisible pen se draw** hoti hui dikhe — taaki dhyaan seedha "Daulatram's" pe jaaye.
+Home page ke "Our Heritage / Trust the Legacy" section me jo dayi taraf collage image hai (currently `assets/about-collage.webp`), usko aapki uploaded **`Untitled design.png`** (green-outlined family + heritage collage) se replace karna — reference image-3 jaisa fit, same area me, existing cream background ke saath properly blend hoke.
 
 ## Where
-- File: `public/site/home.html` — section `#trust-legacy` (line 144) me already SVG `<path>` maujood hai inside `.underline-word`.
-- File: `public/site/styles.css` — `.legacy .underline-word svg path` styles already defined hain.
-- Existing scroll-reveal system: parent `.sr` element ko `site.js` IntersectionObserver `.in` class deta hai jab woh viewport me aata hai. Isi trigger ko reuse karenge — koi naya JS nahi chahiye.
+- File: `public/site/home.html` line 159 — `<img src="assets/about-collage.webp" ...>` inside `.collage` wrapper (right column of `.legacy-grid`).
+- File: `public/site/styles.css` — `.collage` / `.collage img` rules (already define rounded card + shadow + badge circle). Mostly reuse.
+- Reference image-3 dikhata hai: collage left side, text right side, ek orange "Since Decades of Healing" badge circle top-right pe. Aapke home page me already badge-circle aur same layout maujood hai — bas image swap + fit tweak.
 
-## Changes (sirf CSS — 1 file edit)
+## Changes
 
-In `public/site/styles.css`, `.legacy .underline-word svg path` ke baad add karenge:
+1. **Upload collage as CDN asset** (binary file, repo me nahi rakhenge):
+   - `lovable-assets create --file /mnt/user-uploads/Untitled_design.png --filename heritage-collage.png > public/site/assets/heritage-collage.asset.json`
+   - Read URL from that JSON.
 
-1. Default state: `stroke-dasharray: 300; stroke-dashoffset: 300;` (line poori chhupi hui — invisible pen).
-2. Jab parent `.sr.in` ho jaye (section viewport me aaya): `stroke-dashoffset: 0` with `transition: stroke-dashoffset 900ms ease-out 250ms` — chhoti si delay ke baad line left→right draw hoti hai.
-3. Reduced-motion users ke liye fallback: `@media (prefers-reduced-motion: reduce)` me line turant visible (no animation).
+2. **`public/site/home.html`** line 159:
+   - Swap `src="assets/about-collage.webp"` → CDN URL from step 1.
+   - Update `alt` to "Daulatram's heritage collage — three generations".
+
+3. **`public/site/styles.css` — `.collage` / `.collage img` tuning** so image-3 jaisa dikhe:
+   - Image is tall portrait (~4:5) with transparent/white bg → set `object-fit: contain` and `background: var(--cream)` (or section bg) so cream blend ho jaye, koi hard white box na dikhe.
+   - Cap height (e.g. `max-height: 620px`) and center it so collage same column area me fit ho, page stretch na ho.
+   - Keep existing `border-radius` + `box-shadow` for soft framed look (matches reference image-3 card).
+   - Badge-circle (orange "Since Decades of Healing") already positioned top-right — no change.
+
+4. **About page** (`public/site/about.html` line 29) bhi same `assets/about-collage.webp` use karta hai. Aapne sirf home ke baare me bola hai, isliye **about page ko touch nahi karenge** is turn me. Agar baad me wahan bhi chahiye, batana.
 
 ## Out of scope
-- Koi naya JS / IntersectionObserver nahi.
-- Baaki pages (about, shop, etc.) ka koi underline animation nahi — sirf home page ka heritage section.
-- Underline ka color/shape same rahega, sirf draw-in effect add hoga.
+- Text content / layout / fonts — koi change nahi.
+- About page collage — untouched.
+- Naya section ya naya badge — sirf image swap + fit polish.
