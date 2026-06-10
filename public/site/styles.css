@@ -386,9 +386,12 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 }
 
 .page-end {
-  position: sticky;
+  position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
-  z-index: 0;
+  z-index: 1;
+  width: 100%;
 }
 
 /* Floating transparent header over banner */
