@@ -414,6 +414,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   box-shadow: var(--shadow-card);
 }
 .collage img { width: 100%; border-radius: 16px; display: block; }
+.collage img { width: 100%; height: auto; max-height: 620px; object-fit: contain; background: transparent; margin: 0 auto; }
 .collage .badge-circle {
   position: absolute; right: -22px; top: -22px; width: 104px; height: 104px;
   background: var(--brand-orange); border-radius: 50%; color: #fff;
