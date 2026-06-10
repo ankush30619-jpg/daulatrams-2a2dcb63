@@ -37,8 +37,8 @@
   --btn-radius: 50px;
 
   /* Effects */
-  --shadow-card: 0 4px 24px rgba(11,81,50,0.08);
-  --shadow-card-hover: 0 16px 48px rgba(11,81,50,0.16);
+  --shadow-card: 0 10px 28px rgba(11,81,50,0.10), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 22px 54px rgba(11,81,50,0.18), 0 4px 10px rgba(0,0,0,0.06);
   --shadow-cta: 0 8px 32px rgba(91,155,42,0.40);
   --shadow-glass: 0 8px 32px rgba(0,0,0,0.18);
   --shadow-stack: 0 -6px 40px rgba(0,0,0,0.10);
@@ -434,7 +434,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    TRUST LEGACY
    ============================================================ */
-.legacy { background: var(--cream-warm); }
+.legacy { background: #fff; }
 .legacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
 .legacy h2 { margin: 14px 0 8px; color: var(--charcoal); }
 .legacy h2 .accent { display: block; color: var(--brand-orange); font-size: 0.52em; font-weight: 500; margin-top: 10px; font-family: var(--font-body); letter-spacing: 0; }
@@ -482,11 +482,11 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    CATEGORY GRID
    ============================================================ */
-.cat-sec { background: var(--cream-deep); }
+.cat-sec { background: #fff; }
 .cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
 .cat-card {
   background: #fff; border-radius: 20px; padding: 26px 16px 22px; text-align: center;
-  box-shadow: var(--shadow-card); border: 2px solid transparent;
+  box-shadow: var(--shadow-card); border: 1px solid rgba(11,81,50,0.06);
   transition: transform 400ms var(--e-spring), box-shadow 400ms var(--e-smooth), border-color 300ms;
   display: flex; flex-direction: column; align-items: center; gap: 16px;
 }
@@ -633,7 +633,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    FILTER TABS + SHOP BY CONCERN
    ============================================================ */
-.concern { background: var(--cream-deep); }
+.concern { background: #fff; }
 .filter-tabs { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 44px; }
 .filter-tab {
   background: #fff; border: 1.5px solid var(--brand-green); color: var(--brand-green);
@@ -680,7 +680,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    TESTIMONIALS
    ============================================================ */
-.testi { background: var(--cream-warm); }
+.testi { background: #fff; }
 .rating-summary { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
 .rating-summary .stars { color: var(--brand-orange); font-size: 20px; letter-spacing: 2px; }
 .rating-summary .big { font-family: var(--font-label); font-weight: 700; font-size: 22px; color: var(--brand-green); }
@@ -737,7 +737,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    INGREDIENTS SHOWCASE
    ============================================================ */
-.ingredients { background: var(--cream-warm); }
+.ingredients { background: #fff; }
 .ing-layout { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
 .ing-list { display: flex; flex-direction: column; gap: 4px; }
 .ing-item {
@@ -773,7 +773,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    MEDIA TRUST
    ============================================================ */
-.media-trust { background: var(--cream-deep); padding: clamp(48px,6vw,64px) 0; text-align: center; }
+.media-trust { background: #fff; padding: clamp(48px,6vw,64px) 0; text-align: center; border-top: 1px solid rgba(11,81,50,0.06); }
 .media-trust .label { display: inline-block; margin-bottom: 28px; }
 .logos-viewport { overflow: hidden; }
 .logos-track { display: flex; align-items: center; gap: 64px; animation: marquee 30s linear infinite; }
