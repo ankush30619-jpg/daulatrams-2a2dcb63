@@ -184,8 +184,7 @@ ul { list-style: none; }
 .header.scrolled { background: var(--deep-green); box-shadow: 0 6px 28px rgba(0,0,0,0.22); height: 66px; }
 .header .container { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 20px; }
 
-.brand-logo img { width: 150px; transition: filter 320ms var(--e-smooth); filter: brightness(0) invert(1); }
-.header.scrolled .brand-logo img { filter: brightness(0) invert(1); }
+.brand-logo img { width: 150px; height: auto; display: block; }
 
 .nav-center {
   display: flex; align-items: center; gap: 4px;
