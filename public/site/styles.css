@@ -387,8 +387,6 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 
 .page-end {
   position: relative;
-  z-index: 2;
-  background: var(--cream-warm);
 }
 
 /* Floating transparent header over banner */
@@ -789,11 +787,16 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   text-align: center;
   isolation: isolate;
 }
+.newsletter.sticky-newsletter {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
 .newsletter::before {
   content: "";
   position: absolute; inset: 0;
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(2px);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(1px);
   z-index: -1;
 }
 .newsletter .inner { max-width: 680px; margin: 0 auto; position: relative; }
@@ -814,7 +817,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 /* ============================================================
    FOOTER
    ============================================================ */
-.footer { background: var(--deep-green); color: #fff; }
+.footer { background: var(--deep-green); color: #fff; position: relative; z-index: 2; }
 .footer-newsletter { background: var(--deep-green-2); padding: 40px 0; }
 .footer-newsletter .fn-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
 .footer-newsletter h3 { font-family: var(--font-heading); font-weight: 500; font-size: 26px; }
