@@ -28,7 +28,7 @@
   hdr.className = 'header scrolled'; /* inner pages always scrolled style */
   hdr.innerHTML = `<div class="container">
     <a class="brand-logo" href="home.html">
-      <img src="https://daulatrams.com/wp-content/uploads/2025/12/Daulatrams.webp" alt="Daulatram's" onerror="this.src='assets/logo.jpg'">
+      <img src="/__l5e/assets-v1/d08a9c14-874e-4673-aa4b-d9f9fbf68a0d/daulatrams-logo.jpeg" alt="Daulatram's" onerror="this.src='assets/logo.jpg'">
     </a>
     <nav class="nav-center">
       ${navLinks.map(l => `<a class="nav-link${nav===l.key?' active':''}" href="${l.href}">${l.label}</a>`).join('')}
@@ -48,7 +48,7 @@
   const drawer = document.createElement('aside');
   drawer.className = 'drawer';
   drawer.innerHTML = `<div class="drawer-top">
-    <img src="https://daulatrams.com/wp-content/uploads/2025/12/Daulatrams.webp" alt="Daulatram's">
+    <img src="/__l5e/assets-v1/d08a9c14-874e-4673-aa4b-d9f9fbf68a0d/daulatrams-logo.jpeg" alt="Daulatram's">
     <button class="drawer-close">×</button></div>
   <nav class="drawer-links">
     ${navLinks.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}
@@ -67,7 +67,7 @@
   <div class="footer-top-divider"></div>
   <div class="container footer-main">
     <div class="footer-col footer-brand">
-      <img src="https://daulatrams.com/wp-content/uploads/2025/12/Daulatrams.webp" alt="Daulatram's">
+      <img src="/__l5e/assets-v1/d08a9c14-874e-4673-aa4b-d9f9fbf68a0d/daulatrams-logo.jpeg" alt="Daulatram's">
       <p class="tagline">Ayurveda for every home. Purity you can trust.</p>
       <div class="footer-social">
         <a href="https://wa.me/918860600134" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" width="19" height="19"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg></a>
