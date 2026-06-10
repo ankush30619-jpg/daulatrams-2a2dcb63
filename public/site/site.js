@@ -17,8 +17,16 @@
     if (header) header.classList.add("revealed");
   }, 1200);
 
-  // If no sticky hero (e.g. banner-only home), keep header in solid "scrolled" state.
-  if (!hero && header) header.classList.add("scrolled");
+  // Banner-only home: header floats transparent at top, becomes solid green after a small scroll.
+  if (!hero && header) {
+    const banner = document.querySelector(".hero-banner");
+    const setSolid = () => {
+      const trigger = banner ? banner.offsetHeight * 0.5 : 200;
+      header.classList.toggle("scrolled", window.scrollY > trigger);
+    };
+    setSolid();
+    window.addEventListener("scroll", setSolid, { passive: true });
+  }
 
   /* ---------- Header scroll state ---------- */
   const heroHeight = () => (hero ? hero.offsetHeight : window.innerHeight);
