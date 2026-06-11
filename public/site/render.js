@@ -124,6 +124,22 @@
   /* Ingredients list */
   const ingData = window.__INGREDIENTS || {};
   const keys = Object.keys(ingData);
+  // Helper exposed for site.js click handler
+  window.renderIngredientDetail = function (d) {
+    if (!d) return "";
+    const visual = d.image
+      ? `<img src="${d.image}" alt="${d.name}" loading="lazy">`
+      : (d.emoji || "");
+    return `
+      <div class="ing-vis${d.image ? " ing-vis-img" : ""}">${visual}</div>
+      <div>
+        <h3>${d.name}</h3>
+        <div class="sanskrit">${d.sanskrit || ""}${d.dose ? ` · <b>${d.dose}</b>` : ""}</div>
+        <p class="ing-desc">${d.desc}</p>
+        <div class="ing-tags">${(d.tags || []).map((t) => `<span>${t}</span>`).join("")}</div>
+        <div class="ing-used">Used in: <b>${d.used}</b></div>
+      </div>`;
+  };
   const ingList = document.getElementById("ing-list");
   if (ingList) {
     ingList.innerHTML = keys.map((k, i) => `
