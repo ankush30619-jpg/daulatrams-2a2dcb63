@@ -43,7 +43,12 @@
     return ((p[0]?.[0]||"") + (p[1]?.[0]||"")).toUpperCase() || s[0].toUpperCase();
   }
 
-  function toast(m){ if(window.dr?.store?.toast) window.dr.store.toast(m); }
+  function toast(m){
+    let t = document.getElementById("dr-toast");
+    if (!t){ t = document.createElement("div"); t.id="dr-toast"; document.body.appendChild(t); }
+    t.textContent = m; t.classList.add("show");
+    clearTimeout(window.__drT); window.__drT = setTimeout(()=>t.classList.remove("show"), 2600);
+  }
 
   function notSignedIn(){
     root.innerHTML = `
