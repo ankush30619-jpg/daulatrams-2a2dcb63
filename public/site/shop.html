@@ -180,8 +180,17 @@
   let searchQ = '';
 
   const params = new URLSearchParams(location.search);
+  const CAT_SLUG_MAP = {
+    'mens-wellness': "Men's Wellness",
+    'womens-wellness': "Women's Wellness",
+    'hair-care': 'Hair Care',
+    'skin-care': 'Skin Care',
+    'desi-ghee': 'Desi Ghee',
+    'honey': 'Honey',
+    'weight-loss': 'Weight Loss'
+  };
   const urlCat = params.get('cat');
-  if (urlCat) activeCat = urlCat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+  if (urlCat) activeCat = CAT_SLUG_MAP[urlCat] || urlCat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
   const urlQ = params.get('q');
   if (urlQ) searchQ = urlQ.toLowerCase();
 
