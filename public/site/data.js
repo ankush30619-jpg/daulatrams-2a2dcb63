@@ -35,7 +35,16 @@
     [/real herbs/i, "real-herbs-hair-oil"],
     [/recure/i, "real-herbs-hair-oil"],
     [/castor/i, "castor-oil"],
-    [/slim tea/i, "slim-tea"]
+    [/slim tea/i, "slim-tea"],
+    [/coconut oil/i, "coconut-oil"],
+    [/badam rogan/i, "badam-rogan"],
+    [/sesame oil/i, "sesame-oil"],
+    [/flax\s*seed/i, "flax-seed-oil"],
+    [/wild forest/i, "wild-forest-honey"],
+    [/moringa cap/i, "moringa-capsules"],
+    [/ashwagandha shilajit/i, "ashwagandha-shilajit"],
+    [/spirulina/i, "spirulina-capsules"],
+    [/amla aloevera/i, "amla-aloevera-juice"]
   ];
   const prodUrl = (name) => {
     for (const [re, id] of ID_MAP) if (re.test(name)) return "product.html?id=" + id;
