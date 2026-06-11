@@ -123,46 +123,46 @@
 
   window.__CONCERN_DATA = {
     "hair-care": [
-      { name: "Amla Bhringraj Hair Oil 100ml", img: IMG.amla, price: 350, rating: 4.5, reviews: 660 },
-      { name: "Real Herbs Hair Oil 200ml", img: IMG.realHerbs, price: 420, orig: 480, rating: 4.6, reviews: 540 },
-      { name: "Recure Hair Oil 100ml", img: IMG.recure, price: 299, rating: 4.4, reviews: 410, tag: "new" },
-      { name: "Castor Oil 100ml", img: IMG.castor, price: 199, rating: 4.5, reviews: 720 }
+      { name: "Amla Bhringraj Hair Oil", sizes: "100 ml", img: IMG.amla, price: 350, rating: 4.5, reviews: 660 },
+      { name: "Real Herbs Hair Oil", sizes: "100 ml", img: IMG.realHerbs, price: 420, orig: 480, rating: 4.6, reviews: 540 },
+      { name: "Recure Hair Oil", sizes: "100 ml", img: IMG.recure, price: 299, rating: 4.4, reviews: 410, tag: "new" },
+      { name: "Castor Oil", sizes: "100 ml", img: IMG.castor, price: 199, rating: 4.5, reviews: 720 }
     ],
     "skin-care": [
-      { name: "Aloe Vera Gel 250gm", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 },
-      { name: "Real Herbs Hair Oil 200ml", img: IMG.realHerbs, price: 420, rating: 4.6, reviews: 540 },
-      { name: "Castor Oil 100ml", img: IMG.castor, price: 199, rating: 4.5, reviews: 720 },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 }
+      { name: "Natural Aloe Vera Gel", sizes: "250 gm / 500 gm / 1 kg", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 },
+      { name: "Real Herbs Hair Oil", sizes: "100 ml", img: IMG.realHerbs, price: 420, rating: 4.6, reviews: 540 },
+      { name: "Castor Oil", sizes: "100 ml", img: IMG.castor, price: 199, rating: 4.5, reviews: 720 },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 }
     ],
     "mens-wellness": [
-      { name: "Veer Ved Max Shakti+ (60 Caps)", img: IMG.shaktiAll, price: 5270, orig: 6200, rating: 4.8, reviews: 17719, best: true },
-      { name: "Veer Ved Max Shakti+ (30 Caps)", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
-      { name: "Shilajit Raisin 20gm", img: IMG.shilajit, price: 899, orig: 1100, rating: 4.7, reviews: 1330 },
-      { name: "Van Tulsi Honey 315gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 }
+      { name: "Veer Ved Max Shakti+ (60 Caps)", sizes: "60 Caps", img: IMG.shaktiAll, price: 5270, orig: 6200, rating: 4.8, reviews: 17719, best: true },
+      { name: "Veer Ved Max Shakti+ (30 Caps)", sizes: "30 Caps", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
+      { name: "Shilajit Drop", sizes: "30 ml", img: IMG.shilajit, price: 899, orig: 1100, rating: 4.7, reviews: 1330 },
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 }
     ],
     "womens-wellness": [
-      { name: "Nari Kalp 60 Caps", img: IMG.nariKalp, price: 1499, orig: 1799, rating: 4.7, reviews: 2210, best: true },
-      { name: "Aloe Vera Gel 250gm", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 },
-      { name: "Amla Bhringraj Hair Oil 100ml", img: IMG.amla, price: 350, rating: 4.5, reviews: 660 }
+      { name: "Nari Kalp", sizes: "250 ml / 60 Caps", img: IMG.nariKalp, price: 1499, orig: 1799, rating: 4.7, reviews: 2210, best: true },
+      { name: "Natural Aloe Vera Gel", sizes: "250 gm / 500 gm / 1 kg", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 },
+      { name: "Amla Bhringraj Hair Oil", sizes: "100 ml", img: IMG.amla, price: 350, rating: 4.5, reviews: 660 }
     ],
     "weight-loss": [
-      { name: "Slim Tea 100gm", img: IMG.slimTea, price: 399, orig: 499, rating: 4.4, reviews: 510, tag: "new" },
-      { name: "Van Tulsi Honey 315gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 },
-      { name: "Aloe Vera Gel 250gm", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 }
+      { name: "Slim Tea", sizes: "110 gm", img: IMG.slimTea, price: 399, orig: 499, rating: 4.4, reviews: 510, tag: "new" },
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 },
+      { name: "Natural Aloe Vera Gel", sizes: "250 gm / 500 gm / 1 kg", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 }
     ],
     "desi-ghee": [
-      { name: "Desi Cow Ghee 500ml", img: IMG.ghee, price: 849, orig: 999, rating: 4.9, reviews: 3120, best: true },
-      { name: "Van Tulsi Honey 315gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 },
-      { name: "Shilajit Raisin 20gm", img: IMG.shilajit, price: 899, orig: 1100, rating: 4.7, reviews: 1330 }
+      { name: "Desi Cow Ghee", sizes: "500 ml", img: IMG.ghee, price: 849, orig: 999, rating: 4.9, reviews: 3120, best: true },
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 },
+      { name: "Shilajit Drop", sizes: "30 ml", img: IMG.shilajit, price: 899, orig: 1100, rating: 4.7, reviews: 1330 }
     ],
     "honey": [
-      { name: "Van Tulsi Honey 315gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842, best: true },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true },
-      { name: "Desi Cow Ghee 500ml", img: IMG.ghee, price: 849, orig: 999, rating: 4.9, reviews: 3120 },
-      { name: "Aloe Vera Gel 250gm", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 }
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842, best: true },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true },
+      { name: "Desi Cow Ghee", sizes: "500 ml", img: IMG.ghee, price: 849, orig: 999, rating: 4.9, reviews: 3120 },
+      { name: "Natural Aloe Vera Gel", sizes: "250 gm / 500 gm / 1 kg", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 }
     ]
   };
 
