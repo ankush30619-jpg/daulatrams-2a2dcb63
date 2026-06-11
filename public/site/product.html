@@ -53,6 +53,7 @@
           <!-- Variants -->
           <div class="pdp-variants2" id="variant-wrap">
             <span class="lbl">Choose Pack</span>
+            <select id="variant-select" class="variant-select"></select>
             <div class="variant-pills" id="variant-cards"></div>
           </div>
 
@@ -334,8 +335,16 @@
   }
 
   /* variants */
-  const vw=document.getElementById('variant-wrap'), vc=document.getElementById('variant-cards');
+  const vw=document.getElementById('variant-wrap'), vc=document.getElementById('variant-cards'), vs=document.getElementById('variant-select');
   if(p.variants&&p.variants.length>1){
+    vs.innerHTML=p.variants.map(v=>{
+      const vo=v.orig?Math.round((1-v.price/v.orig)*100):0;
+      const priceStr=`₹${v.price.toLocaleString('en-IN')}`+(v.orig?` (MRP ₹${v.orig.toLocaleString('en-IN')}${vo?` · ${vo}% OFF`:''})`:'');
+      return `<option value="${v.id}"${v.id===id?' selected':''}>${v.label} — ${priceStr}</option>`;
+    }).join('');
+    vs.addEventListener('change', function(){
+      location.href = 'product.html?id=' + encodeURIComponent(this.value);
+    });
     vc.innerHTML=p.variants.map(v=>{
       const vo=v.orig?Math.round((1-v.price/v.orig)*100):0;
       return `<a href="product.html?id=${v.id}" class="pdp-variant-card${v.id===id?' active':''}">
