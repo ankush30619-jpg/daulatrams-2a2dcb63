@@ -16,10 +16,10 @@
   ann.className = 'announcement';
   ann.innerHTML = `<div class="ann-track">
     <span>🌿 FREE SHIPPING ON ALL ORDERS OVER ₹1000</span>
-    <span>Use code <b>SHAKTI10</b> for 10% off</span>
+    <span>Use code <b>powerplus10</b> for 10% off</span>
     <span>✓ FSSAI Approved</span>
     <span>🌿 FREE SHIPPING ON ALL ORDERS OVER ₹1000</span>
-    <span>Use code <b>SHAKTI10</b> for 10% off</span>
+    <span>Use code <b>powerplus10</b> for 10% off</span>
     <span>✓ FSSAI Approved</span></div>`;
   document.body.insertBefore(ann, document.body.firstChild);
 

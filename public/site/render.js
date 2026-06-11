@@ -21,25 +21,27 @@
 
   /* Categories */
   const cats = [
-    { name: "Men's Wellness", img: U + "2026/01/Daulatrams-Mens-Wellness.png", url: "shop.html?cat=mens-wellness" },
-    { name: "Women's Wellness", img: U + "2026/01/Daulatrams-Womens-Wellness.png", url: "shop.html?cat=womens-wellness" },
-    { name: "Desi Ghee", img: U + "2026/01/Daulatrams-Desi-Ghee.png", url: "shop.html?cat=desi-ghee" },
-    { name: "Hair Care", img: U + "2026/01/Daulatrams-Hair-Care.png", url: "shop.html?cat=hair-care" },
-    { name: "Skin Care", img: U + "2026/01/Daulatrams-Skin-Care-1.png", url: "shop.html?cat=skin-care" },
-    { name: "Honey & Ghee", img: U + "2026/03/multiflora-honey-3.png", url: "shop.html?cat=honey" }
+    { name: "Men's Wellness",   img: "assets/categories/mens-wellness.jpg",   url: "shop.html?cat=mens-wellness" },
+    { name: "Women's Wellness", img: "assets/categories/womens-wellness.jpg", url: "shop.html?cat=womens-wellness" },
+    { name: "Desi Ghee",        img: "assets/categories/desi-ghee.jpg",       url: "shop.html?cat=desi-ghee" },
+    { name: "Hair Care",        img: "assets/categories/hair-care.jpg",       url: "shop.html?cat=hair-care" },
+    { name: "Skin Care",        img: "assets/categories/skin-care.jpg",       url: "shop.html?cat=skin-care" },
+    { name: "Honey",            img: "assets/categories/honey.jpg",           url: "shop.html?cat=honey" }
   ];
   const catGrid = document.getElementById("cat-grid");
   if (catGrid) catGrid.innerHTML = cats.map((c) => `
-    <a class="cat-card" href="${c.url}">
-      <img class="cat-img" src="${c.img}" alt="${c.name}" loading="lazy" onerror="${fb}">
+    <a class="cat-card cat-card-photo" href="${c.url}">
+      <div class="cat-photo-wrap">
+        <img class="cat-photo" src="${c.img}" alt="${c.name}" loading="lazy" onerror="${fb}">
+      </div>
       <div class="cat-name">${c.name}</div>
-      <div class="cat-arrow">→</div>
+      <div class="cat-arrow">Shop now →</div>
     </a>`).join("");
 
   /* New arrivals + bestsellers */
   const na = document.getElementById("new-arrivals-carousel");
   if (na) na.innerHTML = (P.newArrivals || []).map(rpc).join("");
-  const bs = document.getElementById("bestsellers-grid");
+  const bs = document.getElementById("bestsellers-carousel") || document.getElementById("bestsellers-grid");
   if (bs) bs.innerHTML = (P.bestsellers || []).map(rpc).join("");
 
   /* Trending Now + Wellness Essentials carousels */
