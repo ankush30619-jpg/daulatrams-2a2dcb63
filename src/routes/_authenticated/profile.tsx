@@ -170,7 +170,7 @@ function Overview({ stats, orders, loading, onSeeAll }:
 
 function Stat({ label, value, color }: { label: string; value: string | number; color: string }) {
   return (
-    <div className="stat" style={{ borderTopColor: color }}>
+    <div className="stat" style={{ ["--stat-color" as any]: color }}>
       <div className="stat-val">{value}</div>
       <div className="stat-lbl">{label}</div>
     </div>
