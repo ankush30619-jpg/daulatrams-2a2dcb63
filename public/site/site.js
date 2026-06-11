@@ -112,13 +112,37 @@
       prev.disabled = track.scrollLeft < 8;
       next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 8;
     }
-    prev && prev.addEventListener("click", () => track.scrollBy({ left: -amount() * 2, behavior: "smooth" }));
-    next && next.addEventListener("click", () => track.scrollBy({ left: amount() * 2, behavior: "smooth" }));
+    function go(dir) {
+      const max = track.scrollWidth - track.clientWidth;
+      let target = track.scrollLeft + dir * amount();
+      if (dir > 0 && track.scrollLeft >= max - 8) target = 0;          // wrap to start
+      else if (dir < 0 && track.scrollLeft <= 8) target = max;          // wrap to end
+      track.scrollTo({ left: target, behavior: "smooth" });
+    }
+    prev && prev.addEventListener("click", () => { go(-1); pauseAuto(8000); });
+    next && next.addEventListener("click", () => { go(1); pauseAuto(8000); });
     track.addEventListener("scroll", update, { passive: true });
     update();
+
+    /* autoplay — every 4s advance one card; pause on hover / drag / off-screen */
+    const auto = wrap.dataset.autoplay !== "off";
+    let timer = null, paused = false, pauseUntil = 0;
+    function tick() {
+      if (paused || document.hidden || Date.now() < pauseUntil) return;
+      const rect = wrap.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      go(1);
+    }
+    function startAuto() { if (auto && !timer) timer = setInterval(tick, 4000); }
+    function pauseAuto(ms) { pauseUntil = Date.now() + (ms || 4000); }
+    wrap.addEventListener("mouseenter", () => { paused = true; });
+    wrap.addEventListener("mouseleave", () => { paused = false; });
+    track.addEventListener("touchstart", () => pauseAuto(6000), { passive: true });
+    startAuto();
+
     // drag
     let down = false, sx = 0, sl = 0, moved = false;
-    track.addEventListener("mousedown", (e) => { down = true; moved = false; sx = e.pageX; sl = track.scrollLeft; track.style.cursor = "grabbing"; });
+    track.addEventListener("mousedown", (e) => { down = true; moved = false; sx = e.pageX; sl = track.scrollLeft; track.style.cursor = "grabbing"; pauseAuto(6000); });
     window.addEventListener("mouseup", () => { down = false; track.style.cursor = ""; setTimeout(() => moved = false, 0); });
     window.addEventListener("mousemove", (e) => {
       if (!down) return;
@@ -191,15 +215,7 @@
       if (!d) return;
       ingDetail.style.opacity = "0";
       setTimeout(() => {
-        ingDetail.innerHTML = `
-          <div class="ing-vis">${d.emoji}</div>
-          <div>
-            <h3>${d.name}</h3>
-            <div class="sanskrit">${d.sanskrit}</div>
-            <p class="ing-desc">${d.desc}</p>
-            <div class="ing-tags">${d.tags.map((t) => `<span>${t}</span>`).join("")}</div>
-            <div class="ing-used">Used in: <b>${d.used}</b></div>
-          </div>`;
+        ingDetail.innerHTML = window.renderIngredientDetail(d);
         ingDetail.style.opacity = "1";
       }, 220);
     });
