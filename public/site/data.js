@@ -84,18 +84,40 @@
 
   window.__PRODUCTS = {
     newArrivals: [
-      { name: "Veer Ved Max Shakti+ (60 Caps)", img: IMG.shaktiAll, price: 5270, orig: 6200, rating: 4.8, reviews: 17719, best: true },
-      { name: "Veer Ved Max Shakti+ (30 Caps)", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
-      { name: "Van Tulsi Honey 315gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842, tag: "new" },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, tag: "new" },
-      { name: "Amla Bhringraj Hair Oil 100ml", img: IMG.amla, price: 350, rating: 4.5, reviews: 660 },
-      { name: "Aloe Vera Gel 250gm", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 }
+      { name: "Veer Ved Max Shakti+ (60 Caps)", sizes: "60 Caps", img: IMG.shaktiAll, price: 5270, orig: 6200, rating: 4.8, reviews: 17719, best: true },
+      { name: "Veer Ved Max Shakti+ (30 Caps)", sizes: "30 Caps", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842, tag: "new" },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, tag: "new" },
+      { name: "Amla Bhringraj Hair Oil", sizes: "100 ml", img: IMG.amla, price: 350, rating: 4.5, reviews: 660 },
+      { name: "Natural Aloe Vera Gel", sizes: "250 gm / 500 gm / 1 kg", img: IMG.aloe, price: 499, orig: 540, rating: 4.6, reviews: 980 },
+      { name: "Real Herbs Hair Oil", sizes: "100 ml", img: IMG.realHerbs, price: 420, orig: 480, rating: 4.6, reviews: 540, tag: "new" },
+      { name: "Slim Tea", sizes: "110 gm", img: IMG.slimTea, price: 399, orig: 499, rating: 4.4, reviews: 510, tag: "new" }
     ],
     bestsellers: [
-      { name: "Veer Ved Max Shakti+ (60 Caps)", img: IMG.shaktiAll, price: 5270, orig: 6200, rating: 4.8, reviews: 17719, best: true },
-      { name: "Veer Ved Max Shakti+ (30 Caps)", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
-      { name: "Van Tulsi Honey 315gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842, best: true },
-      { name: "Multiflora Honey 500gm", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true }
+      { name: "Veer Ved Max Shakti+ (60 Caps)", sizes: "60 Caps", img: IMG.shaktiAll, price: 5270, orig: 6200, rating: 4.8, reviews: 17719, best: true },
+      { name: "Veer Ved Max Shakti+ (30 Caps)", sizes: "30 Caps", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
+      { name: "Desi Cow Ghee", sizes: "500 ml", img: IMG.ghee, price: 849, orig: 999, rating: 4.9, reviews: 3120, best: true },
+      { name: "Nari Kalp", sizes: "250 ml / 60 Caps", img: IMG.nariKalp, price: 1499, orig: 1799, rating: 4.7, reviews: 2210, best: true },
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842, best: true },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true }
+    ],
+    trendingNow: [
+      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: U + "2025/12/coconut-oil.png", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
+      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/badam-rogan.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
+      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/sesame-oil.png", price: 399, rating: 4.6, reviews: 540 },
+      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/flax-seed-oil.png", price: 499, rating: 4.7, reviews: 320, tag: "new" },
+      { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
+      { name: "Wild Forest Honey", sizes: "315 gm", img: U + "2026/03/wild-forest-honey.png", price: 540, rating: 4.7, reviews: 410, tag: "new" },
+      { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 }
+    ],
+    wellnessEssentials: [
+      { name: "Shaktiplus Capsules", sizes: "30 Caps", img: IMG.shaktiBowl, price: 2495, orig: 3199, rating: 4.7, reviews: 12480, best: true },
+      { name: "Shilajit Drop", sizes: "30 ml", img: IMG.shilajit, price: 899, orig: 1100, rating: 4.7, reviews: 1330 },
+      { name: "Ashwagandha Shilajit Capsule", sizes: "60 Caps", img: U + "2026/03/ashwagandha-shilajit.png", price: 749, orig: 899, rating: 4.6, reviews: 620, tag: "new" },
+      { name: "Moringa Capsules", sizes: "60 Caps", img: U + "2026/03/moringa-capsules.png", price: 549, rating: 4.5, reviews: 480 },
+      { name: "Nari Kalp", sizes: "250 ml / 60 Caps", img: IMG.nariKalp, price: 1499, orig: 1799, rating: 4.7, reviews: 2210, best: true },
+      { name: "Spirulina Capsules", sizes: "60 Caps", img: U + "2026/03/spirulina-capsules.png", price: 599, rating: 4.5, reviews: 380 },
+      { name: "Amla Aloevera Juice", sizes: "250 ml", img: U + "2026/03/amla-aloevera-juice.png", price: 299, rating: 4.5, reviews: 410, tag: "new" }
     ]
   };
 
