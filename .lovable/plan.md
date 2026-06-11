@@ -1,62 +1,49 @@
-## Changes
+## 1. Heritage image swap (About page)
 
-### 1. Promo bar coupon code
-In `public/site/home.html`, `page-shell.js` (and any other page file using it), replace `Use code SHAKTI10 for 10% off` with `Use code powerplus10 for 10% off`.
+In `public/site/about.html` (line 29), the left side of the "Our Heritage / Trust the Legacy of Daulatram's" section currently uses `assets/about-collage.webp` (the tilted card mockup in the screenshot).
 
-### 2. "Shop by Concern / Find What Your Body Needs" — real images
-Currently each category card uses an SVG/icon. Generate 6 real product/concept photos (AI generated, ~800×600 JPG) for the categories:
-- Men's Wellness — herbal capsules + roots
-- Women's Wellness — saffron/shatavari composition
-- Desi Ghee — clay jar with ghee
-- Hair Care — amla/bhringraj oil bottle
-- Skin Care — kumkumadi/turmeric jar
-- Honey & Ghee — honey jar with comb
+Replace it with the same collage used on the homepage:
+- URL: `/__l5e/assets-v1/6bf56d2e-bc36-4665-853c-605922d157c0/heritage-collage.png`
+- Keep the same wrapper, alt text, rounded corners and card shadow so the layout doesn't shift.
 
-Save under `public/site/assets/categories/*.jpg`. Update the category card markup in `home.html` (and `concern-grid` renderer in `site.js` if it injects them) to show the photo as a top thumbnail with hover zoom; keep the title, arrow and link. Tweak `styles.css` `.concern-card` for image-led layout (rounded image, gradient overlay, shadow already added).
+## 2. "Our Journey" timeline — richer animations
 
-### 3. Bestsellers carousel — left/right arrows
-In `home.html` the "India's Favourites" / Bestsellers row currently renders as a static product-grid. Convert it into the same carousel pattern already used by New Arrivals: horizontal scroll-snap rail, left/right arrow buttons, autoplay every 4s with hover/touch pause. Reuse the existing `initCarousel` helper in `site.js` — just add the rail container + arrow buttons to the Bestsellers section markup and wire it up.
+Currently each `.tm-item` only has a plain `sr` (scroll-reveal fade-up). The vertical line, dots and cards all appear with the same generic motion.
 
-### 4. Product detail page — size dropdown (30 / 60 Caps)
-On `product.html` for Veer Ved Max Shakti+:
-- Replace the current single-size pill with a `<select>` dropdown offering:
-  - `30 Caps — ₹2,495 (MRP ₹3,199)`
-  - `60 Caps — ₹5,270 (MRP ₹6,200)`
-- In `catalog.js`, consolidate the two Shakti+ entries so the main product has both size variants:
-  ```js
-  sizes: [
-    { id:"veer-ved-shakti-30", label:"30 Caps", price:2495, orig:3199 },
-    { id:"veer-ved-shakti-60", label:"60 Caps", price:5270, orig:6200 },
-  ]
-  ```
-- Update `render.js` so changing the dropdown live-updates: price, MRP, save % badge, Buy Now / Add to Cart hrefs (carry `?id=…&size=…`), and the small detail line showing the selected pack.
-- Default selection: 60 Caps (matches hero pricing of ₹2,495 stays for the 30 pack — but PDP defaults to 60 since that's the featured pack). Confirm default during build if needed.
+Upgrades, all in `public/site/about.html` + `public/site/pages.css` (no JS framework, pure CSS + IntersectionObserver already wired via `sr`):
 
-### 5. Fix category redirects across the site
-Audit every link going to a category and standardise to `shop.html?cat=<slug>` with slugs that match the filter logic in `shop.html`:
-- Men's Wellness → `shop.html?cat=mens-wellness`
-- Women's Wellness → `shop.html?cat=womens-wellness`
-- Desi Ghee → `shop.html?cat=desi-ghee`
-- Hair Care → `shop.html?cat=hair-care`
-- Skin Care → `shop.html?cat=skin-care`
-- Honey & Ghee → `shop.html?cat=honey`
+**Vertical spine**
+- Animate the gradient line drawing top→bottom as the section enters the viewport (`clip-path: inset(0 0 100% 0)` → `inset(0)`), 1.4s ease-out.
+- Add a soft pulsing glow behind the gradient.
 
-Update:
-- `home.html` "Shop by Concern" cards (currently they may point to `#` or wrong slug).
-- Footer category links (already mostly correct, verify slugs).
-- Header nav / mobile drawer if any category links exist.
-- Verify `shop.html` reads `?cat=` query param and pre-filters; if not, add that logic so the redirect actually lands on the filtered view.
+**Dots**
+- Each `.tm-dot` gets a delayed pop-in (`scale(0)` → `scale(1)`, cubic-bezier overshoot) staggered by item index (0.15s, 0.3s, 0.45s, 0.6s).
+- Add a continuous "ping" ring (`@keyframes tm-ping`) around the active/visible dot — orange → green alternating with the timeline gradient.
+- On hover, dot scales to 1.4 with brand-orange glow.
+
+**Cards**
+- Left-side cards slide in from `translateX(-40px)`, right-side from `translateX(40px)`, with a slight rotate (`rotate(-1.5deg)` → `rotate(0)`) for a hand-placed feel.
+- Stagger matches the dot stagger so the dot lands first, then the card unfolds.
+- Hover: card lifts (`translateY(-6px)`), shadow deepens, the `.tm-year` label shifts color from orange → deep green with a subtle underline-grow.
+
+**"The Beginning" first card highlight**
+- Add a small decorative leaf/sparkle SVG (inline) in the corner that gently rotates (`@keyframes tm-leaf-sway`, 6s infinite).
+- The `.tm-year` text gets a typewriter-style reveal (CSS `@keyframes tm-typing` with `clip-path`) on first scroll-in.
+
+**Section header**
+- "Our Journey" label gets a fade-up + letter-spacing tighten animation.
+- "From One Shop to Every Indian Home" heading splits into two lines with a staggered slide-up.
+
+**Implementation notes**
+- All new keyframes (`tm-line-draw`, `tm-dot-pop`, `tm-ping`, `tm-card-slide-left`, `tm-card-slide-right`, `tm-leaf-sway`) added to `pages.css` under a `/* timeline animations */` block.
+- Reuse existing `IntersectionObserver` from `site.js` (the `.sr` class) — add a new `.sr-timeline` modifier on `.timeline-inner` so the spine + cards trigger together when 30% visible.
+- Respect `prefers-reduced-motion`: wrap continuous animations (ping, leaf-sway) in a media query that disables them.
+- Mobile: keep slide-in but reduce distance to `translateX(-20px)` and disable the rotate for cleaner stacking.
 
 ### Files touched
-- `public/site/home.html`
-- `public/site/page-shell.js`
-- `public/site/product.html`
-- `public/site/catalog.js`
-- `public/site/render.js`
-- `public/site/site.js`
-- `public/site/shop.html` (cat query filter)
-- `public/site/styles.css`
-- New: `public/site/assets/categories/*.jpg` (6 images)
+- `public/site/about.html` — heritage `<img>` src swap; add small SVG decoration on the first `.tm-card`; add `sr-timeline` class on `.timeline-inner`.
+- `public/site/pages.css` — new keyframes + hover/entry styles for `.tm-item`, `.tm-dot`, `.tm-card`, `.tm-year`, `.timeline-inner::before`.
+- `public/site/site.js` — extend the existing scroll-reveal observer to also toggle a `.in-view` class on `.sr-timeline` (so the spine draw + staggered children fire together).
 
 ### Out of scope
-Hero, herbs section, New Arrivals (already done), other product prices, fonts, dark-green theme.
+Content rewrites in the timeline cards, layout restructure, dark mode, other About page sections (founder stats, values grid, etc.).
