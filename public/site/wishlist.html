@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist — Daulatram's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="pages.css"><link rel="stylesheet" href="store.css">
+</head>
+<body>
+<script>window.ACTIVE_NAV='shop';</script>
+<main id="main-content">
+  <div class="page-shell">
+    <h1 class="page-title">Wishlist</h1>
+    <p class="page-sub">Your saved products — buy them whenever you're ready.</p>
+    <div id="w-root"></div>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="catalog.js"></script><script src="data.js"></script>
+<script src="auth.js"></script><script src="store.js"></script>
+<script src="page-shell.js"></script><script src="site.js"></script>
+<script>
+(function(){
+  const root = document.getElementById("w-root");
+  function render(){
+    const w = window.dr.store.getWish();
+    if (!w.length){
+      root.innerHTML = `<div class="dr-empty-page"><h2>No favourites yet</h2><p>Tap the ♥ on any product to save it here.</p><a href="shop.html" class="btn btn-primary" style="margin-top:18px">Browse Products</a></div>`;
+      return;
+    }
+    root.innerHTML = `<div class="wish-grid">${w.map(i=>{
+      const p = window.dr.store.findProduct(i.id);
+      const img = (p&&p.images&&p.images[0])||i.image;
+      return `<article class="product-card">
+        <div class="pc-img">
+          <button class="pc-wish active" data-id="${i.id}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <a href="product.html?id=${i.id}"><img src="${img}" alt="${i.name}" onerror="this.style.visibility='hidden'"></a>
+        </div>
+        <div class="pc-body">
+          <a href="product.html?id=${i.id}" class="pc-name-link"><h3 class="pc-name">${i.name}</h3></a>
+          <div class="pc-price"><span class="sale">₹${i.price.toLocaleString("en-IN")}</span></div>
+          <button class="btn btn-primary btn-block btn-sm" data-add="${i.id}">Move to Cart</button>
+        </div></article>`;
+    }).join("")}</div>`;
+  }
+  root.addEventListener("click", e=>{
+    const heart = e.target.closest(".pc-wish[data-id]");
+    if (heart){ const id=heart.dataset.id; window.dr.store.toggleWish({id, name:"", price:0, image:""}); setTimeout(render,50); return; }
+    const add = e.target.closest("[data-add]");
+    if (add){ const id = add.dataset.add; const it = window.dr.store.getWish().find(x=>x.id===id); if(!it) return;
+      window.dr.store.addToCart(it,1);
+      window.dr.store.toggleWish(it); setTimeout(render,50); }
+  });
+  window.addEventListener("dr-wishlist:change", render);
+  setTimeout(render, 200);
+})();
+</script>
+</body></html>

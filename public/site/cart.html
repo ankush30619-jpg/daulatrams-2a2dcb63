@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart — Daulatram's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="pages.css"><link rel="stylesheet" href="store.css">
+</head>
+<body>
+<script>window.ACTIVE_NAV='shop';</script>
+<main id="main-content">
+  <div class="page-shell">
+    <h1 class="page-title">Your Cart</h1>
+    <p class="page-sub">Review your items and proceed to checkout.</p>
+    <div id="cart-root"></div>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="catalog.js"></script><script src="data.js"></script>
+<script src="auth.js"></script><script src="store.js"></script>
+<script src="page-shell.js"></script><script src="site.js"></script>
+<script>
+(function(){
+  const root = document.getElementById("cart-root");
+  let coupon = null; // {code, percent}
+  function render(){
+    const c = window.dr.store.getCart();
+    if (!c.length){
+      root.innerHTML = `<div class="dr-empty-page"><h2>Your cart is empty</h2><p>Looks like you haven't added anything yet.</p><a href="shop.html" class="btn btn-primary" style="margin-top:18px">Shop Now</a></div>`;
+      return;
+    }
+    const sub = window.dr.store.cartTotal();
+    const disc = coupon ? Math.round(sub * coupon.percent/100) : 0;
+    const shipping = (sub - disc) >= 1000 ? 0 : 60;
+    const total = sub - disc + shipping;
+    root.innerHTML = `
+      <div class="cart-grid">
+        <div class="cart-items">
+          ${c.map(i => `
+            <div class="cart-row" data-id="${i.id}">
+              <img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'">
+              <div>
+                <div class="ci-name">${i.name}</div>
+                ${i.variant?`<div class="ci-var">${i.variant}</div>`:""}
+                <div class="ci-each">₹${i.price.toLocaleString("en-IN")} each</div>
+              </div>
+              <div class="dr-qty">
+                <button data-act="dec">−</button><span>${i.qty}</span><button data-act="inc">+</button>
+              </div>
+              <div style="text-align:right">
+                <div class="ci-line">₹${(i.price*i.qty).toLocaleString("en-IN")}</div>
+                <button data-act="rm" style="background:transparent;border:none;color:#c0392b;font-size:12px;cursor:pointer;margin-top:6px">Remove</button>
+              </div>
+            </div>`).join("")}
+        </div>
+        <aside class="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="sum-row"><span>Subtotal</span><span>₹${sub.toLocaleString("en-IN")}</span></div>
+          ${disc?`<div class="sum-row" style="color:#0B5132"><span>Discount (${coupon.code})</span><span>−₹${disc.toLocaleString("en-IN")}</span></div>`:""}
+          <div class="sum-row"><span>Shipping</span><span>${shipping?"₹"+shipping:"FREE"}</span></div>
+          <div class="coupon-row">
+            <input id="cp" placeholder="Coupon code" value="${coupon?coupon.code:''}">
+            <button id="cp-apply">Apply</button>
+          </div>
+          <div id="cp-msg" style="font-size:12px;color:#c0392b;min-height:16px"></div>
+          <div class="sum-total"><span>Total</span><span>₹${total.toLocaleString("en-IN")}</span></div>
+          <a href="checkout.html" class="btn btn-primary btn-block" style="margin-top:16px">Proceed to Checkout →</a>
+          <a href="shop.html" class="btn btn-outline btn-block" style="margin-top:8px">Continue Shopping</a>
+        </aside>
+      </div>`;
+    document.getElementById("cp-apply").onclick = applyCoupon;
+  }
+  async function applyCoupon(){
+    const code = document.getElementById("cp").value.trim().toLowerCase();
+    const msg = document.getElementById("cp-msg");
+    if (!code){ coupon=null; render(); return; }
+    const sb = window.dr.auth.client();
+    const { data, error } = await sb.from("coupons").select("*").eq("code", code).maybeSingle();
+    if (error || !data){ msg.textContent = "Invalid coupon"; coupon=null; return; }
+    const sub = window.dr.store.cartTotal();
+    if (sub < (data.min_order||0)){ msg.textContent = `Minimum order ₹${data.min_order} required`; coupon=null; return; }
+    coupon = { code: data.code, percent: data.discount_percent };
+    msg.style.color = "#0B5132"; msg.textContent = `✓ ${data.discount_percent}% off applied`;
+    localStorage.setItem("dr-coupon", JSON.stringify(coupon));
+    render();
+  }
+  // restore
+  try { coupon = JSON.parse(localStorage.getItem("dr-coupon")||"null"); } catch(e){}
+  root.addEventListener("click", e=>{
+    const row = e.target.closest(".cart-row"); if (!row) return;
+    const id = row.dataset.id; const act = e.target.dataset.act;
+    const it = window.dr.store.getCart().find(x=>x.id===id); if(!it) return;
+    if (act==="inc") window.dr.store.updateQty(id, it.qty+1);
+    else if (act==="dec") window.dr.store.updateQty(id, Math.max(1,it.qty-1));
+    else if (act==="rm") window.dr.store.removeFromCart(id);
+    setTimeout(render, 50);
+  });
+  window.addEventListener("dr-cart:change", render);
+  setTimeout(render, 100);
+})();
+</script>
+</body></html>
