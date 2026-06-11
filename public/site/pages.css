@@ -89,6 +89,15 @@
 .cc-arrow { color: var(--cc, var(--brand-green)); font-size: 18px; transition: transform 280ms; }
 .cat-card:hover .cc-arrow { transform: translateX(4px); }
 
+/* Image-led category cards (shop page) */
+.cat-card-img { flex-direction: column; align-items: stretch; padding: 0; gap: 0; }
+.cat-card-img .cc-photo { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; position: relative; background: #f4efe6; }
+.cat-card-img .cc-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.18)); pointer-events: none; }
+.cat-card-img .cc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms var(--e-smooth); }
+.cat-card-img:hover .cc-photo img { transform: scale(1.07); }
+.cat-card-img .cc-body { padding: 14px 16px 4px; }
+.cat-card-img .cc-arrow { padding: 0 16px 14px; align-self: flex-start; }
+
 /* Bestsellers horizontal strip */
 .bestsellers-strip {
   display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr);

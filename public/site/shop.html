@@ -248,19 +248,19 @@
   function renderCategoryCards() {
     const catalog = window.__CATALOG || [];
     const cats = [
-      {name:"Men's Wellness", emoji:'⚡', color:'#0B5132'},
-      {name:"Women's Wellness", emoji:'🌸', color:'#B85A8C'},
-      {name:"Hair Care", emoji:'💆', color:'#7A5530'},
-      {name:"Skin Care", emoji:'✨', color:'#D08E54'},
-      {name:"Desi Ghee", emoji:'🥛', color:'#E0A93C'},
-      {name:"Honey", emoji:'🍯', color:'#C8821C'},
-      {name:"Weight Loss", emoji:'🌿', color:'#5B9B2A'}
+      {name:"Men's Wellness", img:'assets/categories/mens-wellness.jpg', color:'#0B5132'},
+      {name:"Women's Wellness", img:'assets/categories/womens-wellness.jpg', color:'#B85A8C'},
+      {name:"Hair Care", img:'assets/categories/hair-care.jpg', color:'#7A5530'},
+      {name:"Skin Care", img:'assets/categories/skin-care.jpg', color:'#D08E54'},
+      {name:"Desi Ghee", img:'assets/categories/desi-ghee.jpg', color:'#E0A93C'},
+      {name:"Honey", img:'assets/categories/honey.jpg', color:'#C8821C'},
+      {name:"Weight Loss", img:'assets/categories/weight-loss.jpg', color:'#5B9B2A'}
     ];
     catGridEl.innerHTML = cats.map(c => {
       const count = catalog.filter(p=>p.category===c.name).length;
       const slug = c.name.toLowerCase().replace(/['']/g,'').replace(/\s+/g,'-');
-      return `<a class="cat-card" href="?cat=${slug}#all-products" style="--cc:${c.color}">
-        <div class="cc-ic">${c.emoji}</div>
+      return `<a class="cat-card cat-card-img" href="?cat=${slug}#all-products" style="--cc:${c.color}">
+        <div class="cc-photo"><img src="${c.img}" alt="${c.name}" loading="lazy"></div>
         <div class="cc-body"><h3>${c.name}</h3><span>${count} product${count===1?'':'s'}</span></div>
         <div class="cc-arrow">→</div>
       </a>`;
