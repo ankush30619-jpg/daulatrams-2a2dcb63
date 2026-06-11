@@ -1,5 +1,6 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { z } from "zod";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +10,12 @@ import {
   getMyOrders,
 } from "@/lib/account.functions";
 
+const TABS = ["overview", "orders", "addresses", "settings"] as const;
+type Tab = (typeof TABS)[number];
+const searchSchema = z.object({ tab: z.enum(TABS).optional() });
+
 export const Route = createFileRoute("/_authenticated/profile")({
+  validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
       { title: "My Account — Daulatram's" },
@@ -21,20 +27,33 @@ export const Route = createFileRoute("/_authenticated/profile")({
 });
 
 const LOGO = "/__l5e/assets-v1/8b91c49d-e362-4b9e-8d22-d4250fc957c2/daulatrams-logo.png";
-type Tab = "overview" | "orders" | "addresses" | "settings";
 
 function ProfilePage() {
-  const [tab, setTab] = useState<Tab>("overview");
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const { tab: tabParam } = useSearch({ from: "/_authenticated/profile" });
+  const tab: Tab = tabParam ?? "overview";
+  const setTab = (t: Tab) =>
+    navigate({ to: "/profile", search: t === "overview" ? {} : { tab: t }, replace: true });
 
   const fetchProfile = useServerFn(getMyProfile);
   const fetchOrders = useServerFn(getMyOrders);
   const fetchAddresses = useServerFn(getMyAddresses);
 
-  const profileQ = useQuery({ queryKey: ["me", "profile"], queryFn: () => fetchProfile() });
-  const ordersQ = useQuery({ queryKey: ["me", "orders"], queryFn: () => fetchOrders() });
-  const addrQ = useQuery({ queryKey: ["me", "addresses"], queryFn: () => fetchAddresses() });
+  const profileQ = useQuery({ queryKey: ["me", "profile"], queryFn: () => fetchProfile(), staleTime: 0, refetchOnWindowFocus: true });
+  const ordersQ = useQuery({ queryKey: ["me", "orders"], queryFn: () => fetchOrders(), staleTime: 0, refetchOnWindowFocus: true });
+  const addrQ = useQuery({ queryKey: ["me", "addresses"], queryFn: () => fetchAddresses(), staleTime: 0, refetchOnWindowFocus: true });
+
+  // Always re-fetch the freshest data on entry (covers post-login redirect).
+  useEffect(() => {
+    qc.invalidateQueries({ queryKey: ["me"] });
+    const { data: sub } = supabase.auth.onAuthStateChange((evt) => {
+      if (evt === "SIGNED_IN" || evt === "USER_UPDATED" || evt === "TOKEN_REFRESHED") {
+        qc.invalidateQueries({ queryKey: ["me"] });
+      }
+    });
+    return () => sub.subscription.unsubscribe();
+  }, [qc]);
 
   const profile = profileQ.data?.profile;
   const email = profileQ.data?.email;
@@ -64,20 +83,38 @@ function ProfilePage() {
       <style>{styles}</style>
       <header className="acc-top">
         <Link to="/" className="acc-brand"><img src={LOGO} alt="Daulatram's" /></Link>
-        <Link to="/" className="acc-back">← Back to shop</Link>
+        <div className="acc-top-actions">
+          <button className="acc-refresh" onClick={() => qc.invalidateQueries({ queryKey: ["me"] })} title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/></svg>
+            Refresh
+          </button>
+          <Link to="/" className="acc-back">← Back to shop</Link>
+        </div>
       </header>
 
       <div className="acc-hero">
+        <div className="acc-hero-deco" aria-hidden="true">
+          <span className="orb orb-1" /><span className="orb orb-2" /><span className="orb orb-3" />
+        </div>
         <div className="acc-hero-inner">
-          <div className="avatar">{initials}</div>
-          <div className="who">
-            <h1>{profile?.full_name || "Welcome"}</h1>
-            <p>{email}</p>
-            {profile?.created_at && (
-              <span className="member-since">Member since {new Date(profile.created_at).toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</span>
-            )}
+          <div className="avatar-ring">
+            <div className="avatar">{profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : initials}</div>
           </div>
-          <button className="btn-ghost" onClick={signOut}>Sign out</button>
+          <div className="who">
+            <span className="who-hi">Namaste 🙏</span>
+            <h1>{profile?.full_name || (email ? email.split("@")[0] : "Welcome")}</h1>
+            <p>{email}</p>
+            <div className="hero-badges">
+              {profile?.created_at && (
+                <span className="hero-badge">✨ Member since {new Date(profile.created_at).toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</span>
+              )}
+              <span className="hero-badge gold">🪔 {stats.total} order{stats.total === 1 ? "" : "s"}</span>
+            </div>
+          </div>
+          <div className="hero-actions">
+            <a href="/site/shop.html" className="btn-fill-light">Continue shopping</a>
+            <button className="btn-ghost" onClick={signOut}>Sign out</button>
+          </div>
         </div>
       </div>
 
@@ -95,7 +132,7 @@ function ProfilePage() {
           ))}
         </aside>
 
-        <section className="acc-main">
+        <section className="acc-main" key={tab}>
           {tab === "overview" && <Overview stats={stats} orders={orders.slice(0, 3)} loading={ordersQ.isLoading} onSeeAll={() => setTab("orders")} />}
           {tab === "orders" && <Orders orders={orders} loading={ordersQ.isLoading} />}
           {tab === "addresses" && <Addresses addresses={addresses} loading={addrQ.isLoading} />}
@@ -133,7 +170,7 @@ function Overview({ stats, orders, loading, onSeeAll }:
 
 function Stat({ label, value, color }: { label: string; value: string | number; color: string }) {
   return (
-    <div className="stat" style={{ borderTopColor: color }}>
+    <div className="stat" style={{ ["--stat-color" as any]: color }}>
       <div className="stat-val">{value}</div>
       <div className="stat-lbl">{label}</div>
     </div>
@@ -328,42 +365,67 @@ function Skeleton({ rows = 3 }: { rows?: number }) {
 }
 
 const styles = `
-:root { --dgreen:#0B5132; --dgreen-2:#0E6A41; --orange:#F5921D; --cream:#FAF6EF; --cream-deep:#F3ECDE; --charcoal:#1d1d1d; --text-medium:#4a4a4a; --text-muted:#7a7a7a; }
-.acc-page { min-height: 100vh; background: var(--cream); color: var(--charcoal); font-family: 'DM Sans', system-ui, sans-serif; }
-.acc-top { display:flex; align-items:center; justify-content:space-between; padding: 18px 28px; background:#fff; border-bottom:1px solid #eee5cf; position: sticky; top:0; z-index:10; }
+:root { --dgreen:#0B5132; --dgreen-2:#0E6A41; --dgreen-deep:#063421; --orange:#F5921D; --orange-glow:#ffb358; --cream:#FAF6EF; --cream-deep:#F3ECDE; --charcoal:#1d1d1d; --text-medium:#4a4a4a; --text-muted:#7a7a7a; }
+.acc-page { min-height: 100vh; background: radial-gradient(1200px 600px at 10% -10%, #f1e7cc 0%, transparent 60%), radial-gradient(900px 500px at 100% 0%, #e7f0e3 0%, transparent 55%), var(--cream); color: var(--charcoal); font-family: 'DM Sans', system-ui, sans-serif; }
+.acc-top { display:flex; align-items:center; justify-content:space-between; padding: 16px 28px; background: rgba(255,255,255,0.85); backdrop-filter: saturate(140%) blur(10px); border-bottom:1px solid rgba(11,81,50,0.08); position: sticky; top:0; z-index:20; }
 .acc-brand img { height: 38px; display:block; }
-.acc-back { color: var(--dgreen); font-weight:600; font-size:14px; text-decoration:none; }
+.acc-top-actions { display:flex; align-items:center; gap: 14px; }
+.acc-refresh { display:inline-flex; align-items:center; gap:6px; background: var(--cream-deep); color: var(--dgreen); border:0; padding: 8px 12px; border-radius: 999px; font-weight:700; font-size:12.5px; cursor:pointer; font-family:inherit; transition: transform .15s, background .15s; }
+.acc-refresh:hover { background:#ecdfb8; transform: rotate(-6deg); }
+.acc-back { color: var(--dgreen); font-weight:700; font-size:13.5px; text-decoration:none; }
 .acc-back:hover { text-decoration: underline; }
-.acc-hero { background: linear-gradient(135deg, var(--dgreen) 0%, #0E6A41 60%, #145d3d 100%); color:#fff; padding: 40px 28px; }
-.acc-hero-inner { max-width: 1180px; margin:0 auto; display:flex; align-items:center; gap: 22px; flex-wrap: wrap; }
-.avatar { width:72px; height:72px; border-radius:50%; background: linear-gradient(135deg, var(--orange), #ffb358); color:#fff; display:grid; place-items:center; font-family:'Cormorant Garamond',serif; font-weight:700; font-size:30px; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
-.who { flex:1; min-width: 200px; }
-.who h1 { font-family: 'Cormorant Garamond', serif; font-weight:700; font-size:30px; margin:0 0 4px; }
-.who p { margin:0; opacity:.9; font-size:14.5px; }
-.member-since { display:inline-block; margin-top:6px; font-size:12px; padding:4px 10px; background:rgba(255,255,255,0.16); border-radius: 50px; }
-.btn-ghost { background: rgba(255,255,255,0.14); color:#fff; border:1px solid rgba(255,255,255,0.3); padding: 10px 18px; border-radius:10px; font-weight:600; cursor:pointer; font-size:14px; }
+
+.acc-hero { position:relative; overflow:hidden; color:#fff; padding: 56px 28px 64px;
+  background: radial-gradient(800px 400px at 0% 0%, #14784f 0%, transparent 55%),
+              radial-gradient(700px 360px at 100% 100%, #1e8a5a 0%, transparent 55%),
+              linear-gradient(135deg, var(--dgreen-deep) 0%, var(--dgreen) 55%, var(--dgreen-2) 100%); }
+.acc-hero::after { content:""; position:absolute; inset:0; background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 22px 22px; opacity:.35; pointer-events:none; }
+.acc-hero-deco { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.orb { position:absolute; border-radius:50%; filter: blur(60px); opacity:.55; }
+.orb-1 { width: 320px; height:320px; background: #F5921D; top:-80px; right:-60px; }
+.orb-2 { width: 220px; height:220px; background: #4ade80; bottom:-100px; left:30%; opacity:.35; }
+.orb-3 { width: 180px; height:180px; background:#ffffff; top:30%; left:-60px; opacity:.18; }
+.acc-hero-inner { max-width: 1180px; margin:0 auto; display:flex; align-items:center; gap: 26px; flex-wrap: wrap; position:relative; z-index:2; animation: heroIn .55s ease both; }
+@keyframes heroIn { from { opacity:0; transform: translateY(8px);} to { opacity:1; transform:none;} }
+.avatar-ring { padding: 4px; border-radius: 50%; background: conic-gradient(from 140deg, #ffd58a, #F5921D, #ffd58a, #fff8e0, #F5921D); box-shadow: 0 18px 40px -16px rgba(0,0,0,.45); }
+.avatar { width: 92px; height: 92px; border-radius:50%; background: linear-gradient(135deg, var(--orange), var(--orange-glow)); color:#fff; display:grid; place-items:center; font-family:'Cormorant Garamond',serif; font-weight:700; font-size:38px; overflow:hidden; border:3px solid #0B5132; }
+.avatar img { width:100%; height:100%; object-fit:cover; }
+.who { flex:1; min-width: 220px; }
+.who-hi { display:inline-block; font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; opacity:.85; margin-bottom:4px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.18); }
+.who h1 { font-family: 'Cormorant Garamond', serif; font-weight:700; font-size:40px; line-height:1.1; margin:6px 0 4px; letter-spacing:-.01em; }
+.who p { margin:0; opacity:.92; font-size:14.5px; }
+.hero-badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.hero-badge { font-size:12px; padding:5px 12px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.22); border-radius: 999px; backdrop-filter: blur(4px); }
+.hero-badge.gold { background: linear-gradient(135deg, rgba(245,146,29,0.85), rgba(255,179,88,0.85)); border-color: rgba(255,255,255,0.25); color:#1d1d1d; font-weight:700; }
+.hero-actions { display:flex; flex-direction:column; gap:8px; }
+.btn-fill-light { background:#fff; color:var(--dgreen); padding: 10px 18px; border-radius:10px; font-weight:700; font-size:13.5px; text-decoration:none; text-align:center; transition: transform .15s, box-shadow .2s; box-shadow:0 10px 24px -10px rgba(0,0,0,.35); }
+.btn-fill-light:hover { transform: translateY(-1px); }
+.btn-ghost { background: rgba(255,255,255,0.12); color:#fff; border:1px solid rgba(255,255,255,0.3); padding: 10px 18px; border-radius:10px; font-weight:600; cursor:pointer; font-size:13.5px; font-family:inherit; transition: background .15s; }
 .btn-ghost:hover { background: rgba(255,255,255,0.22); }
 
-.acc-body { max-width: 1180px; margin:0 auto; padding: 28px; display:grid; grid-template-columns: 240px 1fr; gap: 24px; }
+.acc-body { max-width: 1180px; margin: -28px auto 0; padding: 0 28px 40px; display:grid; grid-template-columns: 250px 1fr; gap: 24px; position:relative; z-index:5; }
 @media (max-width: 820px) { .acc-body { grid-template-columns: 1fr; padding: 18px; } }
-.acc-nav { display:flex; flex-direction:column; gap:6px; background:#fff; padding: 14px; border-radius: 16px; height: fit-content; box-shadow: 0 6px 20px -10px rgba(11,81,50,0.15); }
-.acc-nav button { display:flex; align-items:center; gap:12px; padding: 12px 14px; background:none; border:0; border-radius:10px; text-align:left; font-size:14.5px; font-weight:500; color:var(--text-medium); cursor:pointer; font-family:inherit; transition: background .15s, color .15s; }
+.acc-nav { display:flex; flex-direction:column; gap:4px; background:rgba(255,255,255,0.85); backdrop-filter: blur(8px); padding: 14px; border-radius: 18px; height: fit-content; box-shadow: 0 14px 40px -18px rgba(11,81,50,0.25); border:1px solid rgba(11,81,50,0.08); position: sticky; top: 84px; }
+.acc-nav button { display:flex; align-items:center; gap:12px; padding: 12px 14px; background:none; border:0; border-radius:12px; text-align:left; font-size:14.5px; font-weight:600; color:var(--text-medium); cursor:pointer; font-family:inherit; transition: background .2s, color .2s, transform .15s; position:relative; }
 .acc-nav button .ic { font-size: 17px; }
 .acc-nav button:hover { background: #f5efe1; color: var(--charcoal); }
-.acc-nav button.active { background: var(--dgreen); color:#fff; }
-.acc-nav button.active:hover { background: var(--dgreen-2); }
+.acc-nav button.active { background: linear-gradient(135deg, var(--dgreen), var(--dgreen-2)); color:#fff; box-shadow: 0 10px 20px -10px rgba(11,81,50,0.55); }
+.acc-nav button.active::before { content:""; position:absolute; left:-14px; top:18%; bottom:18%; width:3px; border-radius:0 4px 4px 0; background: var(--orange); }
 @media (max-width: 820px) { .acc-nav { flex-direction: row; overflow-x: auto; } .acc-nav button { white-space: nowrap; } }
 
-.acc-main { min-width: 0; }
-.card { background:#fff; border-radius: 18px; padding: 26px 28px; box-shadow: 0 6px 24px -12px rgba(11,81,50,0.15); }
-.card h2 { font-family:'Cormorant Garamond', serif; font-weight:700; font-size:26px; color: var(--dgreen); margin:0 0 18px; }
+.acc-main { min-width: 0; animation: paneIn .35s ease both; }
+@keyframes paneIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform:none;} }
+.card { background:#fff; border-radius: 20px; padding: 28px 30px; box-shadow: 0 14px 40px -22px rgba(11,81,50,0.28); border:1px solid rgba(11,81,50,0.06); }
+.card h2 { font-family:'Cormorant Garamond', serif; font-weight:700; font-size:28px; color: var(--dgreen); margin:0 0 18px; letter-spacing:-.01em; }
 .card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
 .card-head h2 { margin:0; }
 
-.stat-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:14px; margin-bottom: 26px; }
-.stat { background: var(--cream-deep); padding: 16px 18px; border-radius: 12px; border-top: 3px solid; }
-.stat-val { font-family:'Cormorant Garamond', serif; font-weight:700; font-size: 28px; color: var(--charcoal); }
-.stat-lbl { font-size: 12.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; font-weight:600; margin-top:4px; }
+.stat-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:14px; margin-bottom: 26px; }
+.stat { position:relative; background: linear-gradient(160deg, #fff 0%, var(--cream-deep) 100%); padding: 18px 18px 16px; border-radius: 16px; border:1px solid rgba(11,81,50,0.08); overflow:hidden; transition: transform .2s, box-shadow .2s; }
+.stat::before { content:""; position:absolute; left:0; right:0; top:0; height:3px; background: var(--stat-color, var(--dgreen)); }
+.stat:hover { transform: translateY(-2px); box-shadow: 0 18px 30px -20px rgba(11,81,50,0.35); }
+.stat-val { font-family:'Cormorant Garamond', serif; font-weight:700; font-size: 32px; color: var(--charcoal); line-height:1; }
+.stat-lbl { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .12em; font-weight:700; margin-top:8px; }
 .recent-head { display:flex; align-items:center; justify-content:space-between; margin: 8px 0 12px; }
 .recent-head h3 { margin:0; font-size: 16px; color: var(--charcoal); }
 
