@@ -11,112 +11,301 @@
 <script>window.ACTIVE_NAV='';</script>
 <main id="main-content">
   <div class="page-shell">
-    <h1 class="page-title">My Account</h1>
-    <div id="acc-root">Loading…</div>
+    <div id="acc-root">
+      <div class="acc-hero"><div class="sk sk-line" style="width:60%;height:24px"></div><div class="sk sk-line" style="width:40%"></div></div>
+      <div class="sk sk-card"></div><div class="sk sk-card"></div>
+    </div>
   </div>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="catalog.js"></script>
 <script src="auth.js"></script><script src="store.js"></script>
 <script src="page-shell.js"></script><script src="site.js"></script>
+
 <script>
 (function(){
   const root = document.getElementById("acc-root");
-  let active = (location.hash||"#profile").replace("#","");
-  const TABS = [["profile","Profile"],["orders","Orders"],["addresses","Addresses"],["wishlist","Wishlist"]];
+  let active = (location.hash||"#dashboard").replace("#","");
+  const TABS = [
+    ["dashboard","Dashboard","🏠"],
+    ["profile","Profile","👤"],
+    ["orders","Orders","📦"],
+    ["addresses","Addresses","📍"],
+    ["wishlist","Wishlist","❤"],
+    ["security","Security","🔒"],
+  ];
+  let cache = { profile:null, orders:null, items:null, addrs:null };
 
-  async function render(){
-    if (!window.dr.auth.user){
-      root.innerHTML = `<div class="dr-empty-page"><h2>Please sign in</h2><a href="auth.html?redirect=account.html" class="btn btn-primary">Sign In</a></div>`; return;
-    }
+  function initials(name, email){
+    const s = (name||email||"U").trim();
+    const p = s.split(/\s+/);
+    return ((p[0]?.[0]||"") + (p[1]?.[0]||"")).toUpperCase() || s[0].toUpperCase();
+  }
+
+  function toast(m){ if(window.dr?.store?.toast) window.dr.store.toast(m); }
+
+  function notSignedIn(){
     root.innerHTML = `
+      <div class="acc-hero">
+        <div class="acc-hero-row">
+          <div class="acc-av">🔒</div>
+          <div class="acc-hi-text"><h1>Please sign in</h1><p>Apne orders, wishlist aur addresses dekhne ke liye sign in karein.</p></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:30px">
+        <a href="auth.html?redirect=account.html" class="btn btn-primary" style="padding:14px 36px">Sign In / Create Account</a>
+      </div>`;
+  }
+
+  async function loadAll(){
+    const sb = window.dr.auth.client(); const u = window.dr.auth.user;
+    const [p, o, a] = await Promise.all([
+      sb.from("profiles").select("*").eq("id", u.id).maybeSingle(),
+      sb.from("orders").select("*").eq("user_id", u.id).order("created_at",{ascending:false}),
+      sb.from("addresses").select("*").eq("user_id", u.id).order("is_default",{ascending:false}),
+    ]);
+    cache.profile = p.data || {};
+    cache.orders = o.data || [];
+    cache.addrs = a.data || [];
+    if (cache.orders.length){
+      const ids = cache.orders.map(x=>x.id);
+      const { data } = await sb.from("order_items").select("*").in("order_id", ids);
+      cache.items = data || [];
+    } else cache.items = [];
+  }
+
+  function heroHTML(u){
+    const name = cache.profile?.full_name || u.user_metadata?.full_name || u.email.split("@")[0];
+    const since = new Date(u.created_at || Date.now()).toLocaleDateString("en-IN",{month:"long",year:"numeric"});
+    const wishCount = (window.dr.store.getWish?.()||[]).length;
+    return `
+      <div class="acc-hero">
+        <div class="acc-hero-row">
+          <div class="acc-av">${initials(name, u.email)}</div>
+          <div class="acc-hi-text">
+            <h1>Namaste, ${name.split(" ")[0]}</h1>
+            <p>Member since ${since} · ${u.email}</p>
+          </div>
+        </div>
+        <div class="acc-stats">
+          <div class="acc-stat"><div class="n">${cache.orders.length}</div><div class="l">Orders</div></div>
+          <div class="acc-stat"><div class="n">${wishCount}</div><div class="l">Wishlist</div></div>
+          <div class="acc-stat"><div class="n">${cache.addrs.length}</div><div class="l">Addresses</div></div>
+        </div>
+      </div>`;
+  }
+
+  function shell(u){
+    root.innerHTML = heroHTML(u) + `
       <div class="acc-grid">
         <aside class="acc-side">
-          ${TABS.map(([k,l])=>`<button data-t="${k}" class="${k===active?'active':''}">${l}</button>`).join("")}
-          <button id="acc-out" style="margin-top:10px;color:#c0392b">Sign Out</button>
+          ${TABS.map(([k,l,i])=>`<button data-t="${k}" class="${k===active?'active':''}"><span class="ic">${i}</span>${l}</button>`).join("")}
+          <div class="sep"></div>
+          <button id="acc-out" class="out"><span class="ic">↪</span>Sign Out</button>
         </aside>
         <section class="acc-panel" id="acc-panel"></section>
       </div>`;
-    document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{ active=b.dataset.t; location.hash=active; render(); });
-    document.getElementById("acc-out").onclick = async ()=>{ await window.dr.auth.signOut(); location.href="home.html"; };
-    await renderPanel();
+    document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{ active=b.dataset.t; history.replaceState(null,"","#"+active); renderPanel(); document.querySelectorAll("[data-t]").forEach(x=>x.classList.toggle("active",x.dataset.t===active)); document.getElementById("acc-panel").style.animation="none"; void document.getElementById("acc-panel").offsetWidth; document.getElementById("acc-panel").style.animation=""; });
+    document.getElementById("acc-out").onclick = async ()=>{
+      if(!confirm("Sign out karna chahte hain?")) return;
+      await window.dr.auth.signOut(); location.href="home.html";
+    };
+    renderPanel();
   }
 
   async function renderPanel(){
     const p = document.getElementById("acc-panel"); const sb = window.dr.auth.client(); const u = window.dr.auth.user;
-    if (active==="profile"){
-      const { data } = await sb.from("profiles").select("*").eq("id", u.id).maybeSingle();
-      const pr = data || {};
-      p.innerHTML = `<h2>Profile</h2>
+    p.style.animation="none"; void p.offsetWidth; p.style.animation="";
+
+    if (active==="dashboard"){
+      const last = cache.orders[0];
+      const totalSpent = cache.orders.reduce((a,o)=>a+Number(o.total||0),0);
+      p.innerHTML = `
+        <h2>Welcome back ✨</h2>
+        <p class="sub">Yahan aap apne account ka overview dekh sakte hain.</p>
+        <div class="dash-grid">
+          <div class="dash-card"><div class="h">Total Spent</div><div class="v">₹${totalSpent.toLocaleString("en-IN")}</div><div class="d">Across ${cache.orders.length} order${cache.orders.length===1?"":"s"}</div></div>
+          <div class="dash-card"><div class="h">Last Order</div><div class="v">${last?last.order_number:"—"}</div><div class="d">${last?new Date(last.created_at).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+" · "+last.status:"No orders yet"}</div></div>
+        </div>
+        <h3 style="font-family:'Cormorant Garamond',serif;color:#0B5132;font-size:22px;margin:24px 0 4px">Quick Actions</h3>
+        <div class="dash-quick">
+          <a href="shop.html"><span class="ic">🛍️</span>Continue Shopping</a>
+          <a href="#orders" data-t="orders"><span class="ic">📦</span>Track Orders</a>
+          <a href="#wishlist" data-t="wishlist"><span class="ic">❤️</span>My Wishlist</a>
+          <a href="#addresses" data-t="addresses"><span class="ic">📍</span>Manage Address</a>
+          <a href="#profile" data-t="profile"><span class="ic">✏️</span>Edit Profile</a>
+          <a href="contact.html"><span class="ic">💬</span>Get Help</a>
+        </div>`;
+      p.querySelectorAll("[data-t]").forEach(b=>b.onclick=(e)=>{ e.preventDefault(); active=b.dataset.t; history.replaceState(null,"","#"+active); document.querySelectorAll(".acc-side [data-t]").forEach(x=>x.classList.toggle("active",x.dataset.t===active)); renderPanel(); });
+    }
+
+    else if (active==="profile"){
+      const pr = cache.profile || {};
+      p.innerHTML = `
+        <h2>Personal Information</h2>
+        <p class="sub">Apni profile details update karein.</p>
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:24px;padding:18px;background:#FBF7EE;border-radius:14px">
+          <div class="acc-av" style="background:linear-gradient(135deg,#0B5132,#1A6E3E);width:64px;height:64px;font-size:24px">${initials(pr.full_name, u.email)}</div>
+          <div><div style="font-weight:600;color:#222">${pr.full_name||"Add your name"}</div><div style="font-size:13px;color:#888">${u.email}</div></div>
+        </div>
         <form id="pf">
-          <div class="form-row"><div><label>Full Name</label><input name="full_name" value="${pr.full_name||""}"></div>
-          <div><label>Phone</label><input name="phone" value="${pr.phone||""}"></div></div>
-          <div><label>Email</label><input value="${u.email}" disabled></div>
-          <button class="btn btn-primary" style="margin-top:14px">Save Changes</button>
-          <span id="pf-msg" style="margin-left:14px;color:#0B5132;font-size:13px"></span>
+          <div class="form-row">
+            <div><label>Full Name</label><input name="full_name" value="${(pr.full_name||"").replace(/"/g,'&quot;')}" placeholder="Your full name"></div>
+            <div><label>Phone</label><input name="phone" value="${(pr.phone||"").replace(/"/g,'&quot;')}" placeholder="+91 …"></div>
+          </div>
+          <div><label>Email</label><input value="${u.email}" disabled style="background:#f5efe0"></div>
+          <button class="btn btn-primary" style="margin-top:18px" id="pf-btn">Save Changes</button>
         </form>`;
       document.getElementById("pf").onsubmit = async e=>{ e.preventDefault();
+        const btn = document.getElementById("pf-btn"); btn.classList.add("btn-saving"); btn.textContent="Saving…";
         const f = new FormData(e.target);
-        const { error } = await sb.from("profiles").update({ full_name: f.get("full_name"), phone: f.get("phone") }).eq("id", u.id);
-        document.getElementById("pf-msg").textContent = error ? error.message : "✓ Saved";
+        const upd = { full_name: f.get("full_name"), phone: f.get("phone") };
+        const { error } = await sb.from("profiles").upsert({ id:u.id, ...upd });
+        btn.classList.remove("btn-saving"); btn.textContent="Save Changes";
+        if (error){ toast("⚠ "+error.message); } else { cache.profile = {...pr, ...upd}; toast("✓ Profile updated"); root.querySelector(".acc-hero").outerHTML = heroHTML(u); }
       };
-    } else if (active==="orders"){
-      const { data: orders } = await sb.from("orders").select("*").eq("user_id", u.id).order("created_at",{ascending:false});
-      if (!orders || !orders.length){ p.innerHTML = `<h2>Orders</h2><p style="color:#666">No orders yet. <a href="shop.html" style="color:#0B5132">Start shopping →</a></p>`; return; }
-      const ids = orders.map(o=>o.id);
-      const { data: items } = await sb.from("order_items").select("*").in("order_id", ids);
-      const byOrder = {}; (items||[]).forEach(i=>{ (byOrder[i.order_id]=byOrder[i.order_id]||[]).push(i); });
-      p.innerHTML = `<h2>Orders</h2>` + orders.map(o=>`
+    }
+
+    else if (active==="orders"){
+      if (!cache.orders.length){ p.innerHTML = `<h2>My Orders</h2><div class="acc-empty"><div class="em">📦</div><p>Abhi koi order nahi hai.</p><a href="shop.html" class="btn btn-primary">Start Shopping</a></div>`; return; }
+      const byOrder = {}; cache.items.forEach(i=>{ (byOrder[i.order_id]=byOrder[i.order_id]||[]).push(i); });
+      p.innerHTML = `<h2>My Orders</h2><p class="sub">${cache.orders.length} order${cache.orders.length===1?"":"s"} total</p>` + cache.orders.map(o=>`
         <div class="order-card">
           <div class="order-head">
-            <div><div class="order-num">${o.order_number}</div><div class="order-meta">${new Date(o.created_at).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})} · ₹${o.total.toLocaleString("en-IN")}</div></div>
-            <span class="order-status">${o.status}</span>
+            <div><div class="order-num">${o.order_number}</div><div class="order-meta">${new Date(o.created_at).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})} · ₹${Number(o.total).toLocaleString("en-IN")} · ${o.payment_method||"COD"}</div></div>
+            <span class="order-status ${o.status}">${o.status}</span>
           </div>
-          <div class="order-items">${(byOrder[o.id]||[]).map(i=>`<img src="${i.image_url}" title="${i.product_name} × ${i.quantity}" onerror="this.style.visibility='hidden'">`).join("")}</div>
+          <div class="order-items">${(byOrder[o.id]||[]).map(i=>`<img src="${i.image_url||""}" title="${i.product_name} × ${i.quantity}" onerror="this.style.visibility='hidden'">`).join("")}</div>
+          <div class="order-actions">
+            <button data-act="reorder" data-id="${o.id}">↻ Reorder</button>
+            <button data-act="invoice" data-id="${o.id}">⬇ Invoice</button>
+            <a href="contact.html">Need help?</a>
+          </div>
         </div>`).join("");
-    } else if (active==="addresses"){
-      const { data: addrs } = await sb.from("addresses").select("*").eq("user_id", u.id).order("is_default",{ascending:false});
-      p.innerHTML = `<h2>Saved Addresses</h2>
-        ${(addrs||[]).map(a=>`
-          <div class="address-card" data-id="${a.id}">
-            <div><strong>${a.label}</strong>${a.is_default?' <span style="font-size:11px;color:#0B5132">DEFAULT</span>':""}
-              <div style="font-size:13px;color:#444;margin-top:4px">${a.line1}${a.line2?", "+a.line2:""}<br>${a.city}, ${a.state} ${a.pincode}<br>${a.phone||""}</div></div>
-            <div class="addr-actions">${!a.is_default?'<button data-act="def">Make default</button>':""}<button class="danger" data-act="del">Delete</button></div>
-          </div>`).join("")}
-        <details style="margin-top:14px"><summary style="cursor:pointer;color:#0B5132;font-weight:600">+ Add a new address</summary>
-          <form id="addr-form" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <input name="label" placeholder="Label" required><input name="phone" placeholder="Phone" required>
-            <input name="line1" placeholder="Address line 1" required style="grid-column:1/-1">
-            <input name="line2" placeholder="Address line 2" style="grid-column:1/-1">
-            <input name="city" placeholder="City" required><input name="state" placeholder="State" required>
-            <input name="pincode" placeholder="Pincode" required>
-            <button class="btn btn-primary" style="grid-column:1/-1">Save</button>
-          </form>
-        </details>`;
-      p.addEventListener("click", async e=>{
-        const card = e.target.closest(".address-card"); if (!card) return;
-        const id = card.dataset.id; const act = e.target.dataset.act;
-        if (act==="del"){ await sb.from("addresses").delete().eq("id", id); renderPanel(); }
-        else if (act==="def"){ await sb.from("addresses").update({is_default:false}).eq("user_id",u.id); await sb.from("addresses").update({is_default:true}).eq("id",id); renderPanel(); }
+      p.addEventListener("click", e=>{
+        const b = e.target.closest("[data-act]"); if(!b) return;
+        const items = byOrder[b.dataset.id]||[];
+        if (b.dataset.act==="reorder"){
+          items.forEach(i=> window.dr.store.addToCart({ id:i.product_id, name:i.product_name, price:Number(i.unit_price), image:i.image_url }, i.quantity));
+          toast("✓ Items added to cart");
+        } else if (b.dataset.act==="invoice"){ toast("Invoice download soon — for now please contact us"); }
       });
-      const af = document.getElementById("addr-form");
-      if (af) af.onsubmit = async e=>{ e.preventDefault();
-        const f = new FormData(e.target);
-        await sb.from("addresses").insert({ user_id:u.id, label:f.get("label"), phone:f.get("phone"), line1:f.get("line1"), line2:f.get("line2"), city:f.get("city"), state:f.get("state"), pincode:f.get("pincode"), country:"India", is_default:(addrs||[]).length===0 });
-        renderPanel();
+    }
+
+    else if (active==="addresses"){
+      const addrs = cache.addrs;
+      p.innerHTML = `<h2>Saved Addresses</h2><p class="sub">Faster checkout ke liye apne addresses save karein.</p>
+        ${addrs.length?`<div class="addr-grid">${addrs.map(a=>`
+          <div class="address-card" data-id="${a.id}">
+            <div><strong style="color:#0B5132">${a.label}</strong>${a.is_default?' <span style="font-size:10px;color:#fff;background:#0B5132;padding:2px 8px;border-radius:999px;margin-left:6px">DEFAULT</span>':""}
+              <div style="font-size:13px;color:#444;margin-top:6px;line-height:1.5">${a.line1}${a.line2?", "+a.line2:""}<br>${a.city}, ${a.state} ${a.pincode}<br>${a.phone||""}</div></div>
+            <div class="addr-actions">${!a.is_default?'<button data-act="def">Make default</button>':""}<button class="danger" data-act="del">Delete</button></div>
+          </div>`).join("")}</div>`:`<div class="acc-empty"><div class="em">📍</div><p>Koi saved address nahi hai.</p></div>`}
+        <button id="addr-new" class="btn btn-primary" style="margin-top:18px">+ Add New Address</button>`;
+      p.addEventListener("click", async e=>{
+        const card = e.target.closest(".address-card");
+        if (card){
+          const id = card.dataset.id; const act = e.target.dataset.act;
+          if (act==="del"){ if(!confirm("Delete this address?")) return; await sb.from("addresses").delete().eq("id", id); cache.addrs = cache.addrs.filter(x=>x.id!==id); renderPanel(); toast("✓ Address removed"); }
+          else if (act==="def"){ await sb.from("addresses").update({is_default:false}).eq("user_id",u.id); await sb.from("addresses").update({is_default:true}).eq("id",id); await loadAll(); renderPanel(); toast("✓ Default updated"); }
+        }
+        if (e.target.id==="addr-new") openAddrModal();
+      });
+    }
+
+    else if (active==="wishlist"){
+      const w = window.dr.store.getWish?.() || [];
+      if (!w.length){ p.innerHTML = `<h2>My Wishlist</h2><div class="acc-empty"><div class="em">❤️</div><p>Wishlist khaali hai.</p><a href="shop.html" class="btn btn-primary">Browse Products</a></div>`; return; }
+      p.innerHTML = `<h2>My Wishlist</h2><p class="sub">${w.length} item${w.length===1?"":"s"} saved</p>
+        <div style="margin-bottom:14px"><button id="w-all" class="btn btn-outline" style="font-size:13px;padding:8px 18px">Move All to Cart</button></div>
+        <div class="wish-grid">${w.map(i=>`
+          <article class="product-card"><div class="pc-img"><a href="product.html?id=${i.id}"><img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'"></a></div>
+          <div class="pc-body"><h3 class="pc-name">${i.name}</h3><div class="pc-price"><span class="sale">₹${Number(i.price).toLocaleString("en-IN")}</span></div>
+          <div style="display:flex;gap:6px"><button class="btn btn-primary btn-sm" style="flex:1" data-w-add="${i.id}">Add to Cart</button><button class="btn btn-outline btn-sm" data-w-rm="${i.id}" title="Remove">✕</button></div></div></article>`).join("")}</div>`;
+      p.querySelector("#w-all").onclick = ()=>{ w.forEach(i=> window.dr.store.addToCart(i,1)); toast("✓ All items moved to cart"); };
+      p.querySelectorAll("[data-w-add]").forEach(b=> b.onclick=()=>{ const it=w.find(x=>x.id===b.dataset.wAdd); window.dr.store.addToCart(it,1); toast("✓ Added"); });
+      p.querySelectorAll("[data-w-rm]").forEach(b=> b.onclick=()=>{ const it=w.find(x=>x.id===b.dataset.wRm); window.dr.store.toggleWish(it); renderPanel(); });
+    }
+
+    else if (active==="security"){
+      p.innerHTML = `<h2>Security & Privacy</h2><p class="sub">Apne account ki security manage karein.</p>
+        <div class="dash-card" style="margin-bottom:14px"><div class="h">Password</div><div style="margin-top:8px;color:#555;font-size:14px">Apna password badlein — strong password use karein.</div>
+          <form id="pw-form" style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><input type="password" name="np" placeholder="New password" minlength="6" required style="flex:1;min-width:200px;padding:11px 14px;border:1px solid #e6dcc4;border-radius:8px"><button class="btn btn-primary" id="pw-btn">Update Password</button></form></div>
+        <div class="dash-card" style="margin-bottom:14px"><div class="h">Active Sessions</div><div style="margin-top:8px;color:#555;font-size:14px">Sabhi devices se sign out karein.</div>
+          <button id="signout-all" class="btn btn-outline" style="margin-top:14px">Sign Out Everywhere</button></div>
+        <div class="dash-card" style="border-color:#fdd"><div class="h" style="color:#c0392b">Danger Zone</div><div style="margin-top:8px;color:#555;font-size:14px">Account permanently delete karein. Yeh action undo nahi ho sakta.</div>
+          <button id="del-acc" class="btn" style="margin-top:14px;background:#c0392b;color:#fff;border:none">Delete Account</button></div>`;
+      document.getElementById("pw-form").onsubmit = async e=>{ e.preventDefault();
+        const btn=document.getElementById("pw-btn"); btn.classList.add("btn-saving"); btn.textContent="Updating…";
+        const np = new FormData(e.target).get("np");
+        const { error } = await window.dr.auth.updatePassword(np);
+        btn.classList.remove("btn-saving"); btn.textContent="Update Password";
+        if (error) toast("⚠ "+error.message); else { e.target.reset(); toast("✓ Password updated"); }
       };
-    } else if (active==="wishlist"){
-      const w = window.dr.store.getWish();
-      if (!w.length) p.innerHTML = `<h2>Wishlist</h2><p style="color:#666">No saved items yet. <a href="shop.html" style="color:#0B5132">Browse →</a></p>`;
-      else p.innerHTML = `<h2>Wishlist</h2><div class="wish-grid">${w.map(i=>`
-        <article class="product-card"><div class="pc-img"><a href="product.html?id=${i.id}"><img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'"></a></div>
-        <div class="pc-body"><h3 class="pc-name">${i.name}</h3><div class="pc-price"><span class="sale">₹${i.price.toLocaleString("en-IN")}</span></div>
-        <a href="product.html?id=${i.id}" class="btn btn-primary btn-sm btn-block">View</a></div></article>`).join("")}</div>`;
+      document.getElementById("signout-all").onclick = async ()=>{ if(!confirm("Sign out from all devices?")) return; await sb.auth.signOut({scope:"global"}); location.href="home.html"; };
+      document.getElementById("del-acc").onclick = ()=>{
+        const m = document.createElement("div"); m.className="dr-modal-bg";
+        m.innerHTML = `<div class="dr-modal"><h3>Delete Account?</h3><p>Yeh action permanent hai. Sabhi orders, addresses aur data hata diya jayega. Confirm karne ke liye "DELETE" type karein.</p><input id="del-c" placeholder='Type DELETE' style="width:100%;padding:11px 14px;border:1px solid #e6dcc4;border-radius:8px"><div class="row"><button class="btn btn-outline" id="del-x">Cancel</button><button class="btn" id="del-y" style="background:#c0392b;color:#fff;border:none">Delete Forever</button></div></div>`;
+        document.body.appendChild(m);
+        m.querySelector("#del-x").onclick = ()=> m.remove();
+        m.querySelector("#del-y").onclick = async ()=>{
+          if (m.querySelector("#del-c").value !== "DELETE"){ toast("Type DELETE to confirm"); return; }
+          toast("Account deletion request noted — contact support to finalize.");
+          m.remove();
+        };
+      };
     }
   }
 
-  setTimeout(render, 600);
-  window.addEventListener("hashchange", ()=>{ active = (location.hash||"#profile").replace("#",""); render(); });
+  function openAddrModal(addr){
+    const sb = window.dr.auth.client(); const u = window.dr.auth.user;
+    const a = addr || {};
+    const m = document.createElement("div"); m.className="dr-modal-bg";
+    m.innerHTML = `<div class="dr-modal" style="max-width:560px"><h3>${addr?"Edit":"Add"} Address</h3>
+      <form id="af" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <input name="label" placeholder="Label (Home/Office)" required value="${a.label||""}">
+        <input name="phone" placeholder="Phone" required value="${a.phone||""}">
+        <input name="line1" placeholder="Address line 1" required style="grid-column:1/-1" value="${a.line1||""}">
+        <input name="line2" placeholder="Address line 2 (optional)" style="grid-column:1/-1" value="${a.line2||""}">
+        <input name="city" placeholder="City" required value="${a.city||""}">
+        <input name="state" placeholder="State" required value="${a.state||""}">
+        <input name="pincode" placeholder="Pincode" required value="${a.pincode||""}">
+        <label style="grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:13px;color:#555"><input type="checkbox" name="def" ${a.is_default?"checked":""}>Set as default</label>
+      </form>
+      <div class="row"><button class="btn btn-outline" id="af-x">Cancel</button><button class="btn btn-primary" id="af-s">Save</button></div></div>`;
+    m.querySelectorAll("input").forEach(i=>i.style.cssText+=";padding:11px 14px;border:1px solid #e6dcc4;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none");
+    document.body.appendChild(m);
+    m.querySelector("#af-x").onclick = ()=> m.remove();
+    m.querySelector("#af-s").onclick = async ()=>{
+      const f = new FormData(m.querySelector("#af"));
+      const isDef = !!f.get("def") || cache.addrs.length===0;
+      const body = { user_id:u.id, label:f.get("label"), phone:f.get("phone"), line1:f.get("line1"), line2:f.get("line2"), city:f.get("city"), state:f.get("state"), pincode:f.get("pincode"), country:"India", is_default:isDef };
+      if (isDef) await sb.from("addresses").update({is_default:false}).eq("user_id",u.id);
+      const { error } = await sb.from("addresses").insert(body);
+      if (error){ toast("⚠ "+error.message); return; }
+      m.remove(); await loadAll(); renderPanel(); root.querySelector(".acc-hero").outerHTML = heroHTML(u); toast("✓ Address saved");
+    };
+  }
+
+  async function boot(){
+    // wait briefly for auth init
+    let tries = 0;
+    while (!window.dr?.auth?.client?.() && tries<20){ await new Promise(r=>setTimeout(r,80)); tries++; }
+    await new Promise(r=>setTimeout(r,200));
+    const u = window.dr.auth.user;
+    if (!u){ notSignedIn(); return; }
+    await loadAll();
+    shell(u);
+  }
+  boot();
+
+  window.addEventListener("hashchange", ()=>{
+    const newT = (location.hash||"#dashboard").replace("#","");
+    if (newT===active) return;
+    active = newT;
+    if (window.dr.auth.user) { document.querySelectorAll(".acc-side [data-t]").forEach(x=>x.classList.toggle("active",x.dataset.t===active)); renderPanel(); }
+  });
 })();
 </script>
 </body></html>
