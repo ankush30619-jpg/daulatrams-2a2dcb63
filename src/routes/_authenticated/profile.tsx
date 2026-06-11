@@ -1,5 +1,6 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { z } from "zod";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +10,12 @@ import {
   getMyOrders,
 } from "@/lib/account.functions";
 
+const TABS = ["overview", "orders", "addresses", "settings"] as const;
+type Tab = (typeof TABS)[number];
+const searchSchema = z.object({ tab: z.enum(TABS).optional() });
+
 export const Route = createFileRoute("/_authenticated/profile")({
+  validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
       { title: "My Account — Daulatram's" },
@@ -21,20 +27,33 @@ export const Route = createFileRoute("/_authenticated/profile")({
 });
 
 const LOGO = "/__l5e/assets-v1/8b91c49d-e362-4b9e-8d22-d4250fc957c2/daulatrams-logo.png";
-type Tab = "overview" | "orders" | "addresses" | "settings";
 
 function ProfilePage() {
-  const [tab, setTab] = useState<Tab>("overview");
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const { tab: tabParam } = useSearch({ from: "/_authenticated/profile" });
+  const tab: Tab = tabParam ?? "overview";
+  const setTab = (t: Tab) =>
+    navigate({ to: "/profile", search: t === "overview" ? {} : { tab: t }, replace: true });
 
   const fetchProfile = useServerFn(getMyProfile);
   const fetchOrders = useServerFn(getMyOrders);
   const fetchAddresses = useServerFn(getMyAddresses);
 
-  const profileQ = useQuery({ queryKey: ["me", "profile"], queryFn: () => fetchProfile() });
-  const ordersQ = useQuery({ queryKey: ["me", "orders"], queryFn: () => fetchOrders() });
-  const addrQ = useQuery({ queryKey: ["me", "addresses"], queryFn: () => fetchAddresses() });
+  const profileQ = useQuery({ queryKey: ["me", "profile"], queryFn: () => fetchProfile(), staleTime: 0, refetchOnWindowFocus: true });
+  const ordersQ = useQuery({ queryKey: ["me", "orders"], queryFn: () => fetchOrders(), staleTime: 0, refetchOnWindowFocus: true });
+  const addrQ = useQuery({ queryKey: ["me", "addresses"], queryFn: () => fetchAddresses(), staleTime: 0, refetchOnWindowFocus: true });
+
+  // Always re-fetch the freshest data on entry (covers post-login redirect).
+  useEffect(() => {
+    qc.invalidateQueries({ queryKey: ["me"] });
+    const { data: sub } = supabase.auth.onAuthStateChange((evt) => {
+      if (evt === "SIGNED_IN" || evt === "USER_UPDATED" || evt === "TOKEN_REFRESHED") {
+        qc.invalidateQueries({ queryKey: ["me"] });
+      }
+    });
+    return () => sub.subscription.unsubscribe();
+  }, [qc]);
 
   const profile = profileQ.data?.profile;
   const email = profileQ.data?.email;
@@ -64,20 +83,38 @@ function ProfilePage() {
       <style>{styles}</style>
       <header className="acc-top">
         <Link to="/" className="acc-brand"><img src={LOGO} alt="Daulatram's" /></Link>
-        <Link to="/" className="acc-back">← Back to shop</Link>
+        <div className="acc-top-actions">
+          <button className="acc-refresh" onClick={() => qc.invalidateQueries({ queryKey: ["me"] })} title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/></svg>
+            Refresh
+          </button>
+          <Link to="/" className="acc-back">← Back to shop</Link>
+        </div>
       </header>
 
       <div className="acc-hero">
+        <div className="acc-hero-deco" aria-hidden="true">
+          <span className="orb orb-1" /><span className="orb orb-2" /><span className="orb orb-3" />
+        </div>
         <div className="acc-hero-inner">
-          <div className="avatar">{initials}</div>
-          <div className="who">
-            <h1>{profile?.full_name || "Welcome"}</h1>
-            <p>{email}</p>
-            {profile?.created_at && (
-              <span className="member-since">Member since {new Date(profile.created_at).toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</span>
-            )}
+          <div className="avatar-ring">
+            <div className="avatar">{profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : initials}</div>
           </div>
-          <button className="btn-ghost" onClick={signOut}>Sign out</button>
+          <div className="who">
+            <span className="who-hi">Namaste 🙏</span>
+            <h1>{profile?.full_name || (email ? email.split("@")[0] : "Welcome")}</h1>
+            <p>{email}</p>
+            <div className="hero-badges">
+              {profile?.created_at && (
+                <span className="hero-badge">✨ Member since {new Date(profile.created_at).toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</span>
+              )}
+              <span className="hero-badge gold">🪔 {stats.total} order{stats.total === 1 ? "" : "s"}</span>
+            </div>
+          </div>
+          <div className="hero-actions">
+            <a href="/site/shop.html" className="btn-fill-light">Continue shopping</a>
+            <button className="btn-ghost" onClick={signOut}>Sign out</button>
+          </div>
         </div>
       </div>
 
@@ -95,7 +132,7 @@ function ProfilePage() {
           ))}
         </aside>
 
-        <section className="acc-main">
+        <section className="acc-main" key={tab}>
           {tab === "overview" && <Overview stats={stats} orders={orders.slice(0, 3)} loading={ordersQ.isLoading} onSeeAll={() => setTab("orders")} />}
           {tab === "orders" && <Orders orders={orders} loading={ordersQ.isLoading} />}
           {tab === "addresses" && <Addresses addresses={addresses} loading={addrQ.isLoading} />}
