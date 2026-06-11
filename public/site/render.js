@@ -65,6 +65,24 @@
       </span>`).join("");
   }
 
+  /* Spotlight pack selector */
+  const packSel = document.getElementById("spot-pack");
+  if (packSel) {
+    const upd = () => {
+      const o = packSel.options[packSel.selectedIndex];
+      const price = +o.dataset.price, orig = +o.dataset.orig, save = +o.dataset.save, off = +o.dataset.off, id = o.dataset.id;
+      const $ = (s) => document.getElementById(s);
+      $("spot-price").textContent = "₹" + price.toLocaleString("en-IN");
+      $("spot-orig").textContent = "₹" + orig.toLocaleString("en-IN");
+      $("spot-save").textContent = `SAVE ₹${save.toLocaleString("en-IN")} · ${off}% OFF`;
+      $("spot-off").textContent = off;
+      $("spot-buy").href = "product.html?id=" + id;
+      $("spot-cart").href = "product.html?id=" + id;
+    };
+    packSel.addEventListener("change", upd);
+    upd();
+  }
+
   /* UGC */
   const ugcFiles = ["12.png","11.png","10.png","9.png","8.png","7.png","6.png","5-1.png"];
   const ugcGrid = document.getElementById("ugc-grid");
