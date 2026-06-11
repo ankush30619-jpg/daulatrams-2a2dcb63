@@ -72,6 +72,7 @@
       <div class="pc-body">
         <div class="pc-rating"><span class="stars">${stars(p.rating || 4.7)}</span> ${p.rating || 4.7} (${(p.reviews || 1240).toLocaleString("en-IN")})</div>
         <a href="${url}" class="pc-name-link"><h3 class="pc-name">${p.name}</h3></a>
+        ${p.sizes ? `<div class="pc-sizes">${p.sizes}</div>` : ""}
         <div class="pc-price">
           <span class="sale">₹${p.price.toLocaleString("en-IN")}</span>
           ${p.orig ? `<span class="orig">₹${p.orig.toLocaleString("en-IN")}</span>` : ""}
