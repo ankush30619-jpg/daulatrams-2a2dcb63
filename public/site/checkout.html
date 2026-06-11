@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Daulatram's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="pages.css"><link rel="stylesheet" href="store.css">
+</head>
+<body>
+<script>window.ACTIVE_NAV='shop';</script>
+<main id="main-content">
+  <div class="page-shell">
+    <h1 class="page-title">Checkout</h1>
+    <div id="co-root">Loading…</div>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="catalog.js"></script><script src="data.js"></script>
+<script src="auth.js"></script><script src="store.js"></script>
+<script src="page-shell.js"></script><script src="site.js"></script>
+<script>
+(function(){
+  const root = document.getElementById("co-root");
+  let addresses = [], selectedAddrId = null, payment = "cod";
+
+  function totals(){
+    const sub = window.dr.store.cartTotal();
+    let disc = 0, code = null;
+    try { const c = JSON.parse(localStorage.getItem("dr-coupon")||"null"); if(c){ disc = Math.round(sub*c.percent/100); code=c.code; } } catch(e){}
+    const shipping = (sub-disc) >= 1000 ? 0 : 60;
+    return { sub, disc, code, shipping, total: sub-disc+shipping };
+  }
+
+  async function loadAddresses(){
+    const sb = window.dr.auth.client(); const u = window.dr.auth.user; if (!u) return [];
+    const { data } = await sb.from("addresses").select("*").eq("user_id", u.id).order("is_default", { ascending: false });
+    return data || [];
+  }
+
+  function renderAddressList(){
+    if (!addresses.length){
+      return `<p style="color:#666;margin:6px 0">No saved addresses. Add one below.</p>`;
+    }
+    return addresses.map(a => `
+      <label class="pay-opt" style="display:flex;align-items:flex-start">
+        <input type="radio" name="addr" value="${a.id}" ${a.id===selectedAddrId?"checked":""}>
+        <div>
+          <strong>${a.label||"Address"}</strong>${a.is_default?' <span style="font-size:11px;color:#0B5132">DEFAULT</span>':""}
+          <div style="font-size:13px;color:#444;margin-top:4px">${a.line1}${a.line2?", "+a.line2:""}<br>${a.city}, ${a.state} ${a.pincode}<br>${a.phone||""}</div>
+        </div>
+      </label>`).join("");
+  }
+
+  async function render(){
+    const cart = window.dr.store.getCart();
+    if (!cart.length){
+      root.innerHTML = `<div class="dr-empty-page"><h2>Cart is empty</h2><a href="shop.html" class="btn btn-primary">Shop Now</a></div>`; return;
+    }
+    if (!window.dr.auth.user){
+      root.innerHTML = `<div class="dr-empty-page"><h2>Please sign in to checkout</h2><a href="auth.html?redirect=checkout.html" class="btn btn-primary">Sign In</a></div>`; return;
+    }
+    addresses = await loadAddresses();
+    if (!selectedAddrId && addresses.length) selectedAddrId = (addresses.find(a=>a.is_default)||addresses[0]).id;
+    const t = totals();
+    root.innerHTML = `
+      <div class="co-grid">
+        <div>
+          <div class="co-step">
+            <h3><span class="num">1</span>Shipping Address</h3>
+            <div id="addr-list">${renderAddressList()}</div>
+            <details style="margin-top:10px"><summary style="cursor:pointer;color:#0B5132;font-weight:600">+ Add a new address</summary>
+              <form id="addr-form" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <input name="label" placeholder="Label (Home / Office)" required>
+                <input name="phone" placeholder="Phone" required>
+                <input name="line1" placeholder="Address line 1" required style="grid-column:1/-1">
+                <input name="line2" placeholder="Address line 2 (optional)" style="grid-column:1/-1">
+                <input name="city" placeholder="City" required>
+                <input name="state" placeholder="State" required>
+                <input name="pincode" placeholder="Pincode" required>
+                <button class="btn btn-primary" type="submit" style="grid-column:1/-1">Save Address</button>
+              </form>
+            </details>
+          </div>
+          <div class="co-step">
+            <h3><span class="num">2</span>Payment</h3>
+            <label class="pay-opt"><input type="radio" name="pay" value="cod" checked> <span>Cash on Delivery</span></label>
+            <label class="pay-opt dis"><input type="radio" name="pay" value="online" disabled> <span>Pay Online (Razorpay / UPI — coming soon)</span></label>
+          </div>
+        </div>
+        <aside class="cart-summary" style="position:sticky;top:140px">
+          <h3>Your Order</h3>
+          ${cart.map(i=>`<div class="sum-row"><span style="max-width:60%;overflow:hidden;text-overflow:ellipsis">${i.name} × ${i.qty}</span><span>₹${(i.price*i.qty).toLocaleString("en-IN")}</span></div>`).join("")}
+          <div class="sum-row" style="border-top:1px solid #e6dcc4;padding-top:10px;margin-top:10px"><span>Subtotal</span><span>₹${t.sub.toLocaleString("en-IN")}</span></div>
+          ${t.disc?`<div class="sum-row" style="color:#0B5132"><span>${t.code}</span><span>−₹${t.disc.toLocaleString("en-IN")}</span></div>`:""}
+          <div class="sum-row"><span>Shipping</span><span>${t.shipping?"₹"+t.shipping:"FREE"}</span></div>
+          <div class="sum-total"><span>Total</span><span>₹${t.total.toLocaleString("en-IN")}</span></div>
+          <button id="place" class="btn btn-primary btn-block" style="margin-top:14px">Place Order →</button>
+          <div id="place-msg" style="font-size:13px;color:#c0392b;margin-top:8px"></div>
+        </aside>
+      </div>`;
+
+    document.querySelectorAll('input[name="addr"]').forEach(r => r.onchange = e => selectedAddrId = e.target.value);
+    const af = document.getElementById("addr-form");
+    if (af) af.onsubmit = async e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const sb = window.dr.auth.client(); const u = window.dr.auth.user;
+      const row = { user_id: u.id, label: f.get("label"), phone: f.get("phone"), line1: f.get("line1"), line2: f.get("line2"), city: f.get("city"), state: f.get("state"), pincode: f.get("pincode"), country: "India", is_default: addresses.length===0 };
+      const { data, error } = await sb.from("addresses").insert(row).select().single();
+      if (error){ alert(error.message); return; }
+      selectedAddrId = data.id; await render();
+    };
+
+    document.getElementById("place").onclick = placeOrder;
+  }
+
+  async function placeOrder(){
+    const msg = document.getElementById("place-msg"); msg.textContent="";
+    if (!selectedAddrId){ msg.textContent="Please select or add a shipping address."; return; }
+    const sb = window.dr.auth.client(); const u = window.dr.auth.user;
+    const cart = window.dr.store.getCart(); const t = totals();
+    const addr = addresses.find(a=>a.id===selectedAddrId);
+    const btn = document.getElementById("place"); btn.disabled=true; btn.textContent="Placing order…";
+    const { data: order, error } = await sb.from("orders").insert({
+      user_id: u.id, status: "pending", subtotal: t.sub, shipping: t.shipping, total: t.total,
+      shipping_address: addr, payment_method: payment
+    }).select().single();
+    if (error){ msg.textContent = error.message; btn.disabled=false; btn.textContent="Place Order →"; return; }
+    const items = cart.map(i => ({ order_id: order.id, product_id: i.id, product_name: i.name, image_url: i.image, unit_price: i.price, quantity: i.qty, line_total: i.price*i.qty }));
+    const { error: e2 } = await sb.from("order_items").insert(items);
+    if (e2){ msg.textContent = e2.message; btn.disabled=false; btn.textContent="Place Order →"; return; }
+    window.dr.store.clearCart();
+    localStorage.removeItem("dr-coupon");
+    location.href = "order-confirmation.html?order=" + encodeURIComponent(order.order_number||order.id);
+  }
+
+  // wait for auth init
+  setTimeout(render, 600);
+  window.addEventListener("dr-cart:change", render);
+})();
+</script>
+</body></html>

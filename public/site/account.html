@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — Daulatram's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="pages.css"><link rel="stylesheet" href="store.css">
+</head>
+<body>
+<script>window.ACTIVE_NAV='';</script>
+<main id="main-content">
+  <div class="page-shell">
+    <h1 class="page-title">My Account</h1>
+    <div id="acc-root">Loading…</div>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="catalog.js"></script>
+<script src="auth.js"></script><script src="store.js"></script>
+<script src="page-shell.js"></script><script src="site.js"></script>
+<script>
+(function(){
+  const root = document.getElementById("acc-root");
+  let active = (location.hash||"#profile").replace("#","");
+  const TABS = [["profile","Profile"],["orders","Orders"],["addresses","Addresses"],["wishlist","Wishlist"]];
+
+  async function render(){
+    if (!window.dr.auth.user){
+      root.innerHTML = `<div class="dr-empty-page"><h2>Please sign in</h2><a href="auth.html?redirect=account.html" class="btn btn-primary">Sign In</a></div>`; return;
+    }
+    root.innerHTML = `
+      <div class="acc-grid">
+        <aside class="acc-side">
+          ${TABS.map(([k,l])=>`<button data-t="${k}" class="${k===active?'active':''}">${l}</button>`).join("")}
+          <button id="acc-out" style="margin-top:10px;color:#c0392b">Sign Out</button>
+        </aside>
+        <section class="acc-panel" id="acc-panel"></section>
+      </div>`;
+    document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{ active=b.dataset.t; location.hash=active; render(); });
+    document.getElementById("acc-out").onclick = async ()=>{ await window.dr.auth.signOut(); location.href="home.html"; };
+    await renderPanel();
+  }
+
+  async function renderPanel(){
+    const p = document.getElementById("acc-panel"); const sb = window.dr.auth.client(); const u = window.dr.auth.user;
+    if (active==="profile"){
+      const { data } = await sb.from("profiles").select("*").eq("id", u.id).maybeSingle();
+      const pr = data || {};
+      p.innerHTML = `<h2>Profile</h2>
+        <form id="pf">
+          <div class="form-row"><div><label>Full Name</label><input name="full_name" value="${pr.full_name||""}"></div>
+          <div><label>Phone</label><input name="phone" value="${pr.phone||""}"></div></div>
+          <div><label>Email</label><input value="${u.email}" disabled></div>
+          <button class="btn btn-primary" style="margin-top:14px">Save Changes</button>
+          <span id="pf-msg" style="margin-left:14px;color:#0B5132;font-size:13px"></span>
+        </form>`;
+      document.getElementById("pf").onsubmit = async e=>{ e.preventDefault();
+        const f = new FormData(e.target);
+        const { error } = await sb.from("profiles").update({ full_name: f.get("full_name"), phone: f.get("phone") }).eq("id", u.id);
+        document.getElementById("pf-msg").textContent = error ? error.message : "✓ Saved";
+      };
+    } else if (active==="orders"){
+      const { data: orders } = await sb.from("orders").select("*").eq("user_id", u.id).order("created_at",{ascending:false});
+      if (!orders || !orders.length){ p.innerHTML = `<h2>Orders</h2><p style="color:#666">No orders yet. <a href="shop.html" style="color:#0B5132">Start shopping →</a></p>`; return; }
+      const ids = orders.map(o=>o.id);
+      const { data: items } = await sb.from("order_items").select("*").in("order_id", ids);
+      const byOrder = {}; (items||[]).forEach(i=>{ (byOrder[i.order_id]=byOrder[i.order_id]||[]).push(i); });
+      p.innerHTML = `<h2>Orders</h2>` + orders.map(o=>`
+        <div class="order-card">
+          <div class="order-head">
+            <div><div class="order-num">${o.order_number}</div><div class="order-meta">${new Date(o.created_at).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})} · ₹${o.total.toLocaleString("en-IN")}</div></div>
+            <span class="order-status">${o.status}</span>
+          </div>
+          <div class="order-items">${(byOrder[o.id]||[]).map(i=>`<img src="${i.image_url}" title="${i.product_name} × ${i.quantity}" onerror="this.style.visibility='hidden'">`).join("")}</div>
+        </div>`).join("");
+    } else if (active==="addresses"){
+      const { data: addrs } = await sb.from("addresses").select("*").eq("user_id", u.id).order("is_default",{ascending:false});
+      p.innerHTML = `<h2>Saved Addresses</h2>
+        ${(addrs||[]).map(a=>`
+          <div class="address-card" data-id="${a.id}">
+            <div><strong>${a.label}</strong>${a.is_default?' <span style="font-size:11px;color:#0B5132">DEFAULT</span>':""}
+              <div style="font-size:13px;color:#444;margin-top:4px">${a.line1}${a.line2?", "+a.line2:""}<br>${a.city}, ${a.state} ${a.pincode}<br>${a.phone||""}</div></div>
+            <div class="addr-actions">${!a.is_default?'<button data-act="def">Make default</button>':""}<button class="danger" data-act="del">Delete</button></div>
+          </div>`).join("")}
+        <details style="margin-top:14px"><summary style="cursor:pointer;color:#0B5132;font-weight:600">+ Add a new address</summary>
+          <form id="addr-form" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input name="label" placeholder="Label" required><input name="phone" placeholder="Phone" required>
+            <input name="line1" placeholder="Address line 1" required style="grid-column:1/-1">
+            <input name="line2" placeholder="Address line 2" style="grid-column:1/-1">
+            <input name="city" placeholder="City" required><input name="state" placeholder="State" required>
+            <input name="pincode" placeholder="Pincode" required>
+            <button class="btn btn-primary" style="grid-column:1/-1">Save</button>
+          </form>
+        </details>`;
+      p.addEventListener("click", async e=>{
+        const card = e.target.closest(".address-card"); if (!card) return;
+        const id = card.dataset.id; const act = e.target.dataset.act;
+        if (act==="del"){ await sb.from("addresses").delete().eq("id", id); renderPanel(); }
+        else if (act==="def"){ await sb.from("addresses").update({is_default:false}).eq("user_id",u.id); await sb.from("addresses").update({is_default:true}).eq("id",id); renderPanel(); }
+      });
+      const af = document.getElementById("addr-form");
+      if (af) af.onsubmit = async e=>{ e.preventDefault();
+        const f = new FormData(e.target);
+        await sb.from("addresses").insert({ user_id:u.id, label:f.get("label"), phone:f.get("phone"), line1:f.get("line1"), line2:f.get("line2"), city:f.get("city"), state:f.get("state"), pincode:f.get("pincode"), country:"India", is_default:(addrs||[]).length===0 });
+        renderPanel();
+      };
+    } else if (active==="wishlist"){
+      const w = window.dr.store.getWish();
+      if (!w.length) p.innerHTML = `<h2>Wishlist</h2><p style="color:#666">No saved items yet. <a href="shop.html" style="color:#0B5132">Browse →</a></p>`;
+      else p.innerHTML = `<h2>Wishlist</h2><div class="wish-grid">${w.map(i=>`
+        <article class="product-card"><div class="pc-img"><a href="product.html?id=${i.id}"><img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'"></a></div>
+        <div class="pc-body"><h3 class="pc-name">${i.name}</h3><div class="pc-price"><span class="sale">₹${i.price.toLocaleString("en-IN")}</span></div>
+        <a href="product.html?id=${i.id}" class="btn btn-primary btn-sm btn-block">View</a></div></article>`).join("")}</div>`;
+    }
+  }
+
+  setTimeout(render, 600);
+  window.addEventListener("hashchange", ()=>{ active = (location.hash||"#profile").replace("#",""); render(); });
+})();
+</script>
+</body></html>
