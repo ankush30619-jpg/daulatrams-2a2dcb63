@@ -9,7 +9,7 @@
     { label: 'Shop', href: 'shop.html', key: 'shop' },
     { label: 'About', href: 'about.html', key: 'about' },
     { label: 'Contact', href: 'contact.html', key: 'contact' },
-    { label: 'Blog', href: 'home.html#watch-shop', key: 'blog' }
+    { label: 'Blog', href: 'blog.html', key: 'blog' }
   ];
 
   /* ---- Announcement bar ---- */
