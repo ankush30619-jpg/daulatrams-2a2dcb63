@@ -42,14 +42,26 @@
   const bs = document.getElementById("bestsellers-grid");
   if (bs) bs.innerHTML = (P.bestsellers || []).map(rpc).join("");
 
+  /* Trending Now + Wellness Essentials carousels */
+  const tn = document.getElementById("trending-now-carousel");
+  if (tn) tn.innerHTML = (P.trendingNow || []).map(rpc).join("");
+  const we = document.getElementById("wellness-essentials-carousel");
+  if (we) we.innerHTML = (P.wellnessEssentials || []).map(rpc).join("");
+
   /* Concern default tab */
   const cg = document.getElementById("concern-grid");
   if (cg) cg.innerHTML = (window.__CONCERN_DATA["hair-care"] || []).map(rpc).join("");
 
-  /* Spotlight ingredient pills */
-  const pills = ["Shilajit","Ashwagandha","Safed Musli","Kaunch Beej","Gokshur","Kesar","Vidarikand","Akarkara","Shatavari","Jaiphal","Javitri","Amla"];
+  /* Spotlight ingredient pills — 14 ancient herbs with thumbnails */
   const pillWrap = document.getElementById("ingredient-pills");
-  if (pillWrap) pillWrap.innerHTML = pills.map((p) => `<span class="pill">${p}</span>`).join("");
+  if (pillWrap) {
+    const ingD = window.__INGREDIENTS || {};
+    pillWrap.innerHTML = Object.values(ingD).map((h) => `
+      <span class="pill pill-herb" title="${h.name} · ${h.dose || ""}">
+        <img src="${h.image}" alt="${h.name}" loading="lazy">
+        <span>${h.name}</span>
+      </span>`).join("");
+  }
 
   /* UGC */
   const ugcFiles = ["12.png","11.png","10.png","9.png","8.png","7.png","6.png","5-1.png"];
@@ -121,15 +133,7 @@
     // render first
     const d = ingData[keys[0]];
     const detail = document.getElementById("ing-detail");
-    if (detail) detail.innerHTML = `
-      <div class="ing-vis">${d.emoji}</div>
-      <div>
-        <h3>${d.name}</h3>
-        <div class="sanskrit">${d.sanskrit}</div>
-        <p class="ing-desc">${d.desc}</p>
-        <div class="ing-tags">${d.tags.map((t) => `<span>${t}</span>`).join("")}</div>
-        <div class="ing-used">Used in: <b>${d.used}</b></div>
-      </div>`;
+    if (detail) detail.innerHTML = window.renderIngredientDetail(d);
   }
 
   /* Media logos */
