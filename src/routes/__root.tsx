@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Daulatram's — Ayurveda in a Modern Era" },
+      { name: "description", content: "Three generations of Ayurvedic wisdom — pure, natural, FSSAI approved wellness for the whole family." },
+      { name: "author", content: "Daulatram's" },
+      { property: "og:title", content: "Daulatram's — Ayurveda in a Modern Era" },
+      { property: "og:description", content: "Pure Ayurvedic wellness crafted with three generations of trusted family knowledge." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@daulatrams" },
     ],
     links: [
       {
