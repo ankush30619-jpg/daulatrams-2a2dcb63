@@ -1066,6 +1066,9 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
    desktop and mobile.
    ============================================================ */
 @media (max-width: 768px) {
+  /* Header sits flush under the 36px announcement bar on mobile */
+  .header { top: 36px; }
+
   /* Force home header to its solid look on mobile so it doesn't
      float transparently over the hero image. Desktop keeps the
      floating transparent header look untouched. */
@@ -1078,12 +1081,14 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     border-color: rgba(255, 255, 255, 0.16);
   }
 
-  /* Push hero down by announcement(36) + header(66) = 102px so the
-     image starts below the header instead of behind it. */
+  /* Body already has padding-top:36px (announcement). Hero only needs
+     to clear the 66–76px header — no extra gap. */
   .hero-banner {
-    margin-top: 102px;
+    margin-top: 66px;
   }
   .hero-banner img {
+    width: 100%;
+    height: auto;
     max-height: calc(100svh - 102px);
     object-fit: cover;
   }
