@@ -368,7 +368,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 .page-flow {
   position: relative;
   z-index: 2;
-  background: var(--cream);
+  background: var(--cream-warm);
 }
 
 .hero-banner {
@@ -1081,21 +1081,27 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     border-color: rgba(255, 255, 255, 0.16);
   }
 
-  /* Body already has padding-top:36px (announcement). Hero only needs
-     to clear the 66–76px header — no extra gap. */
+  /* Body already has padding-top:36px (announcement). Header ends at 102px,
+     so 66px total offset keeps the image directly below it with no white strip. */
   .hero-banner {
-    margin-top: 66px;
+    margin-top: 0 !important;
+    overflow: hidden;
+    transform: translateY(-36px);
+    margin-bottom: -36px;
   }
   .hero-banner img {
     width: 100%;
     height: auto;
     max-height: calc(100svh - 102px);
     object-fit: cover;
+    transform: none;
+    margin-bottom: 0;
   }
 
   /* Keep the sticky scroll-stacking effect on mobile, pinned just
      below the header so the page-flow slides up over it. */
   .hero-banner.sticky-hero {
     top: 102px;
+    z-index: 0;
   }
 }
