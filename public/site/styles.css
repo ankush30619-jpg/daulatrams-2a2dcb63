@@ -400,14 +400,14 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   position: relative;
 }
 
-/* Floating transparent header over banner */
+/* Home header stays solid green over the banner */
 .home-floating-header .header:not(.scrolled) {
-  background: transparent !important;
-  box-shadow: none !important;
+  background: var(--deep-green) !important;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.22) !important;
 }
 .home-floating-header .header:not(.scrolled) .nav-center {
-  background: rgba(255,255,255,0.18);
-  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.16);
   backdrop-filter: blur(14px) saturate(160%);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
 }
