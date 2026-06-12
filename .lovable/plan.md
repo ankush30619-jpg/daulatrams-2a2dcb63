@@ -1,35 +1,50 @@
-## Fix plan
+## Fix mobile spacing + restore sticky hero (desktop + mobile)
 
-I’ll keep the sticky hero scroll effect active on **desktop and mobile**.
+### Problems
+1. **White strip between marquee and header (mobile):** header is still at `top: 40px` (desktop value) but mobile announcement is only `36px` tall → 4px white gap.
+2. **White space between header and hero image (mobile):** previous fix set `.hero-banner { margin-top: 102px }` on top of `body { padding-top: 36px }` → pushed hero ~36px too far down.
+3. **Sticky hero scroll-stacking effect broken** on both desktop and mobile.
 
-### What will change
+### Changes (all inside `public/site/styles.css`)
 
-1. **Desktop sticky hero stays exactly active**
-   - Keep `.hero-banner.sticky-hero { position: sticky; top: 0; }` for desktop.
-   - Do not remove or weaken the desktop scroll-stacking effect.
+Inside the existing `@media (max-width: 768px)` block at lines 1068–1096:
 
-2. **Mobile hero moves below header, but remains sticky**
-   - On mobile only, hero will start **under the announcement + header**, not behind it.
-   - Mobile sticky offset will be set below the header:
-     ```css
-     @media (max-width: 768px) {
-       .hero-banner { margin-top: 102px; }
-       .hero-banner.sticky-hero { top: 102px; }
-     }
-     ```
+```css
+@media (max-width: 768px) {
+  /* Header sits flush under the 36px announcement bar */
+  .header { top: 36px; }
 
-3. **Mobile header will not cover the banner image**
-   - On mobile, the home header will use solid header styling instead of transparent overlay.
-   - Desktop can still keep the floating transparent header look.
+  /* Solid mobile home header so it doesn't float over the portrait banner */
+  .home-floating-header .header {
+    background: var(--deep-green) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18) !important;
+  }
+  .home-floating-header .header .nav-center {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.16);
+  }
 
-4. **Hero image sizing remains clean**
-   - Desktop: wide banner keeps current cinematic sticky behavior.
-   - Mobile: portrait banner remains visible below header and still participates in sticky scroll reveal.
+  /* Body already has padding-top:36px (announcement). Hero only needs
+     to clear the 76px header (66px when scrolled) — no extra gap. */
+  .hero-banner { margin-top: 66px; }
+  .hero-banner img {
+    width: 100%;
+    height: auto;
+    max-height: calc(100svh - 102px);
+    object-fit: cover;
+  }
+
+  /* Sticky scroll-stacking on mobile, pinned below header */
+  .hero-banner.sticky-hero { top: 102px; }
+}
+```
+
+Desktop stays untouched (`.header { top: 40px }`, hero margin-top 40px, `sticky-hero { top: 0 }` keeps the cinematic overlap working).
+
+### Result
+- Mobile marquee → header → hero are all flush (no white strips).
+- Sticky hero scroll-stacking effect works on both desktop and mobile.
+- Mobile header stays solid so the portrait banner image is visible just below it.
 
 ### File to edit
 - `public/site/styles.css`
-
-### Result
-- Desktop: sticky hero effect visible.
-- Mobile: sticky hero effect visible.
-- Mobile hero image appears below the header, not hidden behind it.
