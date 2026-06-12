@@ -1012,7 +1012,7 @@ html[data-anim="off"] .spot-img, html[data-anim="off"] .badge-circle, html[data-
    MOBILE-FIRST POLISH (≤ 768px)
    Added: tap targets, spacing, typography, sticky bars, safe-area
    ============================================================ */
-html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+html, body { overflow-x: clip; -webkit-text-size-adjust: 100%; }
 
 @media (max-width: 768px) {
   :root {
@@ -1072,7 +1072,8 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   /* Force home header to its solid look on mobile so it doesn't
      float transparently over the hero image. Desktop keeps the
      floating transparent header look untouched. */
-  .home-floating-header .header {
+  .home-floating-header .header,
+  .home-floating-header .header:not(.scrolled) {
     background: var(--deep-green) !important;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18) !important;
   }
@@ -1084,10 +1085,10 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   /* Body already has padding-top:36px (announcement). Header ends at 102px,
      so 66px total offset keeps the image directly below it with no white strip. */
   .hero-banner {
-    margin-top: 0 !important;
+    margin-top: 66px !important;
     overflow: hidden;
-    transform: translateY(-36px);
-    margin-bottom: -36px;
+    transform: none;
+    margin-bottom: 0;
   }
   .hero-banner img {
     width: 100%;
