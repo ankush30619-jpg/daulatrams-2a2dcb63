@@ -1081,10 +1081,10 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     border-color: rgba(255, 255, 255, 0.16);
   }
 
-  /* Body already has padding-top:36px (announcement). Hero only needs
-     to clear the 66–76px header — no extra gap. */
+  /* Body already has padding-top:36px (announcement). Header ends at 102px,
+     so 66px total offset keeps the image directly below it with no white strip. */
   .hero-banner {
-    margin-top: 66px;
+    margin-top: 30px;
     overflow: hidden;
   }
   .hero-banner img {
@@ -1092,8 +1092,8 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     height: auto;
     max-height: calc(100svh - 102px);
     object-fit: cover;
-    transform: translateY(-28px);
-    margin-bottom: -28px;
+    transform: translateY(-18px);
+    margin-bottom: -18px;
   }
 
   /* Keep the sticky scroll-stacking effect on mobile, pinned just
