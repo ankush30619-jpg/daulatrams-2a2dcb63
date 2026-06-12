@@ -6,7 +6,9 @@
 
   /* ---------- Hero + header reveal on load ---------- */
   const hero = document.querySelector(".hero");
+  const heroBanner = document.querySelector(".hero-banner");
   const header = document.querySelector(".header");
+  const isHomeFloating = document.body.classList.contains("home-floating-header");
 
   window.addEventListener("load", () => {
     requestAnimationFrame(() => hero && hero.classList.add("revealed"));
@@ -18,23 +20,15 @@
     if (header) header.classList.add("revealed");
   }, 1200);
 
-  // Banner-only home: header floats transparent at top, becomes solid green after a small scroll.
-  if (!hero && header) {
-    const banner = document.querySelector(".hero-banner");
-    const setSolid = () => {
-      const trigger = banner ? banner.offsetHeight * 0.5 : 200;
-      header.classList.toggle("scrolled", window.scrollY > trigger);
-    };
-    setSolid();
-    window.addEventListener("scroll", setSolid, { passive: true });
-  }
-
   /* ---------- Header scroll state ---------- */
-  const heroHeight = () => (hero ? hero.offsetHeight : window.innerHeight);
+  const heroHeight = () => (hero ? hero.offsetHeight : heroBanner ? heroBanner.offsetHeight : window.innerHeight);
   let ticking = false;
   function onScroll() {
     const y = window.scrollY;
-    if (header) header.classList.toggle("scrolled", !hero || y > heroHeight() - 120);
+    if (header) {
+      const trigger = heroBanner ? heroBanner.offsetHeight * 0.5 : hero ? heroHeight() - 120 : 0;
+      header.classList.toggle("scrolled", isHomeFloating ? y > trigger : true);
+    }
     // Fade hero content as you scroll past
     if (hero) {
       const hc = hero.querySelector(".hero-content");
