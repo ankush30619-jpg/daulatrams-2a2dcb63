@@ -272,3 +272,16 @@
 
 /* Save button states */
 .btn-saving{opacity:.7;pointer-events:none}
+
+/* ============ Mobile polish (≤ 640px) ============ */
+@media (max-width: 640px) {
+  .cart-row { grid-template-columns: 72px 1fr; grid-template-areas: "img info" "img qty" "img line"; gap: 10px 14px; padding: 14px 12px; }
+  .cart-row img { width: 72px; height: 72px; grid-area: img; }
+  .cart-row .ci-info { grid-area: info; }
+  .cart-row .ci-qty { grid-area: qty; justify-self: start; }
+  .cart-row .ci-line { grid-area: line; justify-self: start; }
+  .cart-summary { position: static; padding: 18px; }
+  .acc-side { position: sticky; top: 80px; z-index: 5; background: var(--cream-warm); padding: 8px 0; }
+  .acc-side ul { display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .acc-side li { flex: 0 0 auto; }
+}

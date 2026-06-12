@@ -294,3 +294,16 @@
   background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px;
 }
 .variant-select:focus { outline: none; border-color: var(--brand-green, #0B5132); box-shadow: 0 0 0 3px rgba(11,81,50,0.12); }
+
+/* ============ PDP mobile polish ============ */
+@media (max-width: 860px) {
+  .pdp-gallery2 { position: static; }
+  .pdp-main-wrap { aspect-ratio: 1; }
+  .pdp-thumbrow { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .pdp-thumb2 { flex: 0 0 64px; }
+}
+@media (max-width: 640px) {
+  .pdp-hero { padding: 18px 0 24px; }
+  .pdp-title { font-size: 26px; line-height: 1.15; }
+  .pdp-price2 .sale { font-size: 28px; }
+}

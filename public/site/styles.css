@@ -386,7 +386,8 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   object-position: center;
 }
 @media (max-width: 768px) {
-  .hero-banner img { max-height: 60vh; }
+  .hero-banner { margin-top: 0; }
+  .hero-banner img { max-height: none; width: 100%; height: auto; }
 }
 
 .hero-banner.sticky-hero {
@@ -1005,4 +1006,56 @@ html[data-anim="off"] .spot-img, html[data-anim="off"] .badge-circle, html[data-
 .pc-sizes {
   font-size: 12px; color: var(--text-muted);
   margin: -2px 0 6px; font-weight: 500; letter-spacing: 0.2px;
+}
+
+/* ============================================================
+   MOBILE-FIRST POLISH (≤ 768px)
+   Added: tap targets, spacing, typography, sticky bars, safe-area
+   ============================================================ */
+html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+
+@media (max-width: 768px) {
+  :root {
+    --pad: 18px;
+    --section-gap: 56px;
+  }
+  body { padding-top: 36px; }
+
+  /* Typography down-scale for phones */
+  .t-display { font-size: clamp(30px, 9vw, 44px); }
+  .t-h1 { font-size: clamp(26px, 7.5vw, 36px); }
+  .t-h2 { font-size: clamp(22px, 6.4vw, 32px); }
+  .t-h3 { font-size: clamp(18px, 5vw, 22px); }
+  .t-body-lg { font-size: 16px; }
+
+  /* Section spacing */
+  .section { padding: 44px 0; }
+
+  /* Announcement bar */
+  .announcement { height: 36px; font-size: 12px; }
+
+  /* Header */
+  .header .container { padding-left: 14px; padding-right: 14px; }
+  .brand-logo img { height: 38px; }
+  .nav-actions { gap: 6px; }
+  .icon-btn { width: 40px; height: 40px; }
+  .icon-btn svg { width: 20px; height: 20px; }
+
+  /* Buttons — min tap target */
+  .btn, button.btn, a.btn { min-height: 44px; }
+
+  /* Inputs — prevent iOS zoom */
+  input, select, textarea { font-size: 16px !important; }
+
+  /* Floating WA + reveal above sticky CTAs */
+  .wa-float { bottom: calc(env(safe-area-inset-bottom, 0px) + 86px); right: 14px; }
+}
+
+/* Tablet down: footer columns wrap */
+@media (max-width: 768px) {
+  .footer-main { grid-template-columns: 1fr 1fr !important; gap: 28px; padding: 44px 0 28px; }
+  .footer-col.footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .footer-main { grid-template-columns: 1fr !important; }
 }
