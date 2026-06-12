@@ -386,7 +386,8 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
   object-position: center;
 }
 @media (max-width: 768px) {
-  .hero-banner img { max-height: 60vh; }
+  .hero-banner { margin-top: 0; }
+  .hero-banner img { max-height: none; width: 100%; height: auto; }
 }
 
 .hero-banner.sticky-hero {
