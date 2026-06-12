@@ -1059,3 +1059,38 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
 @media (max-width: 480px) {
   .footer-main { grid-template-columns: 1fr !important; }
 }
+
+/* ============================================================
+   MOBILE HERO — image sits BELOW the header (not behind it),
+   while keeping the sticky scroll-stacking effect on both
+   desktop and mobile.
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Force home header to its solid look on mobile so it doesn't
+     float transparently over the hero image. Desktop keeps the
+     floating transparent header look untouched. */
+  .home-floating-header .header {
+    background: var(--deep-green) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18) !important;
+  }
+  .home-floating-header .header .nav-center {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  /* Push hero down by announcement(36) + header(66) = 102px so the
+     image starts below the header instead of behind it. */
+  .hero-banner {
+    margin-top: 102px;
+  }
+  .hero-banner img {
+    max-height: calc(100svh - 102px);
+    object-fit: cover;
+  }
+
+  /* Keep the sticky scroll-stacking effect on mobile, pinned just
+     below the header so the page-flow slides up over it. */
+  .hero-banner.sticky-hero {
+    top: 102px;
+  }
+}
