@@ -452,6 +452,8 @@
 .pay-mc i:last-child  { background:#f79e1b; }
 .pay-rzp  { background:#02042b; color:#fff; text-transform:none; letter-spacing:0.02em; font-size:11.5px; }
 .pay-cod  { background:linear-gradient(135deg,#0B5132,#1A6E3E); }
+.pay-rupay{ background:#fff; color:#097939; border:1.5px solid #097939; font-weight:800; letter-spacing:0.04em; font-size:12px; }
+.pay-rupay::after{content:""; display:inline-block; width:6px; height:6px; margin-left:4px; background:#f7941d; border-radius:50%;}
 
 /* ============ Trust Legacy — refined ============ */
 .trust-legacy {
