@@ -397,46 +397,40 @@
   const isGhee=cat.includes("ghee");
   const isHoney=cat.includes("honey");
 
-  /* PROBLEMS */
-  const PROBLEMS={
-    mens:[{ico:'😴',l:'Low Energy',s:'Always tired, no drive to work or exercise'},
-          {ico:'💪',l:'Poor Strength',s:'Feeling physically weak despite effort'},
-          {ico:'😤',l:'Stress & Anxiety',s:'Mental fog and constant tension'},
-          {ico:'🏋️',l:'Low Stamina',s:'Getting tired too quickly at work or gym'},
-          {ico:'😞',l:'Loss of Confidence',s:'Feeling less like yourself lately'}],
-    womens:[{ico:'😟',l:'Hormonal Imbalance',s:'Irregular cycles and mood swings'},
-            {ico:'😩',l:'Constant Fatigue',s:'Low energy even after full sleep'},
-            {ico:'🤯',l:'PMS Discomfort',s:'Painful periods and bloating'},
-            {ico:'💆',l:'Anxiety & Stress',s:'Feeling overwhelmed and drained'},
-            {ico:'💇',l:'Hair & Skin Issues',s:'Dull skin and hair fall from hormonal causes'}],
-    hair:[{ico:'😩',l:'Heavy Hair Fall',s:'Losing more than 100 strands daily'},
-          {ico:'🪥',l:'Dry Scalp',s:'Itching, flaking and dandruff'},
-          {ico:'⬛',l:'Premature Greying',s:'Grey hair appearing too early'},
-          {ico:'💤',l:'Weak Roots',s:'Hair breaks easily at roots'},
-          {ico:'✨',l:'Dull Hair',s:'No shine, volume or bounce'}],
-    skin:[{ico:'🔴',l:'Acne & Breakouts',s:'Frequent pimples and dark spots'},
-          {ico:'😞',l:'Dull & Dry Skin',s:'Lack of glow and hydration'},
-          {ico:'🌞',l:'Sun Damage',s:'Tan, pigmentation and uneven tone'},
-          {ico:'⌛',l:'Ageing Signs',s:'Early wrinkles and fine lines'},
-          {ico:'🏃',l:'Oily Skin',s:'Excessive sebum and open pores'}],
-    ghee:[{ico:'🤢',l:'Poor Digestion',s:'Bloating, constipation, acidity'},
-          {ico:'🧠',l:'Mental Fog',s:'Difficulty concentrating or remembering'},
-          {ico:'🦴',l:'Joint Stiffness',s:'Morning stiffness and joint aches'},
-          {ico:'😴',l:'Low Immunity',s:'Falling sick frequently'},
-          {ico:'🍳',l:'Chemical Cooking Oils',s:'Concerned about refined oils in your food'}],
-    honey:[{ico:'🤒',l:'Low Immunity',s:'Catching cold and infections frequently'},
-           {ico:'😮‍💨',l:'Respiratory Issues',s:'Cough, congestion and throat irritation'},
-           {ico:'🍬',l:'Sugar Cravings',s:'Addicted to refined sugar and sweets'},
-           {ico:'🦠',l:'Gut Imbalance',s:'Bloating and digestive discomfort'},
-           {ico:'🪫',l:'Low Energy',s:'Feeling sluggish through the day'}]
-  };
-  const probs=isMens?PROBLEMS.mens:isWomen?PROBLEMS.womens:isHair?PROBLEMS.hair:isSkin?PROBLEMS.skin:isGhee?PROBLEMS.ghee:PROBLEMS.honey;
-  document.getElementById('problems-grid').innerHTML=probs.map(pr=>`
-    <div class="prob-card">
-      <span class="p-ico">${pr.ico}</span>
-      <div class="p-label">${pr.l}</div>
-      <div class="p-sub">${pr.s}</div>
-    </div>`).join('');
+  /* FEATURED PICKS — high-converting upsell row */
+  (function(){
+    const allP = window.__CATALOG || [];
+    const seenN = new Set([p.name]);
+    const picks = allP.filter(x=>{
+      if(x.id===p.id) return false;
+      if(seenN.has(x.name)) return false;
+      seenN.add(x.name); return true;
+    });
+    const sameCat = picks.filter(x=>x.category===p.category).slice(0,2);
+    const other   = picks.filter(x=>x.category!==p.category).slice(0,2);
+    const list = [...sameCat, ...other].slice(0,4);
+    const root = document.getElementById('featured-picks-grid');
+    if(!root) return;
+    root.innerHTML = list.map(fp=>{
+      const off = fp.orig ? Math.round((1-fp.price/fp.orig)*100) : 0;
+      const img = (fp.images && fp.images[0]) || '';
+      return `<a class="fp-card" href="product.html?id=${fp.id}">
+        ${off?`<span class="fp-disc">−${off}%</span>`:''}
+        ${fp.tag==='bestseller'?'<span class="fp-tag">★ Bestseller</span>':''}
+        <div class="fp-img"><img src="${img}" alt="${fp.name}" loading="lazy" onerror="this.style.opacity=.2"></div>
+        <div class="fp-body">
+          <div class="fp-cat">${fp.category}</div>
+          <div class="fp-name">${fp.name}</div>
+          <div class="fp-stars">★★★★★ <span>(${(fp.reviews||120).toLocaleString('en-IN')})</span></div>
+          <div class="fp-price">
+            <span class="fp-sale">₹${fp.price.toLocaleString('en-IN')}</span>
+            ${fp.orig?`<span class="fp-orig">₹${fp.orig.toLocaleString('en-IN')}</span>`:''}
+          </div>
+          <span class="fp-cta">Shop Now →</span>
+        </div>
+      </a>`;
+    }).join('');
+  })();
 
   /* DOCTOR section */
   document.getElementById('doc-title').textContent='Daulatram\'s '+p.name+' — Trusted by Practitioners';
