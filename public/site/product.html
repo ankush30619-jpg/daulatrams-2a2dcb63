@@ -124,7 +124,11 @@
         </div>
         <a href="shop.html" class="link-arrow">Shop All →</a>
       </div>
-      <div class="featured-picks-grid" id="featured-picks-grid"></div>
+      <div class="carousel-wrap">
+        <button class="carousel-arrow prev" data-target="featured-picks-grid" aria-label="Previous">‹</button>
+        <div class="featured-picks-grid carousel-track" id="featured-picks-grid" data-autoplay="1"></div>
+        <button class="carousel-arrow next" data-target="featured-picks-grid" aria-label="Next">›</button>
+      </div>
     </div>
   </section>
 
@@ -135,7 +139,11 @@
         <div><span class="label label-green">EXPLORE MORE</span><h2 class="t-h2" style="color:var(--charcoal)">You May Also Like</h2></div>
         <a href="shop.html" class="link-arrow">View All →</a>
       </div>
-      <div class="yml-carousel sr" id="yml-grid"></div>
+      <div class="carousel-wrap">
+        <button class="carousel-arrow prev" data-target="yml-grid" aria-label="Previous">‹</button>
+        <div class="yml-carousel carousel-track sr" id="yml-grid" data-autoplay="1"></div>
+        <button class="carousel-arrow next" data-target="yml-grid" aria-label="Next">›</button>
+      </div>
     </div>
   </section>
 
@@ -143,14 +151,12 @@
   <section class="doctor-sec sr">
     <div class="container doctor-inner">
       <div class="doctor-img-wrap">
-        <div class="doctor-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" width="64" height="64"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <div style="font-family:var(--font-label);font-size:12px;letter-spacing:0.1em;opacity:0.5">DOCTOR PHOTO PLACEHOLDER</div>
-          <div style="font-size:32px;margin-top:8px;">🩺</div>
-        </div>
+        <img src="/__l5e/assets-v1/73997df6-3152-476b-a4cf-052813503525/doctor-ramesh.png"
+             alt="Dr. Ramesh Kumar, B.A.M.S — recommends Daulatram's Veer Ved Max Shakti+ Capsules"
+             class="doctor-real-img" loading="lazy">
         <div class="doctor-badge">
           <div class="db-ico">🩺</div>
-          <div><div class="db-txt">Ayurvedic Expert</div><div class="db-sub">Recommended by practitioners</div></div>
+          <div><div class="db-txt">Dr. Ramesh Kumar</div><div class="db-sub">B.A.M.S · Ayurvedic Practitioner</div></div>
         </div>
       </div>
       <div class="doctor-content">
@@ -432,8 +438,11 @@
   if(mainIngredients.length&&(isMens||p.id.includes('shakti'))){
     ingHTML=ingKeys.slice(0,6).map(k=>{
       const d=ingData[k];
+      const visual = d.image
+        ? `<img src="${d.image}" alt="${d.name}" loading="lazy" onerror="this.parentElement.innerHTML='<span style=&quot;font-size:56px&quot;>🌿</span>'">`
+        : `<span style="font-size:56px">${d.emoji||'🌿'}</span>`;
       return `<div class="ing-card2">
-        <div class="ic-img"><span style="font-size:56px">${d.emoji||'🌿'}</span></div>
+        <div class="ic-img">${visual}</div>
         <div class="ic-body">
           <div class="ic-name">${d.name}</div>
           <div class="ic-sanskrit">${d.sanskrit||''}</div>
@@ -558,6 +567,32 @@
         <a href="product.html?id=${bd.b.id}" class="btn btn-primary" style="width:100%;text-align:center;margin-top:12px;">Add Bundle to Cart</a>
       </div>
     </div>`).join('');
+
+  /* Carousel arrows + autoplay */
+  document.querySelectorAll('.carousel-arrow').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const t=document.getElementById(btn.dataset.target); if(!t) return;
+      const first=t.querySelector('.yml-item,.fp-card');
+      const step=(first?first.getBoundingClientRect().width+18:300);
+      t.scrollBy({left: btn.classList.contains('next')?step:-step, behavior:'smooth'});
+    });
+  });
+  document.querySelectorAll('.carousel-track[data-autoplay="1"]').forEach(track=>{
+    let paused=false;
+    track.addEventListener('mouseenter',()=>paused=true);
+    track.addEventListener('mouseleave',()=>paused=false);
+    track.addEventListener('touchstart',()=>paused=true,{passive:true});
+    setInterval(()=>{
+      if(paused) return;
+      const first=track.querySelector('.yml-item,.fp-card'); if(!first) return;
+      const step=first.getBoundingClientRect().width+18;
+      if(track.scrollLeft + track.clientWidth + 4 >= track.scrollWidth){
+        track.scrollTo({left:0,behavior:'smooth'});
+      } else {
+        track.scrollBy({left:step,behavior:'smooth'});
+      }
+    },3800);
+  });
 })();
 </script>
 
