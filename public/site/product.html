@@ -7,10 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=heritage-cta-fix-2">
-<link rel="stylesheet" href="pages.css?v=heritage-cta-fix-2">
+<link rel="stylesheet" href="styles.css?v=pdp-veerved-1">
+<link rel="stylesheet" href="pages.css?v=pdp-veerved-1">
 <link rel="stylesheet" href="store.css">
-<link rel="stylesheet" href="pdp.css?v=heritage-cta-fix-2">
+<link rel="stylesheet" href="pdp.css?v=pdp-veerved-1">
 </head>
 <body>
 <script>document.documentElement.classList.add('js-anim'); window.ACTIVE_NAV = 'shop';</script>
@@ -50,12 +50,15 @@
             <span class="sep">|</span>
             <a href="#reviews" style="font-size:13px;color:var(--brand-green);font-weight:600;">See all reviews →</a>
           </div>
+          <div class="pdp-badges-row" id="h-badges"></div>
 
           <!-- Variants -->
           <div class="pdp-variants2" id="variant-wrap">
             <span class="lbl">Choose Pack</span>
-            <select id="variant-select" class="variant-select"></select>
+            <select id="variant-select" class="variant-select" style="display:none"></select>
             <div class="variant-pills" id="variant-cards"></div>
+            <!-- Free gift slot (60 caps) -->
+            <div id="free-gift" class="free-gift" style="display:none"></div>
           </div>
 
           <!-- Price -->
@@ -98,20 +101,33 @@
     </div>
   </section>
 
-  <!-- ===== TRUST BANNER ===== -->
-  <div class="trust-banner">
-    <div class="inner">
-      <div class="ti-item"><div class="ico">🏭</div><div class="txt">Own Manufacturing<small>Karnal &amp; Yamuna Nagar</small></div></div>
-      <div class="trust-banner-sep"></div>
-      <div class="ti-item"><div class="ico">🌿</div><div class="txt">100% Natural<small>Zero chemicals</small></div></div>
-      <div class="trust-banner-sep"></div>
-      <div class="ti-item"><div class="ico">✅</div><div class="txt">FSSAI Approved<small>Lab tested every batch</small></div></div>
-      <div class="trust-banner-sep"></div>
-      <div class="ti-item"><div class="ico">🤝</div><div class="txt">3 Generations<small>Trusted family brand</small></div></div>
-      <div class="trust-banner-sep"></div>
-      <div class="ti-item"><div class="ico">🚚</div><div class="txt">Fast Delivery<small>19,000+ pincodes</small></div></div>
+  <!-- ===== TRUST LEGACY BADGES ===== -->
+  <section class="trust-legacy">
+    <div class="container trust-legacy-inner">
+      <p class="trust-legacy-text">
+        Trust the legacy of <strong>Daulatram's</strong> — 3rd generation of Ayurveda,<br>
+        now backed by <strong>science</strong>.
+      </p>
+      <div class="trust-legacy-badges">
+        <div class="tlb tlb-1" role="img" aria-label="FSSAI Approved"></div>
+        <div class="tlb tlb-2" role="img" aria-label="ISO 9001 Certified"></div>
+        <div class="tlb tlb-3" role="img" aria-label="100% Ayurvedic"></div>
+        <div class="tlb tlb-4" role="img" aria-label="Plant Based"></div>
+        <div class="tlb tlb-5" role="img" aria-label="Made in India"></div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- ===== YOU MAY ALSO LIKE (carousel up here) ===== -->
+  <section class="section yml-sec" style="background:var(--cream-warm);padding:56px 0 24px;">
+    <div class="container">
+      <div class="sec-head-row sr">
+        <div><span class="label label-green">EXPLORE MORE</span><h2 class="t-h2" style="color:var(--charcoal)">You May Also Like</h2></div>
+        <a href="shop.html" class="link-arrow">View All →</a>
+      </div>
+      <div class="yml-carousel sr" id="yml-grid"></div>
+    </div>
+  </section>
 
   <!-- ===== PROBLEMS ===== -->
   <section class="problems-sec sr">
@@ -157,16 +173,6 @@
     </div>
   </section>
 
-  <!-- ===== WHATSAPP TESTIMONIALS ===== -->
-  <section class="wa-sec sr">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">REAL PEOPLE, REAL RESULTS</span></div>
-      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">What Customers Are Saying on <span style="color:#25D366;">WhatsApp</span></h2>
-      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:500px;margin:12px auto 0;">Unfiltered, unsponsored messages from our real customers.</p>
-      <div class="wa-grid sr-stagger" id="wa-grid"></div>
-    </div>
-  </section>
-
   <!-- ===== RATING SUMMARY ===== -->
   <section class="rating-sum-sec" id="reviews">
     <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:860px;">
@@ -190,7 +196,16 @@
         </div>
       </div>
     </div>
-    @media(max-width:640px){.rating-sum-sec .container{grid-template-columns:1fr!important;}}
+  </section>
+
+  <!-- ===== WHATSAPP TESTIMONIALS ===== -->
+  <section class="wa-sec sr">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">REAL PEOPLE, REAL RESULTS</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">What Customers Are Saying on <span style="color:#25D366;">WhatsApp</span></h2>
+      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:500px;margin:12px auto 0;">Unfiltered, unsponsored messages from our real customers.</p>
+      <div class="wa-grid sr-stagger" id="wa-grid"></div>
+    </div>
   </section>
 
   <!-- ===== TEXT REVIEWS ===== -->
@@ -209,37 +224,13 @@
     </div>
   </section>
 
-  <!-- ===== HOW TO USE ===== -->
-  <section class="htu-sec sr">
+  <!-- ===== BUNDLES / OFFERS ===== -->
+  <section class="bundles-sec sr" style="background:var(--cream-warm);padding:72px 0;">
     <div class="container">
-      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">SIMPLE TO TAKE</span></div>
-      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Just <span style="color:var(--brand-green);">3 Easy Steps</span></h2>
-      <div class="htu-steps" id="htu-steps"></div>
-      <div style="text-align:center;margin-top:40px;background:rgba(91,155,42,0.08);border-radius:16px;padding:24px 32px;max-width:680px;margin-left:auto;margin-right:auto;">
-        <div style="font-size:17px;font-weight:600;color:var(--charcoal);margin-bottom:8px;">📋 Important Note</div>
-        <div id="how-note" style="font-size:15px;color:var(--text-medium);line-height:1.7;"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FAMILY STORY ===== -->
-  <section class="family-sec sr">
-    <div class="container family-inner">
-      <div>
-        <span class="label label-green">OUR HERITAGE</span>
-        <blockquote>"This product was not built in a factory — it was built by a <span>family</span>."</blockquote>
-        <p style="font-size:16px;color:var(--text-medium);line-height:1.8;margin-bottom:18px;">For three generations, Daulatram's has been a name of trust in Ayurveda. What began as Shri Daulat Ram Ji's Ayurvedic practice in Karnal, Haryana, is today a brand trusted by 50,000+ Indian families across the country.</p>
-        <p style="font-size:16px;color:var(--text-medium);line-height:1.8;margin-bottom:28px;">Every formula we make carries the weight of that heritage — tested by time, refined by science, and prepared with the purity that only a family brand can promise.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="about.html" class="btn btn-secondary">Our Full Story →</a>
-          <a href="shop.html" class="btn btn-primary">Shop All Products</a>
-        </div>
-      </div>
-      <div class="family-img-grid">
-        <div class="family-img-placeholder" style="grid-row:span 2;aspect-ratio:unset;height:100%;min-height:280px;">👨‍⚕️</div>
-        <div class="family-img-placeholder">🌿</div>
-        <div class="family-img-placeholder">🏭</div>
-      </div>
+      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">SAVE MORE TOGETHER</span></div>
+      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Best Value <span style="color:var(--brand-orange);">Bundles</span></h2>
+      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:560px;margin:12px auto 0;">Hand-picked combinations to boost your results — at exclusive bundle prices.</p>
+      <div class="bundle-grid" id="bundle-grid"></div>
     </div>
   </section>
 
@@ -252,33 +243,6 @@
     </div>
   </section>
 
-  <!-- ===== FINAL CTA ===== -->
-  <section class="final-cta-sec">
-    <div class="container" style="position:relative;z-index:1;">
-      <span class="label" style="color:var(--brand-orange);display:block;margin-bottom:14px;">DON'T WAIT</span>
-      <h2>What Are You Waiting For?<br>Make the Decision Today.</h2>
-      <p id="final-p"></p>
-      <div class="cta-wrap">
-        <button class="btn-buynow" style="max-width:320px;" onclick="document.getElementById('buy-btn').click()">Order Now — Get the Best Price →</button>
-        <a href="https://wa.me/918860600134" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:16px 28px;border-radius:50px;font-weight:700;font-size:16px;box-shadow:0 6px 24px rgba(37,211,102,0.40);">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="22"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>
-          Chat on WhatsApp
-        </a>
-      </div>
-      <p style="margin-top:18px;font-size:13px;color:rgba(255,255,255,0.5);">✓ Free Shipping on ₹1000+  ·  ✓ FSSAI Approved  ·  ✓ 100% Natural  ·  ✓ Easy Returns</p>
-    </div>
-  </section>
-
-  <!-- ===== RELATED ===== -->
-  <section class="section" style="background:var(--cream-warm);">
-    <div class="container">
-      <div class="sec-head-row sr">
-        <div><span class="label label-green">EXPLORE MORE</span><h2 class="t-h2" style="color:var(--charcoal)">You May Also Like</h2></div>
-        <a href="shop.html" class="link-arrow">View All →</a>
-      </div>
-      <div class="product-grid sr-stagger" id="related-grid"></div>
-    </div>
-  </section>
 </main>
 
 <!-- Mobile sticky ATC -->
@@ -330,6 +294,11 @@
   if(p.tag==='bestseller') document.getElementById('hero-badge-tr').innerHTML='<span class="pc-badge best" style="font-size:12px">★ BESTSELLER</span>';
   if(off) document.getElementById('hero-badge-tl').innerHTML='<span class="pc-badge discount">−'+off+'%</span>';
 
+  /* badge chips */
+  const hbRoot = document.getElementById('h-badges');
+  const chips = (p.badges && p.badges.length) ? p.badges : ['All Day Energy','Better Stamina','Josh & Vitality','100% Ayurvedic'];
+  hbRoot.innerHTML = chips.map(b=>`<span class="pdp-chip">✓ ${b}</span>`).join('');
+
   /* gallery */
   const mi = document.getElementById('main-img2');
   if(p.images&&p.images.length){ mi.src=p.images[0]; mi.alt=p.name; }
@@ -364,6 +333,20 @@
     }).join('');
   } else { vw.style.display='none'; }
 
+  /* free gift card when current variant matches freeGiftOn */
+  if(p.freeGift && (p.freeGiftOn === id)){
+    const fg=document.getElementById('free-gift');
+    fg.style.display='flex';
+    fg.innerHTML = `
+      <div class="fg-img"><img src="${p.freeGift.img}" alt="${p.freeGift.name}" onerror="this.style.display='none'"></div>
+      <div class="fg-body">
+        <div class="fg-tag">🎁 ${p.freeGift.tag}</div>
+        <div class="fg-name">${p.freeGift.name}</div>
+        <div class="fg-sub">Added free in your order — limited time offer</div>
+      </div>
+      <div class="fg-price"><span class="orig">₹1,250</span><span class="free">FREE</span></div>`;
+  }
+
   /* qty */
   let qty=1;
   document.getElementById('q-minus').onclick=()=>{if(qty>1){qty--;document.getElementById('q-val').textContent=qty;}};
@@ -387,8 +370,6 @@
     const obs=new IntersectionObserver(([e])=>satc.classList.toggle('vis',!e.isIntersecting),{threshold:0});
     obs.observe(document.getElementById('buy-btn'));
   }
-  document.getElementById('final-p').textContent='Join '+((p.reviews||1000)+48000).toLocaleString('en-IN')+' Indian families who already trust Daulatram\'s. Start your Ayurvedic wellness journey today.';
-
   /* ---- DYNAMIC SECTIONS by category ---- */
   const cat=p.category.toLowerCase();
   const isMens=cat.includes("men");
@@ -535,32 +516,6 @@
       <div class="v-info"><div class="v-name">${names[i]}, ${cities[i]}</div><div class="v-stars">★★★★★</div></div>
     </div>`;}).join('');
 
-  /* HOW TO USE */
-  const htuDefault=[
-    {n:'1',h:'Take 2 Capsules',d:'Take the recommended dose as per your pack instructions.'},
-    {n:'2',h:'With Warm Milk',d:'Best taken with warm milk or water for maximum absorption.'},
-    {n:'3',h:'Stay Consistent',d:'Use daily for at least 90 days for full, lasting results.'}
-  ];
-  const htuHair=[
-    {n:'1',h:'Warm the Oil',d:'Warm a small amount between your palms or in a bowl.'},
-    {n:'2',h:'Massage Scalp',d:'Apply from root to tip, massage gently in circular motions.'},
-    {n:'3',h:'Leave & Wash',d:'Leave for 1–2 hours or overnight. Rinse with mild shampoo.'}
-  ];
-  const htuHoney=[
-    {n:'1',h:'Take 1–2 Teaspoons',d:'Measure out the recommended daily amount.'},
-    {n:'2',h:'With Warm Water',d:'Mix with warm (not hot) water for best absorption.'},
-    {n:'3',h:'Daily on Empty Stomach',d:'Best consumed every morning before meals.'}
-  ];
-  const steps=isHair?htuHair:isHoney||isGhee?htuHoney:htuDefault;
-  document.getElementById('htu-steps').innerHTML=steps.map((s,i)=>`
-    <div class="htu-step" style="position:relative;">
-      <div class="htu-num">${s.n}</div>
-      <h3>${s.h}</h3>
-      <p>${s.d}</p>
-      ${i<steps.length-1?'<div style="display:none" class="htu-connector"></div>':''}
-    </div>`).join('');
-  document.getElementById('how-note').textContent=p.how_to_use||(isMens?'For best results use consistently for at least 90 days. Consult an Ayurvedic practitioner before use if you have any medical condition.':'For best results use as directed consistently.');
-
   /* FAQ */
   const faqMens=[
     {q:'Is Veer Ved Max Shakti+ safe?',a:'Yes, it is made from 100% natural Ayurvedic herbs, is FSSAI approved, and has no known side effects when used as directed.'},
@@ -594,13 +549,47 @@
     });
   });
 
-  /* RELATED */
+  /* YOU MAY ALSO LIKE — carousel (15-20 products) */
   const all=window.__CATALOG||[];
-  const rel=all.filter(x=>x.id!==p.id&&x.category===p.category).slice(0,4);
-  const fallback=all.filter(x=>x.id!==p.id).slice(0,4);
-  const relProds=(rel.length>=2?rel:fallback);
+  const ymlBaseName=p.name;
+  const seen=new Set([p.id]);
+  const sameCat=all.filter(x=>x.category===p.category && x.name!==ymlBaseName && !seen.has(x.id) && (seen.add(x.id), true));
+  const others=all.filter(x=>!seen.has(x.id) && (seen.add(x.id), true));
+  const ymlList=[...sameCat, ...others].slice(0,18);
   const rpc=window.renderProductCard;
-  document.getElementById('related-grid').innerHTML=rpc?relProds.map(rp=>rpc({...rp,img:rp.images[0]})).join(''):'';
+  document.getElementById('yml-grid').innerHTML = rpc
+    ? ymlList.map(rp=>`<div class="yml-item">${rpc({...rp,img:(rp.images&&rp.images[0])||''})}</div>`).join('')
+    : ymlList.map(rp=>`<a href="product.html?id=${rp.id}" class="yml-item-fallback"><img src="${(rp.images&&rp.images[0])||''}" alt="${rp.name}"><div>${rp.name}</div><div style="font-weight:700;color:var(--brand-green)">₹${rp.price.toLocaleString('en-IN')}</div></a>`).join('');
+
+  /* BUNDLES — pick 3 complementary Men's Wellness products */
+  const seenName=new Set([p.name]);
+  const bundleCandidates = all.filter(x=>{
+    if(x.id===p.id) return false;
+    if(x.category!=="Men's Wellness") return false;
+    if(seenName.has(x.name)) return false;
+    seenName.add(x.name); return true;
+  }).slice(0,3);
+  const bundles = bundleCandidates.map((b,i)=>{
+    const combo = (p.price + b.price);
+    const disc = i===0?0.20:i===1?0.15:0.12;
+    const bundlePrice = Math.round(combo*(1-disc));
+    const save = combo - bundlePrice;
+    return {a:p, b, combo, bundlePrice, save, disc:Math.round(disc*100)};
+  });
+  document.getElementById('bundle-grid').innerHTML = bundles.map(bd=>`
+    <div class="bundle-card">
+      <div class="bundle-imgs">
+        <img src="${bd.a.images[0]}" alt="${bd.a.name}">
+        <span class="bundle-plus">+</span>
+        <img src="${bd.b.images[0]}" alt="${bd.b.name}">
+      </div>
+      <div class="bundle-body">
+        <div class="bundle-titles">${bd.a.name.split(' ').slice(0,3).join(' ')} <span style="color:var(--text-muted)">+</span> ${bd.b.name.split(' ').slice(0,3).join(' ')}</div>
+        <div class="bundle-prices"><span class="bp-sale">₹${bd.bundlePrice.toLocaleString('en-IN')}</span><span class="bp-orig">₹${bd.combo.toLocaleString('en-IN')}</span></div>
+        <div class="bundle-save">Save ₹${bd.save.toLocaleString('en-IN')} · ${bd.disc}% OFF</div>
+        <a href="product.html?id=${bd.b.id}" class="btn btn-primary" style="width:100%;text-align:center;margin-top:12px;">Add Bundle to Cart</a>
+      </div>
+    </div>`).join('');
 })();
 </script>
 
