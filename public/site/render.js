@@ -75,7 +75,9 @@
       $("spot-price").textContent = "₹" + price.toLocaleString("en-IN");
       $("spot-orig").textContent = "₹" + orig.toLocaleString("en-IN");
       $("spot-save").textContent = `SAVE ₹${save.toLocaleString("en-IN")} · ${off}% OFF`;
-      $("spot-off").textContent = off;
+      const lbl = document.getElementById("spot-buy-label");
+      if (lbl) lbl.textContent = `BUY NOW — GET ${off}% OFF`;
+      else { const off2 = $("spot-off"); if (off2) off2.textContent = off; }
       $("spot-buy").href = "product.html?id=" + id;
       $("spot-cart").href = "product.html?id=" + id;
       const is60 = (o.value === "60");
