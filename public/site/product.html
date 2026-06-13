@@ -7,10 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="pages.css">
+<link rel="stylesheet" href="styles.css?v=heritage-cta-fix-2">
+<link rel="stylesheet" href="pages.css?v=heritage-cta-fix-2">
 <link rel="stylesheet" href="store.css">
-<link rel="stylesheet" href="pdp.css">
+<link rel="stylesheet" href="pdp.css?v=heritage-cta-fix-2">
 </head>
 <body>
 <script>document.documentElement.classList.add('js-anim'); window.ACTIVE_NAV = 'shop';</script>
@@ -32,7 +32,7 @@
           <div class="pdp-main-wrap">
             <div class="pdp-badge-tl" id="hero-badge-tl"></div>
             <div class="pdp-badge-tr" id="hero-badge-tr"></div>
-            <img id="main-img2" src="" alt="Product" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#F0E8D8,#EDE0C8)'">
+            <img id="main-img2" src="" alt="Product" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23F0E8D8%22/%3E%3Ctext x=%22100%22 y=%22108%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2218%22 fill=%22%230B5132%22%3EProduct Image%3C/text%3E%3C/svg%3E'">
           </div>
           <div class="pdp-thumbrow" id="thumb-row"></div>
         </div>
@@ -78,7 +78,7 @@
             </div>
           </div>
           <div class="pdp-cta-row2">
-            <button class="btn-buynow" id="buy-btn">Buy Now — Order Today →</button>
+            <button class="btn-buynow" id="buy-btn">BUY NOW — ORDER TODAY →</button>
             <button class="btn-cart2" id="cart-btn">Add to Cart</button>
           </div>
 
@@ -186,7 +186,7 @@
         <div class="rb2-row"><span class="lbl">2★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
         <div class="rb2-row"><span class="lbl">1★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
         <div style="margin-top:28px;">
-          <button class="btn-buynow" onclick="document.getElementById('buy-btn').click()">Buy Now — <span id="sum-price2"></span> →</button>
+          <button class="btn-buynow" onclick="document.getElementById('buy-btn').click()">BUY NOW — <span id="sum-price2"></span> →</button>
         </div>
       </div>
     </div>
@@ -322,6 +322,10 @@
   if(off){
     const sd=document.getElementById('h-save'); sd.style.display='inline-flex';
     sd.querySelector('span').textContent='SAVE ₹'+(p.orig-p.price).toLocaleString('en-IN')+' · '+off+'% OFF';
+  }
+  // Personalise main buy CTA with the discount percent
+  if(off){
+    document.getElementById('buy-btn').textContent='BUY NOW — GET '+off+'% OFF →';
   }
   if(p.tag==='bestseller') document.getElementById('hero-badge-tr').innerHTML='<span class="pc-badge best" style="font-size:12px">★ BESTSELLER</span>';
   if(off) document.getElementById('hero-badge-tl').innerHTML='<span class="pc-badge discount">−'+off+'%</span>';
