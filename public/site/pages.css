@@ -343,17 +343,14 @@
 .timeline-inner.in .tm-item:nth-child(4) .tm-ping { border-color: var(--brand-green); animation-delay: 1.3s; }
 
 .tm-card {
-  background:#fff; border-radius:16px; padding:22px 26px; box-shadow:var(--shadow-card);
-  flex:1; max-width:360px; position:relative; overflow:hidden;
-  opacity:0; transform: translateX(-50px) rotate(-1.5deg);
-  transition: opacity 750ms ease, transform 750ms cubic-bezier(.22,.61,.36,1),
+  background:#fff; border-radius:16px; padding:24px 28px; box-shadow:var(--shadow-card);
+  flex:1; max-width:380px; position:relative; overflow:hidden;
+  opacity:0; transform: translateX(-60px) rotate(-1.2deg);
+  transition: opacity 820ms ease, transform 820ms cubic-bezier(.22,.61,.36,1),
               box-shadow 320ms ease;
 }
-.tm-item:nth-child(even) .tm-card { transform: translateX(50px) rotate(1.5deg); }
-.timeline-inner.in .tm-item:nth-child(1) .tm-card { opacity:1; transform:translateX(0) rotate(0); transition-delay:320ms; }
-.timeline-inner.in .tm-item:nth-child(2) .tm-card { opacity:1; transform:translateX(0) rotate(0); transition-delay:620ms; }
-.timeline-inner.in .tm-item:nth-child(3) .tm-card { opacity:1; transform:translateX(0) rotate(0); transition-delay:920ms; }
-.timeline-inner.in .tm-item:nth-child(4) .tm-card { opacity:1; transform:translateX(0) rotate(0); transition-delay:1220ms; }
+.tm-item:nth-child(even) .tm-card { transform: translateX(60px) rotate(1.2deg); }
+.tm-item.tm-in .tm-card { opacity:1; transform: translateX(0) rotate(0); }
 .tm-card::before {
   content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
   background:linear-gradient(to bottom, var(--brand-green), var(--brand-orange));
