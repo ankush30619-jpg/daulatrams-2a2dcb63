@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="pages.css">
+<link rel="stylesheet" href="styles.css?v=heritage-cta-fix-2">
+<link rel="stylesheet" href="pages.css?v=heritage-cta-fix-2">
 <link rel="stylesheet" href="store.css">
 </head>
 <body>
@@ -64,15 +64,24 @@
         </div>
         <div class="tm-item">
           <div style="flex:1"></div><div class="tm-dot"><span class="tm-ping"></span></div>
-          <div class="tm-card"><div class="tm-year">Second Generation</div><h3>A Name Built on Trust</h3><p>The family shop becomes a Karnal institution. Recipes are refined and passed down; customers travel from across Haryana for Daulatram's ghee, honey and herbal preparations.</p></div>
+          <div class="tm-card">
+            <svg class="tm-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 21c0-9 6-15 18-18-1 11-7 18-18 18z"/><path d="M3 21c5-5 9-9 14-13"/></svg>
+            <div class="tm-year">Second Generation</div><h3>A Name Built on Trust</h3><p>The family shop becomes a Karnal institution. Recipes are refined and passed down; customers travel from across Haryana for Daulatram's ghee, honey and herbal preparations.</p>
+          </div>
         </div>
         <div class="tm-item">
-          <div class="tm-card"><div class="tm-year">Modern Era</div><h3>Own Manufacturing</h3><p>Mr. Mukund Arora establishes dedicated manufacturing facilities in Karnal and Yamuna Nagar — bringing FSSAI certification, GMP practices and lab testing to every batch.</p></div>
+          <div class="tm-card">
+            <svg class="tm-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 21c0-9 6-15 18-18-1 11-7 18-18 18z"/><path d="M3 21c5-5 9-9 14-13"/></svg>
+            <div class="tm-year">Modern Era</div><h3>Own Manufacturing</h3><p>Mr. Mukund Arora establishes dedicated manufacturing facilities in Karnal and Yamuna Nagar — bringing FSSAI certification, GMP practices and lab testing to every batch.</p>
+          </div>
           <div class="tm-dot"><span class="tm-ping"></span></div><div style="flex:1"></div>
         </div>
         <div class="tm-item">
           <div style="flex:1"></div><div class="tm-dot"><span class="tm-ping"></span></div>
-          <div class="tm-card"><div class="tm-year">Today</div><h3>Ayurveda for Every Home</h3><p>Daulatram's ships to 19,000+ pincodes across India, serving 50,000+ families with the same purity that started it all — now a click away.</p></div>
+          <div class="tm-card">
+            <svg class="tm-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 21c0-9 6-15 18-18-1 11-7 18-18 18z"/><path d="M3 21c5-5 9-9 14-13"/></svg>
+            <div class="tm-year">Today</div><h3>Ayurveda for Every Home</h3><p>Daulatram's ships to 19,000+ pincodes across India, serving 50,000+ families with the same purity that started it all — now a click away.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -134,6 +143,19 @@
 <script src="auth.js"></script>
 <script src="store.js"></script>
 <script src="site.js"></script>
+<script>
+/* Per-item timeline reveal: alternating left/right slide on each scroll-in */
+(function(){
+  const items = document.querySelectorAll('.timeline-inner .tm-item');
+  if(!items.length || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ en.target.classList.add('tm-in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.25 });
+  items.forEach(i=>io.observe(i));
+})();
+</script>
 
 </body>
 </html>
