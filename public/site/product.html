@@ -323,6 +323,10 @@
     const sd=document.getElementById('h-save'); sd.style.display='inline-flex';
     sd.querySelector('span').textContent='SAVE ₹'+(p.orig-p.price).toLocaleString('en-IN')+' · '+off+'% OFF';
   }
+  // Personalise main buy CTA with the discount percent
+  if(off){
+    document.getElementById('buy-btn').textContent='BUY NOW — GET '+off+'% OFF →';
+  }
   if(p.tag==='bestseller') document.getElementById('hero-badge-tr').innerHTML='<span class="pc-badge best" style="font-size:12px">★ BESTSELLER</span>';
   if(off) document.getElementById('hero-badge-tl').innerHTML='<span class="pc-badge discount">−'+off+'%</span>';
 
