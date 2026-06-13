@@ -93,8 +93,12 @@
             <div class="pdp-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 1 3 6.7M3 12V7M3 12h5"/></svg>Easy Returns</div>
           </div>
           <div class="pdp-pay">
-            <span>Pay via:</span>
-            <span class="pay-chip">UPI</span><span class="pay-chip">VISA</span><span class="pay-chip">MASTERCARD</span><span class="pay-chip">COD</span><span class="pay-chip">RAZORPAY</span>
+            <span class="pay-lbl">Secure Payments:</span>
+            <span class="pay-brand pay-upi" title="UPI">UPI</span>
+            <span class="pay-brand pay-visa" title="Visa">VISA</span>
+            <span class="pay-brand pay-mc" title="Mastercard"><i></i><i></i></span>
+            <span class="pay-brand pay-rzp" title="Razorpay">Razorpay</span>
+            <span class="pay-brand pay-cod" title="Cash on Delivery">COD</span>
           </div>
         </div>
       </div>
@@ -103,11 +107,20 @@
 
   <!-- ===== TRUST LEGACY BADGES ===== -->
   <section class="trust-legacy">
+    <div class="trust-legacy-glow"></div>
     <div class="container trust-legacy-inner">
-      <p class="trust-legacy-text">
-        Trust the legacy of <strong>Daulatram's</strong> — 3rd generation of Ayurveda,<br>
-        now backed by <strong>science</strong>.
-      </p>
+      <div class="trust-legacy-copy">
+        <span class="trust-legacy-eyebrow">SINCE 3 GENERATIONS</span>
+        <h2 class="trust-legacy-text">
+          Trust the legacy of <strong>Daulatram's</strong> — 3rd generation
+          of <em>Ayurveda</em>, now backed by <strong>science</strong>.
+        </h2>
+        <div class="trust-legacy-stats">
+          <div><b>50,000+</b><span>Happy Customers</span></div>
+          <div><b>19,000+</b><span>Pincodes Served</span></div>
+          <div><b>100%</b><span>Authentic Formula</span></div>
+        </div>
+      </div>
       <div class="trust-legacy-badges">
         <div class="tlb tlb-1" role="img" aria-label="FSSAI Approved"></div>
         <div class="tlb tlb-2" role="img" aria-label="ISO 9001 Certified"></div>
@@ -115,6 +128,21 @@
         <div class="tlb tlb-4" role="img" aria-label="Plant Based"></div>
         <div class="tlb tlb-5" role="img" aria-label="Made in India"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PICKS (high-converting upsell) ===== -->
+  <section class="featured-picks-sec sr">
+    <div class="container">
+      <div class="sec-head-row sr">
+        <div>
+          <span class="label label-green">CUSTOMER FAVOURITES</span>
+          <h2 class="t-h2" style="color:var(--charcoal)">Most Loved <span style="color:var(--brand-orange)">Picks</span> This Month</h2>
+          <p style="color:var(--text-medium);font-size:15px;margin-top:8px;max-width:540px;">Hand-picked, doctor-approved, and bought again &amp; again — these are the products our customers swear by.</p>
+        </div>
+        <a href="shop.html" class="link-arrow">Shop All →</a>
+      </div>
+      <div class="featured-picks-grid" id="featured-picks-grid"></div>
     </div>
   </section>
 
@@ -126,16 +154,6 @@
         <a href="shop.html" class="link-arrow">View All →</a>
       </div>
       <div class="yml-carousel sr" id="yml-grid"></div>
-    </div>
-  </section>
-
-  <!-- ===== PROBLEMS ===== -->
-  <section class="problems-sec sr">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">THIS IS FOR YOU</span></div>
-      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Do You Feel <span style="color:var(--brand-orange);">Any Of These</span> Problems?</h2>
-      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:560px;margin:12px auto 0;">If you relate to even one of these, <strong>this product was made for you.</strong></p>
-      <div class="problems-grid sr-stagger" id="problems-grid"></div>
     </div>
   </section>
 
