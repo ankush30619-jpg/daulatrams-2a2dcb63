@@ -374,8 +374,21 @@
 .trust-legacy-text { font-family:var(--font-heading); font-size:clamp(18px,2vw,24px); font-weight:600; line-height:1.4; margin:0; }
 .trust-legacy-text strong { color:#FFD27A; font-weight:700; }
 .trust-legacy-badges { display:flex; gap:18px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
-.tlb { width:88px; height:88px; border-radius:50%; overflow:hidden; background:#fff; box-shadow:0 6px 20px rgba(0,0,0,0.25); flex-shrink:0; }
-.tlb img { width:100%; height:100%; object-fit:cover; display:block; }
+.tlb {
+  width:96px; height:96px; border-radius:50%; overflow:hidden;
+  background-image:url("/__l5e/assets-v1/e2871d64-845d-4bce-a5d5-15b792c03898/cert-badges.png");
+  background-size:520% auto;
+  background-repeat:no-repeat;
+  background-color:#0b5132;
+  box-shadow:0 6px 20px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.tlb img { display:none; }
+.tlb-1 { background-position: 6.5% 50%; }
+.tlb-2 { background-position: 28% 50%; }
+.tlb-3 { background-position: 50% 50%; }
+.tlb-4 { background-position: 72% 50%; }
+.tlb-5 { background-position: 93.5% 50%; }
 @media(max-width:760px){
   .trust-legacy-inner{ grid-template-columns:1fr; text-align:center; gap:24px; }
   .trust-legacy-badges{ justify-content:center; gap:10px; }
