@@ -466,14 +466,19 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 .collage img { width: 100%; border-radius: 16px; display: block; }
 .collage img { width: 100%; height: auto; max-height: 620px; object-fit: contain; background: transparent; margin: 0 auto; }
 .collage .badge-circle {
-  position: absolute; right: -22px; top: -22px; width: 104px; height: 104px;
-  background: var(--brand-orange); border-radius: 50%; color: #fff;
-  display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-card-hover);
-  animation: slowspin 18s linear infinite;
+  position: absolute; right: -18px; top: -18px; width: 112px; height: 112px;
+  background: radial-gradient(circle at 30% 25%, #FBB04B 0%, var(--brand-orange) 55%, #D67C12 100%);
+  border-radius: 50%; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 14px 36px rgba(214,124,18,0.42), 0 0 0 4px rgba(255,255,255,0.6);
+  animation: slowspin 22s linear infinite;
 }
 .badge-circle svg { width: 100%; height: 100%; }
 .badge-circle .core { font-size: 22px; }
 @keyframes slowspin { to { transform: rotate(360deg); } }
+@media (max-width: 860px) {
+  .collage .badge-circle { width: 92px; height: 92px; right: 4px; top: -6px; }
+}
 
 @media (max-width: 860px) {
   .legacy-grid { grid-template-columns: 1fr; }
@@ -628,7 +633,18 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 
 .spot-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 420px; }
 .spot-glow { position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(91,155,42,0.55) 0%, rgba(91,155,42,0) 65%); filter: blur(10px); }
-.spot-img { position: relative; z-index: 2; width: 78%; max-width: 420px; border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,0.4); animation: float 3.4s ease-in-out infinite; }
+.spot-image-stack { position: relative; z-index: 2; width: 78%; max-width: 440px; }
+.spot-img { position: relative; z-index: 2; width: 100%; border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,0.4); animation: float 3.4s ease-in-out infinite; display: block; }
+.spot-gift-overlay {
+  position: absolute; bottom: -28px; right: -22px; z-index: 5;
+  background: #fff; border-radius: 18px; padding: 8px 10px 10px;
+  box-shadow: 0 14px 38px rgba(0,0,0,0.35);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 110px; border: 2px dashed var(--saffron);
+}
+.spot-gift-overlay .plus { position: absolute; top: -14px; left: -14px; width: 30px; height: 30px; border-radius: 50%; background: var(--brand-orange); color: #fff; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+.spot-gift-overlay img { width: 78px; height: 78px; object-fit: contain; }
+.spot-gift-overlay .ribbon { font-family: var(--font-label); font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--brand-orange); text-transform: uppercase; text-align: center; line-height: 1.15; }
 @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 .spot-bubble {
   position: absolute; bottom: 12px; left: -6px; z-index: 4;
@@ -648,6 +664,33 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 }
 .spot-cert svg { width: 22px; height: 22px; color: var(--brand-green); }
 @media (max-width: 900px) { .spotlight-grid { grid-template-columns: 1fr; } .benefits { grid-template-columns: 1fr; } .spot-visual { order: -1; min-height: 320px; } }
+
+/* ---------- Free Gift Card (Spotlight 60-pack) ---------- */
+.free-gift-card {
+  display: grid; grid-template-columns: 90px 1fr; gap: 14px; align-items: center;
+  background: linear-gradient(135deg, #FBF6EB 0%, #F5EAD0 100%);
+  border: 2px dashed var(--saffron); border-radius: 14px;
+  padding: 12px 14px; margin: 4px 0 22px; max-width: 540px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  animation: fg-pop 360ms cubic-bezier(.34,1.56,.64,1) both;
+}
+.free-gift-card[hidden] { display: none; }
+@keyframes fg-pop { from { opacity: 0; transform: translateY(-6px) scale(.97); } to { opacity: 1; transform: none; } }
+.free-gift-card .fg-thumb { position: relative; width: 90px; height: 90px; border-radius: 12px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.free-gift-card .fg-thumb img { width: 84%; height: 84%; object-fit: contain; }
+.free-gift-card .fg-ribbon { position: absolute; top: 4px; left: 4px; background: #E63946; color: #fff; font-family: var(--font-label); font-weight: 700; font-size: 9.5px; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.06em; z-index: 2; }
+.free-gift-card .fg-body { color: #2a2218; }
+.free-gift-card .fg-tagline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.free-gift-card .fg-pill { background: #FFE9B3; color: #8a5a00; font-family: var(--font-label); font-weight: 700; font-size: 11px; padding: 3px 9px; border-radius: 50px; letter-spacing: 0.04em; }
+.free-gift-card .fg-strike { color: #b3261e; font-size: 12px; font-weight: 600; text-decoration: line-through; }
+.free-gift-card .fg-title { font-family: var(--font-heading); font-weight: 700; font-size: 16px; color: #1a1a1a; margin: 2px 0 4px; }
+.free-gift-card .fg-desc { font-size: 12.5px; line-height: 1.45; color: #4a3e2c; }
+@media (max-width: 540px) {
+  .free-gift-card { grid-template-columns: 72px 1fr; gap: 10px; padding: 10px; }
+  .free-gift-card .fg-thumb { width: 72px; height: 72px; }
+  .free-gift-card .fg-title { font-size: 15px; }
+  .free-gift-card .fg-desc { font-size: 12px; }
+}
 
 /* ============================================================
    FILTER TABS + SHOP BY CONCERN
