@@ -210,7 +210,11 @@
       <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">REAL PEOPLE, REAL RESULTS</span></div>
       <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">What Customers Are Saying on <span style="color:#25D366;">WhatsApp</span></h2>
       <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:500px;margin:12px auto 0;">Unfiltered, unsponsored messages from our real customers.</p>
-      <div class="wa-grid sr-stagger" id="wa-grid"></div>
+      <div class="carousel-wrap" style="margin-top:40px;">
+        <button class="carousel-arrow prev" data-target="wa-grid" aria-label="Previous">‹</button>
+        <div class="wa-grid carousel-track sr-stagger" id="wa-grid" data-autoplay="1"></div>
+        <button class="carousel-arrow next" data-target="wa-grid" aria-label="Next">›</button>
+      </div>
     </div>
   </section>
 
@@ -461,24 +465,18 @@
   }
   document.getElementById('ing-cards').innerHTML=ingHTML||'<p style="text-align:center;color:var(--text-muted);">See packaging for full ingredient list.</p>';
 
-  /* WHATSAPP REVIEWS */
-  const waReviews=[
-    {name:'Rohit V.',city:'Lucknow',txt:'Bhai 3 hafte mein farak mahsoos hua. Pehle gym mein thak jaata tha but ab stamina kaafi better hai. Pure natural product — no side effects!',stars:5,av:'https://daulatrams.com/wp-content/uploads/2026/01/Rohit-Verma.png'},
-    {name:'Gurpreet S.',city:'Chandigarh',txt:'Maine 2 months liya. Genuinely effective. Family brand hai toh quality pe trust hai. Agli baar bhi yahi lunga. Highly recommend! 🙏',stars:5,av:'https://daulatrams.com/wp-content/uploads/2026/01/Gurpreet-Singh.png'},
-    {name:'Priya S.',city:'Delhi',txt:'Bahut achha product hai. Natural aur side effect zero. Mujhe kafi fayda hua. Delivery bhi fast thi. Daulatram\'s is the best! ⭐⭐⭐⭐⭐',stars:5,av:'https://daulatrams.com/wp-content/uploads/2026/01/Priya-Sharma.png'}
+  /* WHATSAPP REVIEWS — real chat screenshots */
+  const waShots=[
+    '/__l5e/assets-v1/289be58f-767a-4f50-90a6-2d573f619dc8/wa-19.jpg',
+    '/__l5e/assets-v1/38fb934b-4525-454f-983d-394288fe5a39/wa-18.jpg',
+    '/__l5e/assets-v1/73aeea30-b8aa-474f-b80e-2658a4c98180/wa-17.jpg',
+    '/__l5e/assets-v1/2647d2af-d105-4f59-b580-fbe4cec22f59/wa-16.jpg',
+    '/__l5e/assets-v1/3e52ad7f-bbe8-4d17-bc4b-038305a2e2ae/wa-15.jpg',
+    '/__l5e/assets-v1/6a376b99-259c-49f6-993a-899338972383/wa-14.jpg'
   ];
-  document.getElementById('wa-grid').innerHTML=waReviews.map(w=>`
-    <div class="wa-card">
-      <div class="wa-card-head">
-        <div class="av"><img src="${w.av}" alt="${w.name}" onerror="this.style.display='none'"></div>
-        <div><div class="name">${w.name}</div><div class="status">${w.city}</div></div>
-      </div>
-      <div class="wa-card-body">
-        <div class="wa-bubble">${w.txt}</div>
-        <div class="wa-stars">${'★'.repeat(w.stars)}</div>
-        <div class="wa-time">Delivered ✓✓</div>
-      </div>
-    </div>`).join('');
+  document.getElementById('wa-grid').innerHTML=waShots.map((src,i)=>`
+    <div class="wa-card"><img src="${src}" alt="WhatsApp customer chat ${i+1}" loading="lazy"></div>
+  `).join('');
 
   /* VIDEO REVIEWS */
   const ugcFiles=['12.png','11.png','10.png','9.png','8.png','7.png','6.png','5-1.png'];
