@@ -294,6 +294,11 @@
   if(p.tag==='bestseller') document.getElementById('hero-badge-tr').innerHTML='<span class="pc-badge best" style="font-size:12px">★ BESTSELLER</span>';
   if(off) document.getElementById('hero-badge-tl').innerHTML='<span class="pc-badge discount">−'+off+'%</span>';
 
+  /* badge chips */
+  const hbRoot = document.getElementById('h-badges');
+  const chips = (p.badges && p.badges.length) ? p.badges : ['All Day Energy','Better Stamina','Josh & Vitality','100% Ayurvedic'];
+  hbRoot.innerHTML = chips.map(b=>`<span class="pdp-chip">✓ ${b}</span>`).join('');
+
   /* gallery */
   const mi = document.getElementById('main-img2');
   if(p.images&&p.images.length){ mi.src=p.images[0]; mi.alt=p.name; }
@@ -328,6 +333,20 @@
     }).join('');
   } else { vw.style.display='none'; }
 
+  /* free gift card when current variant matches freeGiftOn */
+  if(p.freeGift && (p.freeGiftOn === id)){
+    const fg=document.getElementById('free-gift');
+    fg.style.display='flex';
+    fg.innerHTML = `
+      <div class="fg-img"><img src="${p.freeGift.img}" alt="${p.freeGift.name}" onerror="this.style.display='none'"></div>
+      <div class="fg-body">
+        <div class="fg-tag">🎁 ${p.freeGift.tag}</div>
+        <div class="fg-name">${p.freeGift.name}</div>
+        <div class="fg-sub">Added free in your order — limited time offer</div>
+      </div>
+      <div class="fg-price"><span class="orig">₹1,250</span><span class="free">FREE</span></div>`;
+  }
+
   /* qty */
   let qty=1;
   document.getElementById('q-minus').onclick=()=>{if(qty>1){qty--;document.getElementById('q-val').textContent=qty;}};
@@ -351,8 +370,6 @@
     const obs=new IntersectionObserver(([e])=>satc.classList.toggle('vis',!e.isIntersecting),{threshold:0});
     obs.observe(document.getElementById('buy-btn'));
   }
-  document.getElementById('final-p').textContent='Join '+((p.reviews||1000)+48000).toLocaleString('en-IN')+' Indian families who already trust Daulatram\'s. Start your Ayurvedic wellness journey today.';
-
   /* ---- DYNAMIC SECTIONS by category ---- */
   const cat=p.category.toLowerCase();
   const isMens=cat.includes("men");
@@ -499,32 +516,6 @@
       <div class="v-info"><div class="v-name">${names[i]}, ${cities[i]}</div><div class="v-stars">★★★★★</div></div>
     </div>`;}).join('');
 
-  /* HOW TO USE */
-  const htuDefault=[
-    {n:'1',h:'Take 2 Capsules',d:'Take the recommended dose as per your pack instructions.'},
-    {n:'2',h:'With Warm Milk',d:'Best taken with warm milk or water for maximum absorption.'},
-    {n:'3',h:'Stay Consistent',d:'Use daily for at least 90 days for full, lasting results.'}
-  ];
-  const htuHair=[
-    {n:'1',h:'Warm the Oil',d:'Warm a small amount between your palms or in a bowl.'},
-    {n:'2',h:'Massage Scalp',d:'Apply from root to tip, massage gently in circular motions.'},
-    {n:'3',h:'Leave & Wash',d:'Leave for 1–2 hours or overnight. Rinse with mild shampoo.'}
-  ];
-  const htuHoney=[
-    {n:'1',h:'Take 1–2 Teaspoons',d:'Measure out the recommended daily amount.'},
-    {n:'2',h:'With Warm Water',d:'Mix with warm (not hot) water for best absorption.'},
-    {n:'3',h:'Daily on Empty Stomach',d:'Best consumed every morning before meals.'}
-  ];
-  const steps=isHair?htuHair:isHoney||isGhee?htuHoney:htuDefault;
-  document.getElementById('htu-steps').innerHTML=steps.map((s,i)=>`
-    <div class="htu-step" style="position:relative;">
-      <div class="htu-num">${s.n}</div>
-      <h3>${s.h}</h3>
-      <p>${s.d}</p>
-      ${i<steps.length-1?'<div style="display:none" class="htu-connector"></div>':''}
-    </div>`).join('');
-  document.getElementById('how-note').textContent=p.how_to_use||(isMens?'For best results use consistently for at least 90 days. Consult an Ayurvedic practitioner before use if you have any medical condition.':'For best results use as directed consistently.');
-
   /* FAQ */
   const faqMens=[
     {q:'Is Veer Ved Max Shakti+ safe?',a:'Yes, it is made from 100% natural Ayurvedic herbs, is FSSAI approved, and has no known side effects when used as directed.'},
@@ -558,13 +549,41 @@
     });
   });
 
-  /* RELATED */
+  /* YOU MAY ALSO LIKE — carousel (15-20 products) */
   const all=window.__CATALOG||[];
-  const rel=all.filter(x=>x.id!==p.id&&x.category===p.category).slice(0,4);
-  const fallback=all.filter(x=>x.id!==p.id).slice(0,4);
-  const relProds=(rel.length>=2?rel:fallback);
+  const ymlBaseName=p.name;
+  const seen=new Set([p.id]);
+  const sameCat=all.filter(x=>x.category===p.category && x.name!==ymlBaseName && !seen.has(x.id) && (seen.add(x.id), true));
+  const others=all.filter(x=>!seen.has(x.id) && (seen.add(x.id), true));
+  const ymlList=[...sameCat, ...others].slice(0,18);
   const rpc=window.renderProductCard;
-  document.getElementById('related-grid').innerHTML=rpc?relProds.map(rp=>rpc({...rp,img:rp.images[0]})).join(''):'';
+  document.getElementById('yml-grid').innerHTML = rpc
+    ? ymlList.map(rp=>`<div class="yml-item">${rpc({...rp,img:(rp.images&&rp.images[0])||''})}</div>`).join('')
+    : ymlList.map(rp=>`<a href="product.html?id=${rp.id}" class="yml-item-fallback"><img src="${(rp.images&&rp.images[0])||''}" alt="${rp.name}"><div>${rp.name}</div><div style="font-weight:700;color:var(--brand-green)">₹${rp.price.toLocaleString('en-IN')}</div></a>`).join('');
+
+  /* BUNDLES — pick 3 complementary products */
+  const bundleCandidates = all.filter(x=>x.id!==p.id && (x.category==="Men's Wellness" || /shilajit|ashwagandha|ghee|honey/i.test(x.name))).slice(0,3);
+  const bundles = bundleCandidates.map((b,i)=>{
+    const combo = (p.price + b.price);
+    const disc = i===0?0.20:i===1?0.15:0.12;
+    const bundlePrice = Math.round(combo*(1-disc));
+    const save = combo - bundlePrice;
+    return {a:p, b, combo, bundlePrice, save, disc:Math.round(disc*100)};
+  });
+  document.getElementById('bundle-grid').innerHTML = bundles.map(bd=>`
+    <div class="bundle-card">
+      <div class="bundle-imgs">
+        <img src="${bd.a.images[0]}" alt="${bd.a.name}">
+        <span class="bundle-plus">+</span>
+        <img src="${bd.b.images[0]}" alt="${bd.b.name}">
+      </div>
+      <div class="bundle-body">
+        <div class="bundle-titles">${bd.a.name.split(' ').slice(0,3).join(' ')} <span style="color:var(--text-muted)">+</span> ${bd.b.name.split(' ').slice(0,3).join(' ')}</div>
+        <div class="bundle-prices"><span class="bp-sale">₹${bd.bundlePrice.toLocaleString('en-IN')}</span><span class="bp-orig">₹${bd.combo.toLocaleString('en-IN')}</span></div>
+        <div class="bundle-save">Save ₹${bd.save.toLocaleString('en-IN')} · ${bd.disc}% OFF</div>
+        <a href="product.html?id=${bd.b.id}" class="btn btn-primary" style="width:100%;text-align:center;margin-top:12px;">Add Bundle to Cart</a>
+      </div>
+    </div>`).join('');
 })();
 </script>
 
