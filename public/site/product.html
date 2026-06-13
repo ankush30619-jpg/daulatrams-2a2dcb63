@@ -7,10 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=pdp-veerved-1">
-<link rel="stylesheet" href="pages.css?v=pdp-veerved-1">
+<link rel="stylesheet" href="styles.css?v=pdp-veerved-2">
+<link rel="stylesheet" href="pages.css?v=pdp-veerved-2">
 <link rel="stylesheet" href="store.css">
-<link rel="stylesheet" href="pdp.css?v=pdp-veerved-1">
+<link rel="stylesheet" href="pdp.css?v=pdp-veerved-2">
 </head>
 <body>
 <script>document.documentElement.classList.add('js-anim'); window.ACTIVE_NAV = 'shop';</script>
@@ -93,8 +93,12 @@
             <div class="pdp-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 1 3 6.7M3 12V7M3 12h5"/></svg>Easy Returns</div>
           </div>
           <div class="pdp-pay">
-            <span>Pay via:</span>
-            <span class="pay-chip">UPI</span><span class="pay-chip">VISA</span><span class="pay-chip">MASTERCARD</span><span class="pay-chip">COD</span><span class="pay-chip">RAZORPAY</span>
+            <span class="pay-lbl">Secure Payments:</span>
+            <span class="pay-brand pay-upi" title="UPI">UPI</span>
+            <span class="pay-brand pay-visa" title="Visa">VISA</span>
+            <span class="pay-brand pay-mc" title="Mastercard"><i></i><i></i></span>
+            <span class="pay-brand pay-rzp" title="Razorpay">Razorpay</span>
+            <span class="pay-brand pay-cod" title="Cash on Delivery">COD</span>
           </div>
         </div>
       </div>
@@ -103,11 +107,20 @@
 
   <!-- ===== TRUST LEGACY BADGES ===== -->
   <section class="trust-legacy">
+    <div class="trust-legacy-glow"></div>
     <div class="container trust-legacy-inner">
-      <p class="trust-legacy-text">
-        Trust the legacy of <strong>Daulatram's</strong> — 3rd generation of Ayurveda,<br>
-        now backed by <strong>science</strong>.
-      </p>
+      <div class="trust-legacy-copy">
+        <span class="trust-legacy-eyebrow">SINCE 3 GENERATIONS</span>
+        <h2 class="trust-legacy-text">
+          Trust the legacy of <strong>Daulatram's</strong> — 3rd generation
+          of <em>Ayurveda</em>, now backed by <strong>science</strong>.
+        </h2>
+        <div class="trust-legacy-stats">
+          <div><b>50,000+</b><span>Happy Customers</span></div>
+          <div><b>19,000+</b><span>Pincodes Served</span></div>
+          <div><b>100%</b><span>Authentic Formula</span></div>
+        </div>
+      </div>
       <div class="trust-legacy-badges">
         <div class="tlb tlb-1" role="img" aria-label="FSSAI Approved"></div>
         <div class="tlb tlb-2" role="img" aria-label="ISO 9001 Certified"></div>
@@ -115,6 +128,21 @@
         <div class="tlb tlb-4" role="img" aria-label="Plant Based"></div>
         <div class="tlb tlb-5" role="img" aria-label="Made in India"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PICKS (high-converting upsell) ===== -->
+  <section class="featured-picks-sec sr">
+    <div class="container">
+      <div class="sec-head-row sr">
+        <div>
+          <span class="label label-green">CUSTOMER FAVOURITES</span>
+          <h2 class="t-h2" style="color:var(--charcoal)">Most Loved <span style="color:var(--brand-orange)">Picks</span> This Month</h2>
+          <p style="color:var(--text-medium);font-size:15px;margin-top:8px;max-width:540px;">Hand-picked, doctor-approved, and bought again &amp; again — these are the products our customers swear by.</p>
+        </div>
+        <a href="shop.html" class="link-arrow">Shop All →</a>
+      </div>
+      <div class="featured-picks-grid" id="featured-picks-grid"></div>
     </div>
   </section>
 
@@ -126,16 +154,6 @@
         <a href="shop.html" class="link-arrow">View All →</a>
       </div>
       <div class="yml-carousel sr" id="yml-grid"></div>
-    </div>
-  </section>
-
-  <!-- ===== PROBLEMS ===== -->
-  <section class="problems-sec sr">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:8px;"><span class="label label-green">THIS IS FOR YOU</span></div>
-      <h2 class="t-h2" style="text-align:center;color:var(--charcoal);">Do You Feel <span style="color:var(--brand-orange);">Any Of These</span> Problems?</h2>
-      <p style="text-align:center;color:var(--text-medium);font-size:16px;max-width:560px;margin:12px auto 0;">If you relate to even one of these, <strong>this product was made for you.</strong></p>
-      <div class="problems-grid sr-stagger" id="problems-grid"></div>
     </div>
   </section>
 
@@ -379,46 +397,40 @@
   const isGhee=cat.includes("ghee");
   const isHoney=cat.includes("honey");
 
-  /* PROBLEMS */
-  const PROBLEMS={
-    mens:[{ico:'😴',l:'Low Energy',s:'Always tired, no drive to work or exercise'},
-          {ico:'💪',l:'Poor Strength',s:'Feeling physically weak despite effort'},
-          {ico:'😤',l:'Stress & Anxiety',s:'Mental fog and constant tension'},
-          {ico:'🏋️',l:'Low Stamina',s:'Getting tired too quickly at work or gym'},
-          {ico:'😞',l:'Loss of Confidence',s:'Feeling less like yourself lately'}],
-    womens:[{ico:'😟',l:'Hormonal Imbalance',s:'Irregular cycles and mood swings'},
-            {ico:'😩',l:'Constant Fatigue',s:'Low energy even after full sleep'},
-            {ico:'🤯',l:'PMS Discomfort',s:'Painful periods and bloating'},
-            {ico:'💆',l:'Anxiety & Stress',s:'Feeling overwhelmed and drained'},
-            {ico:'💇',l:'Hair & Skin Issues',s:'Dull skin and hair fall from hormonal causes'}],
-    hair:[{ico:'😩',l:'Heavy Hair Fall',s:'Losing more than 100 strands daily'},
-          {ico:'🪥',l:'Dry Scalp',s:'Itching, flaking and dandruff'},
-          {ico:'⬛',l:'Premature Greying',s:'Grey hair appearing too early'},
-          {ico:'💤',l:'Weak Roots',s:'Hair breaks easily at roots'},
-          {ico:'✨',l:'Dull Hair',s:'No shine, volume or bounce'}],
-    skin:[{ico:'🔴',l:'Acne & Breakouts',s:'Frequent pimples and dark spots'},
-          {ico:'😞',l:'Dull & Dry Skin',s:'Lack of glow and hydration'},
-          {ico:'🌞',l:'Sun Damage',s:'Tan, pigmentation and uneven tone'},
-          {ico:'⌛',l:'Ageing Signs',s:'Early wrinkles and fine lines'},
-          {ico:'🏃',l:'Oily Skin',s:'Excessive sebum and open pores'}],
-    ghee:[{ico:'🤢',l:'Poor Digestion',s:'Bloating, constipation, acidity'},
-          {ico:'🧠',l:'Mental Fog',s:'Difficulty concentrating or remembering'},
-          {ico:'🦴',l:'Joint Stiffness',s:'Morning stiffness and joint aches'},
-          {ico:'😴',l:'Low Immunity',s:'Falling sick frequently'},
-          {ico:'🍳',l:'Chemical Cooking Oils',s:'Concerned about refined oils in your food'}],
-    honey:[{ico:'🤒',l:'Low Immunity',s:'Catching cold and infections frequently'},
-           {ico:'😮‍💨',l:'Respiratory Issues',s:'Cough, congestion and throat irritation'},
-           {ico:'🍬',l:'Sugar Cravings',s:'Addicted to refined sugar and sweets'},
-           {ico:'🦠',l:'Gut Imbalance',s:'Bloating and digestive discomfort'},
-           {ico:'🪫',l:'Low Energy',s:'Feeling sluggish through the day'}]
-  };
-  const probs=isMens?PROBLEMS.mens:isWomen?PROBLEMS.womens:isHair?PROBLEMS.hair:isSkin?PROBLEMS.skin:isGhee?PROBLEMS.ghee:PROBLEMS.honey;
-  document.getElementById('problems-grid').innerHTML=probs.map(pr=>`
-    <div class="prob-card">
-      <span class="p-ico">${pr.ico}</span>
-      <div class="p-label">${pr.l}</div>
-      <div class="p-sub">${pr.s}</div>
-    </div>`).join('');
+  /* FEATURED PICKS — high-converting upsell row */
+  (function(){
+    const allP = window.__CATALOG || [];
+    const seenN = new Set([p.name]);
+    const picks = allP.filter(x=>{
+      if(x.id===p.id) return false;
+      if(seenN.has(x.name)) return false;
+      seenN.add(x.name); return true;
+    });
+    const sameCat = picks.filter(x=>x.category===p.category).slice(0,2);
+    const other   = picks.filter(x=>x.category!==p.category).slice(0,2);
+    const list = [...sameCat, ...other].slice(0,4);
+    const root = document.getElementById('featured-picks-grid');
+    if(!root) return;
+    root.innerHTML = list.map(fp=>{
+      const off = fp.orig ? Math.round((1-fp.price/fp.orig)*100) : 0;
+      const img = (fp.images && fp.images[0]) || '';
+      return `<a class="fp-card" href="product.html?id=${fp.id}">
+        ${off?`<span class="fp-disc">−${off}%</span>`:''}
+        ${fp.tag==='bestseller'?'<span class="fp-tag">★ Bestseller</span>':''}
+        <div class="fp-img"><img src="${img}" alt="${fp.name}" loading="lazy" onerror="this.style.opacity=.2"></div>
+        <div class="fp-body">
+          <div class="fp-cat">${fp.category}</div>
+          <div class="fp-name">${fp.name}</div>
+          <div class="fp-stars">★★★★★ <span>(${(fp.reviews||120).toLocaleString('en-IN')})</span></div>
+          <div class="fp-price">
+            <span class="fp-sale">₹${fp.price.toLocaleString('en-IN')}</span>
+            ${fp.orig?`<span class="fp-orig">₹${fp.orig.toLocaleString('en-IN')}</span>`:''}
+          </div>
+          <span class="fp-cta">Shop Now →</span>
+        </div>
+      </a>`;
+    }).join('');
+  })();
 
   /* DOCTOR section */
   document.getElementById('doc-title').textContent='Daulatram\'s '+p.name+' — Trusted by Practitioners';
