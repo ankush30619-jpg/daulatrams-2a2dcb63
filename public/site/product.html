@@ -478,18 +478,52 @@
     <div class="wa-card"><img src="${src}" alt="WhatsApp customer chat ${i+1}" loading="lazy"></div>
   `).join('');
 
-  /* VIDEO REVIEWS */
-  const ugcFiles=['12.png','11.png','10.png','9.png','8.png','7.png','6.png','5-1.png'];
-  const U='https://daulatrams.com/wp-content/uploads/2026/01/';
-  document.getElementById('video-grid').innerHTML=ugcFiles.slice(0,4).map((f,i)=>{
-    const names=['Rajesh K.','Anita M.','Suresh P.','Kavita R.'];
-    const cities=['Mumbai','Jaipur','Bangalore','Hyderabad'];
-    return `<div class="video-card">
-      <img src="${U+f}" alt="Customer review video" loading="lazy" onerror="this.style.display='none'">
+  /* VIDEO REVIEWS — real UGC mp4s (autoplay muted on viewport entry, click to play with audio) */
+  const ugcVideos=[
+    {src:'/__l5e/assets-v1/3fbad06e-ffa5-452d-8617-c27b211ba2cb/Female_1_V2.mp4', name:'Anita M.', city:'Jaipur'},
+    {src:'/__l5e/assets-v1/8f34a57d-1dde-4a22-a372-435820495cb3/Female_2_V2.mp4', name:'Kavita R.', city:'Hyderabad'},
+    {src:'/__l5e/assets-v1/ad65121a-2991-4382-a080-b5d786ed8ba3/Male_1_V2.mp4',   name:'Rajesh K.', city:'Mumbai'},
+    {src:'/__l5e/assets-v1/36b2efd2-ec0f-48b1-aea9-c8118e99fa77/Male_2_V1.mp4',   name:'Suresh P.', city:'Bangalore'}
+  ];
+  document.getElementById('video-grid').innerHTML=ugcVideos.map((v,i)=>`
+    <div class="video-card" data-vc>
+      <video class="v-media" src="${v.src}" muted playsinline loop preload="metadata" webkit-playsinline></video>
       <div class="v-overlay"></div>
-      <div class="v-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-      <div class="v-info"><div class="v-name">${names[i]}, ${cities[i]}</div><div class="v-stars">★★★★★</div></div>
-    </div>`;}).join('');
+      <button class="v-play" type="button" aria-label="Play with sound">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="v-info"><div class="v-name">${v.name}, ${v.city}</div><div class="v-stars">★★★★★</div></div>
+    </div>`).join('');
+  /* autoplay muted previews when section enters viewport */
+  const vcards=document.querySelectorAll('[data-vc]');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        const vid=en.target.querySelector('video');
+        if(!vid) return;
+        if(en.isIntersecting){ vid.muted=true; vid.play().catch(()=>{}); }
+        else { vid.pause(); }
+      });
+    },{threshold:0.35});
+    vcards.forEach(c=>io.observe(c));
+  }
+  /* click play button → fullscreen with audio */
+  vcards.forEach(card=>{
+    const vid=card.querySelector('video');
+    const btn=card.querySelector('.v-play');
+    btn.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      vid.muted=false; vid.currentTime=0; vid.loop=false; vid.controls=true;
+      card.classList.add('playing');
+      const req=vid.requestFullscreen||vid.webkitEnterFullscreen||vid.webkitRequestFullscreen;
+      if(req) req.call(vid).catch(()=>{ vid.play(); });
+      else vid.play();
+    });
+    vid.addEventListener('ended',()=>{
+      card.classList.remove('playing');
+      vid.controls=false; vid.loop=true; vid.muted=true; vid.currentTime=0;
+    });
+  });
 
   /* FAQ */
   const faqMens=[
