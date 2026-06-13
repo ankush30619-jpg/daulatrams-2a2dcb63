@@ -78,6 +78,11 @@
       $("spot-off").textContent = off;
       $("spot-buy").href = "product.html?id=" + id;
       $("spot-cart").href = "product.html?id=" + id;
+      const is60 = (o.value === "60");
+      const fg = $("spot-free-gift");
+      const gOv = $("spot-gift-overlay");
+      if (fg) fg.hidden = !is60;
+      if (gOv) gOv.hidden = !is60;
     };
     packSel.addEventListener("change", upd);
     upd();
