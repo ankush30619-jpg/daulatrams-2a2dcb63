@@ -406,7 +406,8 @@
   .tm-item, .tm-item:nth-child(even) { flex-direction:row; }
   .tm-item:nth-child(even) .tm-card { text-align:left; }
   .tm-card { max-width:100%; }
-  .tm-card, .tm-item:nth-child(even) .tm-card { transform: translateX(-20px) rotate(0); }
+  .tm-card, .tm-item:nth-child(even) .tm-card { transform: translateX(30px) rotate(0); opacity:0; }
+  .tm-item.tm-in .tm-card { transform: translateX(0) rotate(0); opacity:1; }
   .tm-item:nth-child(even) .tm-year::after { transform-origin: left; }
   .tm-item:nth-child(even) .tm-card .tm-leaf { right:16px; left:auto; transform: none; transform-origin:80% 80%; }
 }
