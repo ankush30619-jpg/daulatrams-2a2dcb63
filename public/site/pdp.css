@@ -530,3 +530,6 @@
   transition:all 280ms;
 }
 .fp-card:hover .fp-cta { background:linear-gradient(135deg,var(--brand-orange),#D4800F); box-shadow:0 8px 22px rgba(245,146,29,0.40); }
+/* Trust legacy banner (single image) */
+.trust-legacy-banner{display:block;width:100%;background:#1a7a3a;}
+.trust-legacy-banner img{display:block;width:100%;height:auto;}
