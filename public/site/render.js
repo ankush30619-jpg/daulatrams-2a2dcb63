@@ -60,7 +60,6 @@
     const ingD = window.__INGREDIENTS || {};
     pillWrap.innerHTML = Object.values(ingD).map((h) => `
       <span class="pill pill-herb" title="${h.name} · ${h.dose || ""}">
-        <img src="${h.image}" alt="${h.name}" loading="lazy">
         <span>${h.name}</span>
       </span>`).join("");
   }
