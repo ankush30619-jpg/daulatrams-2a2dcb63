@@ -432,3 +432,101 @@
   .rating-sum-sec .container{ grid-template-columns:1fr!important; }
   .pdp-badges-row{ margin-bottom:14px; }
 }
+
+/* ============ Real Payment Brand Chips ============ */
+.pdp-pay { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:4px; }
+.pdp-pay .pay-lbl { font-size:12px; color:var(--text-muted); font-weight:600; margin-right:4px; }
+.pay-brand {
+  display:inline-flex; align-items:center; justify-content:center;
+  height:30px; min-width:50px; padding:0 10px; border-radius:6px;
+  font-family:Arial,Helvetica,sans-serif; font-weight:800; font-size:11px;
+  letter-spacing:0.06em; color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.12); border:1px solid rgba(0,0,0,0.05);
+  line-height:1;
+}
+.pay-upi  { background:linear-gradient(135deg,#097939 0%,#097939 50%,#f7941d 50%,#f7941d 100%); }
+.pay-visa { background:#1a1f71; font-style:italic; letter-spacing:0.12em; font-size:13px; }
+.pay-mc   { background:#fff; width:54px; padding:0; gap:0; }
+.pay-mc i { display:block; width:18px; height:18px; border-radius:50%; }
+.pay-mc i:first-child { background:#eb001b; margin-right:-7px; }
+.pay-mc i:last-child  { background:#f79e1b; }
+.pay-rzp  { background:#02042b; color:#fff; text-transform:none; letter-spacing:0.02em; font-size:11.5px; }
+.pay-cod  { background:linear-gradient(135deg,#0B5132,#1A6E3E); }
+
+/* ============ Trust Legacy — refined ============ */
+.trust-legacy {
+  background:
+    radial-gradient(1200px 280px at 100% 50%, rgba(245,146,29,0.10), transparent 60%),
+    radial-gradient(900px 280px at 0% 50%, rgba(91,155,42,0.12), transparent 60%),
+    var(--deep-green);
+  position:relative; overflow:hidden; padding:54px 0;
+}
+.trust-legacy::before, .trust-legacy::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size:48px 100%;
+  opacity:.25;
+}
+.trust-legacy-inner { grid-template-columns:1.1fr 1fr; align-items:center; position:relative; z-index:2; }
+.trust-legacy-copy { color:#fff; }
+.trust-legacy-eyebrow {
+  display:inline-block; font-family:var(--font-label); font-weight:700;
+  font-size:11px; letter-spacing:0.18em; color:#FFD27A;
+  padding:5px 12px; border:1.5px solid rgba(255,210,122,0.45); border-radius:50px;
+  margin-bottom:14px;
+}
+.trust-legacy-text { font-family:var(--font-heading); font-size:clamp(22px,2.4vw,32px); font-weight:600; line-height:1.3; margin:0 0 18px; color:#fff; }
+.trust-legacy-text em { font-style:italic; color:#FFD27A; }
+.trust-legacy-stats { display:flex; gap:28px; flex-wrap:wrap; }
+.trust-legacy-stats > div { display:flex; flex-direction:column; }
+.trust-legacy-stats b { font-family:var(--font-label); font-weight:700; font-size:22px; color:#fff; }
+.trust-legacy-stats span { font-size:12px; color:rgba(255,255,255,0.65); margin-top:2px; }
+.trust-legacy-badges {
+  display:flex; gap:18px; align-items:center; justify-content:flex-end;
+  flex-wrap:wrap; position:relative; z-index:2;
+}
+@media(max-width:760px){
+  .trust-legacy-inner{ grid-template-columns:1fr; text-align:left; }
+  .trust-legacy-badges{ justify-content:flex-start; }
+  .trust-legacy-stats{ gap:18px; }
+  .trust-legacy-stats b{ font-size:18px; }
+}
+
+/* ============ Featured Picks (high-conversion upsell) ============ */
+.featured-picks-sec { background:var(--cream-deep); padding:72px 0; }
+.featured-picks-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:36px;
+}
+@media(max-width:1000px){ .featured-picks-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:520px){ .featured-picks-grid{ grid-template-columns:1fr; } }
+.fp-card {
+  position:relative; display:flex; flex-direction:column;
+  background:#fff; border-radius:20px; overflow:hidden; text-decoration:none;
+  box-shadow:0 6px 24px rgba(11,81,50,0.08);
+  border:1.5px solid rgba(11,81,50,0.06);
+  transition:transform 320ms var(--e-smooth), box-shadow 320ms, border-color 320ms;
+}
+.fp-card:hover { transform:translateY(-8px); box-shadow:0 20px 48px rgba(11,81,50,0.18); border-color:var(--brand-green); }
+.fp-disc { position:absolute; top:12px; left:12px; z-index:3; background:var(--brand-orange); color:#fff; font-family:var(--font-label); font-weight:700; font-size:12px; padding:5px 10px; border-radius:50px; box-shadow:0 4px 12px rgba(245,146,29,0.35); }
+.fp-tag  { position:absolute; top:12px; right:12px; z-index:3; background:#fff; color:var(--brand-green); font-family:var(--font-label); font-weight:700; font-size:11px; padding:5px 10px; border-radius:50px; box-shadow:0 4px 12px rgba(0,0,0,0.10); border:1px solid rgba(11,81,50,0.10); }
+.fp-img  { aspect-ratio:1; background:linear-gradient(135deg,var(--cream-warm),var(--parchment)); display:flex; align-items:center; justify-content:center; padding:18px; overflow:hidden; }
+.fp-img img { width:100%; height:100%; object-fit:contain; transition:transform 480ms var(--e-smooth); }
+.fp-card:hover .fp-img img { transform:scale(1.08); }
+.fp-body { padding:16px 18px 20px; display:flex; flex-direction:column; gap:6px; flex:1; }
+.fp-cat  { font-family:var(--font-label); font-size:10.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--brand-green); }
+.fp-name { font-family:var(--font-heading); font-weight:700; font-size:16px; color:var(--charcoal); line-height:1.3; min-height:42px; }
+.fp-stars { color:var(--saffron); font-size:13px; letter-spacing:1px; }
+.fp-stars span { color:var(--text-muted); font-size:11px; margin-left:4px; letter-spacing:0; }
+.fp-price { display:flex; align-items:baseline; gap:8px; margin-top:4px; }
+.fp-sale { font-family:var(--font-label); font-weight:700; font-size:20px; color:var(--brand-green); }
+.fp-orig { font-size:13px; color:var(--text-muted); text-decoration:line-through; }
+.fp-cta {
+  margin-top:12px; display:inline-flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--brand-green),var(--leaf-green));
+  color:#fff; padding:10px 14px; border-radius:50px;
+  font-family:var(--font-body); font-weight:700; font-size:13px;
+  box-shadow:0 6px 18px rgba(91,155,42,0.30);
+  transition:all 280ms;
+}
+.fp-card:hover .fp-cta { background:linear-gradient(135deg,var(--brand-orange),#D4800F); box-shadow:0 8px 22px rgba(245,146,29,0.40); }
