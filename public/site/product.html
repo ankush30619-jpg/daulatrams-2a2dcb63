@@ -471,25 +471,6 @@
       </div>
     </div>`).join('');
 
-  /* TEXT REVIEWS */
-  const revs=[
-    {n:'Rohit Verma',c:'Lucknow',t:'After trying many products, this is the only one that actually worked. '+p.name+' gave me results I could feel within 2 weeks. Completely natural and no side effects whatsoever.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Rohit-Verma.png',s:5},
-    {n:'Priya Sharma',c:'Delhi',t:'Daulatram\'s quality is unmatched. You can feel the purity. I\'ve been recommending this to my entire family. '+p.name+' is now a household essential.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Priya-Sharma.png',s:5},
-    {n:'Gurpreet Singh',c:'Chandigarh',t:'Genuine Ayurvedic quality. The heritage and care that goes into each product is clearly visible. Worth every rupee.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Gurpreet-Singh.png',s:5},
-    {n:'Megha Patil',c:'Pune',t:'Fast delivery, beautiful packaging and most importantly — it works. Three generations of knowledge truly shows in the effectiveness. Worth every rupee.',av:'https://daulatrams.com/wp-content/uploads/2026/01/Megha-Patil.png',s:5}
-  ];
-  document.getElementById('text-reviews').innerHTML=revs.map(r=>`
-    <div class="testi-card">
-      <div class="quote-mark">"</div>
-      <p class="review">${r.t}</p>
-      <div class="stars">${'★'.repeat(r.s)+'☆'.repeat(5-r.s)}</div>
-      <div class="testi-foot">
-        <img src="${r.av}" alt="${r.n}" onerror="this.style.display='none'">
-        <div><div class="name">${r.n}</div><div class="city">${r.c}</div></div>
-      </div>
-      <span class="testi-prod">✓ Verified Purchase</span>
-    </div>`).join('');
-
   /* VIDEO REVIEWS */
   const ugcFiles=['12.png','11.png','10.png','9.png','8.png','7.png','6.png','5-1.png'];
   const U='https://daulatrams.com/wp-content/uploads/2026/01/';
