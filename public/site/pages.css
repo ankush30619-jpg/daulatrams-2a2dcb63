@@ -320,7 +320,6 @@
 }
 .timeline-inner.in::after { opacity:1; animation: tm-glow-pulse 3.4s ease-in-out 1500ms infinite; }
 .tm-item { display:flex; align-items:flex-start; gap:28px; margin-bottom:48px; position:relative; }
-.tm-item:nth-child(even) { flex-direction:row-reverse; }
 .tm-item:nth-child(even) .tm-card { text-align:right; }
 .tm-dot {
   width:22px; height:22px; border-radius:50%; background:var(--brand-green);
