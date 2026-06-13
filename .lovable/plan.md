@@ -1,84 +1,49 @@
-## 1. Hero — Rotating Badge
+## Goal
+Rebuild the **Veer Ved Max Shakti+ Capsules** product page only, matching the reference screenshot section-by-section. Other 9 product pages come in a follow-up turn.
 
-`public/site/home.html` (line 133): change the SVG `<textPath>` text from
-`SINCE DECADES · OF HEALING ·` to `70 YEARS OF TRUST · DAULATRAM'S ·`.
+## Page section order (top → bottom)
 
-`public/site/styles.css` (.badge-circle): tighten size, polish gradient ring (orange→deeper orange), slow rotation to ~22s, add subtle drop-shadow, and on mobile move it slightly inward so it sits cleanly on the collage corner instead of clipping.
+1. **PDP Hero**
+   - Left: product gallery (main image + thumbnails)
+   - Right: category label, title "Veer Ved Max Shakti+ Capsules", short description, star rating row, badge chips (All Day Energy, Better Stamina, Josh, Vitality — copied from screenshot)
+   - **Single variant selector** (remove the second one). Options: `30 Capsules`, `60 Capsules`, `90 Capsules`
+   - When `60 Capsules` is selected → show a **"FREE Daulatram's Shilajit Resin"** bonus card under the variant
+   - Price block, qty, Buy Now + Add to Cart, trust strip, payment chips
 
-## 2. Men's Wellness Spotlight (home.html)
+2. **Trust Legacy Strip (green band)**
+   - Text: "Trust the legacy of Daulatram's — 3rd generation of Ayurveda, now backed by science."
+   - Replace current emoji icons with the **5 uploaded certification badges** (FSSAI Approved, ISO 9001, 100% Ayurvedic, Plant Based, Made in India) from `ChatGPT_Image_Jun_13_2026_01_25_02_PM.png`
+   - Upload as a single image via lovable-assets, then slice/display the 5 circular badges in a row on the green background
 
-In the spotlight section (`#spotlight` ~line 178–220):
+3. **You May Also Like** — carousel of 15–20 products (horizontal scroll/snap, premium card styling that already exists)
 
-- Pack selector default & visible behavior: when `60 Capsules` is chosen, render a new **Free Gift card** below the price block styled exactly like the user's reference (cream bg, gold dashed border, red "FREE" tag, product thumb, "100% FREE GIFT  ₹1250 Value", title "Daulatram's Shilajit Raisin (30ml)", description line).
-  - Hidden when `30 Capsules` is selected.
-  - New CSS class `.free-gift-card` in `styles.css` with the bordered/parchment look.
-- CTA copy: change spotlight Buy Now button (line 200) and ALL other "Buy Now — …" CTAs on the spotlight to uppercase format: `BUY NOW — GET 15% OFF` (no extra spaces). Spot-off dynamic span fills in 15 or 22 based on pack.
-- Replace the single all-ingredients image (line 209) with a **two-image stack**: Shilajit Raisin bottle + Veer Ved 60-cap bottle, with a small `+` divider and a "Includes Free Gift" ribbon when 60-pack is active. Use existing CDN images:
-  - Shilajit: `IMG.shilajit` (already in data.js)
-  - 60-cap pack: `IMG.shaktiAll`
-- Tighten spacing: reduce gap between pills/benefits/rating, align price + save badge on one row at desktop, stack at mobile.
+4. **Do You Feel Any Of These Problems?** — 5 problem cards (existing component)
 
-## 3. Product Page Image Fix (product.html / pdp.css)
+5. **Doctor Endorsement** — doctor image left, product benefits list right (existing)
 
-Bug: `#main-img2` sometimes shows blank because `onerror` hides the `<img>` and the parent has no min-height.
+6. **14 Powerful Herbs — All in One Capsule** — ingredient cards grid (existing, no circular images per prior instruction)
 
-- Give `.pdp-main-wrap` an aspect-ratio (1/1) and a parchment fallback background so the slot never collapses.
-- Set `#main-img2` to `width:100%; height:100%; object-fit:contain` and remove the inline `onerror` that hides the element; instead swap to a placeholder data-URI on error so the slot still has visual content.
-- Mobile: `.pdp-hero-inner` becomes single column under 880px; gallery sticks to top, thumbs scroll horizontally.
+7. **Over 50,000 Men Are Already Seeing Results** — rating summary (4.7 stars, breakdown bars)
 
-## 4. "You May Also Like" Redesign (product.html bottom + pdp.css)
+8. **Real WhatsApp Conversations** — WhatsApp-style testimonial cards (existing)
 
-- Convert `#related-grid` into a horizontally scrollable carousel on mobile (snap, no scrollbar) and a 4-up responsive grid on desktop using existing `renderProductCard`.
-- New `.related-card` overlay class (in `pdp.css`) for premium look: soft shadow, rounded 18px, hover lift, "Bestseller" / discount chips visible, quick-view link.
-- Section heading row: cleaner — eyebrow + heading left, "View All →" right; on mobile heading centered, link below.
+9. **Customer Video Reviews** — 4 vertical video cards (existing)
 
-## 5. About Page Polish (about.html / pages.css)
+10. **Bundle / Offers strip** — 2–3 product bundle cards with discount (new small section reusing product-card styling)
 
-Typography, spacing, alignment:
+11. **FAQ** — accordion (existing, polish styling)
 
-- Page hero: add subtle parchment radial-glow background, increase H1 line-height, center description max-width 640px.
-- "Trust the Legacy" grid: equalize column heights, raise collage corner radius, add gold underline accent under the H2.
-- `.stat-row`: already centered on mobile; on desktop give each stat a faint vertical divider and even spacing.
-- Values grid (deep-green section): polish `.value-card` — glassy bg, hover lift, consistent icon circle.
-- Manufacturing section: replace placeholder block with a styled "Photo coming soon" plate matching the rest of the brand language.
+12. **Footer** (existing global footer — no CTA band above it for this page)
 
-### Timeline alternating animation (Our Journey)
+## Files to edit
+- `public/site/product.html` — re-order sections to match above; remove duplicate variant selector
+- `public/site/render.js` — render single variant selector; conditional Shilajit free-gift card on 60-capsule selection; render new trust-badges strip; render bundle section
+- `public/site/pdp.css` — styles for: new trust-badges strip (green band with 5 circular badge images), free-gift card, bundle cards, section reorder spacing
+- `public/site/catalog.js` — ensure Veer Ved Max has 3 variants (30/60/90) and a `freeGiftOn: "60"` flag
+- `src/assets/cert-badges.png.asset.json` — upload the 5-badges image via lovable-assets
 
-Currently all `.tm-card`s slide in from the same side. Fix:
+## Out of scope (this turn)
+- Other 9 product pages (will replicate this layout in a follow-up once Veer Ved Max is approved)
+- Changes to home page, shop page, or other routes
 
-- `pages.css`: define `@keyframes slideInLeft` and `@keyframes slideInRight`. Use `.tm-item:nth-child(odd) .tm-card { animation: slideInLeft .8s cubic-bezier(.2,.7,.2,1) both }` and `:nth-child(even) .tm-card { animation: slideInRight ... }`, gated by an `.in-view` class.
-- `site.js` (or inline script on about.html): IntersectionObserver adds `.in-view` to each `.tm-item` as it enters; ping dot animates with a delayed scale/pulse for a smoother stagger.
-- Mobile (≤780px): the timeline stays a single vertical rail with the spine on the left, every card slides in from the right with the same observer — keeps it readable on phones.
-- Spine: thinner (2px), gradient green→olive, dots get an outer ring matching the design in the reference image.
-
-## 6. CTA Text Sweep
-
-Across `home.html`, `product.html` and any sticky/floating CTA, normalize the "Buy Now — get 15 % Off" pattern to:
-
-`BUY NOW — GET 15% OFF`  (uppercase, one em-dash, no inner spaces around %)
-
-This applies to: `#spot-buy`, `#buy-btn` (when current variant has a 15% discount it reads `BUY NOW — GET 15% OFF`, else falls back to `BUY NOW — ORDER TODAY`), `#sum-price2` button label, and the rating-summary CTA.
-
-## 7. Cache-bust
-
-Bump CSS query string in every HTML that loads `styles.css`/`pages.css`/`pdp.css` from current value → `v=heritage-cta-fix-1` so users see the changes immediately.
-
-## Verification Loop (after build)
-
-Using the browser tool I'll:
-1. Open `/site/home.html` at 1280×800 and 390×844 → confirm new badge text rotates smoothly, free-gift card appears when 60-cap selected, CTAs read `BUY NOW — GET 15% OFF`.
-2. Open `/site/product.html?id=veer-ved-shakti-60` desktop + mobile → confirm main image renders (no blank slot), related grid is premium, sticky CTA wording correct.
-3. Open `/site/about.html` desktop + mobile → scroll Our Journey, confirm cards alternate left/right with smooth fade-slide on each scroll-in, mobile shows single-rail timeline.
-4. If any check fails, iterate on the same files until it passes — only then stop.
-
-## Files Touched
-
-- `public/site/home.html`
-- `public/site/about.html`
-- `public/site/product.html`
-- `public/site/styles.css`
-- `public/site/pages.css`
-- `public/site/pdp.css`
-- `public/site/site.js` (timeline IntersectionObserver only)
-
-No backend, no schema, no new dependencies.
+Confirm and I'll implement.
