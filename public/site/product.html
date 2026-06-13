@@ -513,17 +513,43 @@
     const btn=card.querySelector('.v-play');
     btn.addEventListener('click',(e)=>{
       e.stopPropagation();
-      vid.muted=false; vid.currentTime=0; vid.loop=false; vid.controls=true;
-      card.classList.add('playing');
-      const req=vid.requestFullscreen||vid.webkitEnterFullscreen||vid.webkitRequestFullscreen;
-      if(req) req.call(vid).catch(()=>{ vid.play(); });
-      else vid.play();
-    });
-    vid.addEventListener('ended',()=>{
-      card.classList.remove('playing');
-      vid.controls=false; vid.loop=true; vid.muted=true; vid.currentTime=0;
+      e.preventDefault();
+      openVideoModal(vid.currentSrc||vid.src);
     });
   });
+
+  /* Lightbox modal — plays single video with sound, isolated from grid */
+  function openVideoModal(src){
+    // pause all preview videos
+    document.querySelectorAll('[data-vc] video').forEach(v=>{ try{v.pause();}catch(e){} });
+    let modal=document.getElementById('video-modal');
+    if(!modal){
+      modal=document.createElement('div');
+      modal.id='video-modal';
+      modal.innerHTML='<button class="vm-close" aria-label="Close">&times;</button><video class="vm-video" controls playsinline autoplay></video>';
+      document.body.appendChild(modal);
+      modal.addEventListener('click',(e)=>{ if(e.target===modal||e.target.classList.contains('vm-close')) closeVideoModal(); });
+      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeVideoModal(); });
+    }
+    const v=modal.querySelector('.vm-video');
+    v.src=src; v.muted=false; v.currentTime=0; v.play().catch(()=>{});
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeVideoModal(){
+    const modal=document.getElementById('video-modal');
+    if(!modal) return;
+    const v=modal.querySelector('.vm-video');
+    try{v.pause();}catch(e){}
+    v.removeAttribute('src'); v.load();
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    // resume previews in viewport
+    document.querySelectorAll('[data-vc] video').forEach(v=>{
+      const r=v.getBoundingClientRect();
+      if(r.bottom>0 && r.top<window.innerHeight){ v.muted=true; v.play().catch(()=>{}); }
+    });
+  }
 
   /* FAQ */
   const faqMens=[
