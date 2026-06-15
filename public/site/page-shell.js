@@ -97,6 +97,12 @@
       <li><a href="#">Blog</a></li>
       <li><a href="#">Careers</a></li>
     </ul></div>
+    <div class="footer-col"><h4>Policies</h4><ul>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="return-cancellation-policy.html">Return &amp; Cancellation Policy</a></li>
+      <li><a href="refund-reimbursement-policy.html">Refund &amp; Reimbursement Policy</a></li>
+      <li><a href="shipping-policy.html">Shipping, Delivery &amp; Logistics Policy</a></li>
+    </ul></div>
     <div class="footer-col"><h4>Get in Touch</h4>
       <div class="footer-contact">
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Sarafa Bazar, Karnal, Haryana – 132001</div>
