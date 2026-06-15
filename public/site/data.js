@@ -103,10 +103,10 @@
       { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true }
     ],
     trendingNow: [
-      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: U + "2025/12/coconut-oil.png", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
-      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/badam-rogan.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
-      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/sesame-oil.png", price: 399, rating: 4.6, reviews: 540 },
-      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/flax-seed-oil.png", price: 499, rating: 4.7, reviews: 320, tag: "new" },
+      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: "/__l5e/assets-v1/6b5005ec-2577-4dab-9880-2fd56c3d6279/coconut.jpeg", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
+      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/89c574c5-ce4a-48a3-a849-b0fc6688e3f8/badam.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
+      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/3dd872cf-f88c-4354-bf32-dbb3fbf1d5f7/sesame.jpeg", price: 399, rating: 4.6, reviews: 540 },
+      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/d27e9dd8-65d4-43b4-8f8a-807dd57eb660/flax.jpeg", price: 499, rating: 4.7, reviews: 320, tag: "new" },
       { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
       { name: "Wild Forest Honey", sizes: "315 gm", img: U + "2026/03/wild-forest-honey.png", price: 540, rating: 4.7, reviews: 410, tag: "new" },
       { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 }
