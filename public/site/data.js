@@ -78,7 +78,7 @@
           ${p.orig ? `<span class="orig">₹${p.orig.toLocaleString("en-IN")}</span>` : ""}
           ${off ? `<span class="off">${off}% OFF</span>` : ""}
         </div>
-        <a href="${url}" class="btn btn-primary btn-block btn-sm">View Product</a>
+        <a href="${url}" class="btn btn-primary btn-block btn-sm">Order Now</a>
       </div>
     </article>`;
   };

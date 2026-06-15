@@ -227,7 +227,7 @@
         <div class="pc-rating"><span class="stars">${stars}</span> ${p.rating||4.5} (${(p.reviews||0).toLocaleString('en-IN')})</div>
         <a href="product.html?id=${p.id}"><h3 class="pc-name">${p.name} <span style="font-size:0.7em;color:var(--text-muted)">${p.variant}</span></h3></a>
         <div class="pc-price"><span class="sale">₹${p.price.toLocaleString('en-IN')}</span>${p.orig?`<span class="orig">₹${p.orig.toLocaleString('en-IN')}</span>`:''} ${off?`<span class="off">${off}% OFF</span>`:''}</div>
-        <a href="product.html?id=${p.id}" class="btn btn-primary btn-block btn-sm">View Product</a>
+        <a href="product.html?id=${p.id}" class="btn btn-primary btn-block btn-sm">Order Now</a>
       </div>
     </article>`;
   }
