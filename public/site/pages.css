@@ -451,3 +451,20 @@
 
 /* Related products */
 .related-sec { background: var(--cream-deep); padding: var(--section-gap) 0; }
+
+/* ---- Policy pages ---- */
+.policy-wrap { background: var(--cream-warm); padding: clamp(40px, 6vw, 80px) 0 clamp(60px, 8vw, 110px); }
+.policy-doc {
+  max-width: 880px; margin: 0 auto; background: #fff; border-radius: 20px;
+  padding: clamp(28px, 4vw, 56px); box-shadow: var(--shadow-card);
+}
+.policy-doc .meta { font-size: 13.5px; color: var(--text-medium); margin-bottom: 8px; letter-spacing: 0.04em; text-transform: uppercase; }
+.policy-doc h2 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(22px, 2.4vw, 30px); color: var(--brand-green); margin: 36px 0 14px; }
+.policy-doc h3 { font-weight: 700; font-size: 17px; color: var(--charcoal); margin: 22px 0 10px; }
+.policy-doc p, .policy-doc li { font-size: 15.5px; line-height: 1.75; color: var(--text-medium); }
+.policy-doc p { margin-bottom: 14px; }
+.policy-doc ul, .policy-doc ol { padding-left: 22px; margin-bottom: 16px; }
+.policy-doc li { margin-bottom: 8px; }
+.policy-doc strong { color: var(--charcoal); }
+.policy-doc a { color: var(--brand-green); text-decoration: underline; }
+.policy-doc hr { border: 0; border-top: 1px solid rgba(11,81,50,0.12); margin: 28px 0; }
