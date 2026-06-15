@@ -6,15 +6,15 @@
   const IMG = {
     shaktiAll: U + "2026/05/All-ings.jpg",
     shaktiBowl: U + "2026/05/bowl-ings.jpg",
-    ghee: U + "2025/12/Daulatrams-Desi-Cow-Ghee-500ml-1.png",
-    nariKalp: U + "2026/01/nari-kalp-2.png",
+    ghee: "/__l5e/assets-v1/e7000b58-0f94-47be-90f6-4ee352f16afe/ghee.jpeg",
+    nariKalp: "/__l5e/assets-v1/4f50cd85-2c85-4fe5-a5c4-fc02bd98eb7c/nariKalp.png",
     aloe: U + "2025/12/aloevera-gel-4.png",
-    vanTulsi: U + "2026/03/van-tulsi-honey-2.png",
-    multiflora: U + "2026/03/multiflora-honey-3.png",
-    amla: U + "2026/03/amla-bhringraj-hair-oil-4.png",
-    realHerbs: U + "2026/03/real-herbs-oil-2.png",
-    recure: U + "2026/03/recure-oil-5.png",
-    castor: U + "2026/03/castor-oil-2.png",
+    vanTulsi: "/__l5e/assets-v1/9074aa15-3134-43f2-9004-94a4c2eccd04/vanTulsi.jpeg",
+    multiflora: "/__l5e/assets-v1/beeb6bb4-dde5-4a5b-8192-f7e7fd114ea8/multiflora.png",
+    amla: "/__l5e/assets-v1/599bd417-7f0b-498b-83a6-513cb209a936/amla.png",
+    realHerbs: "/__l5e/assets-v1/619d03e1-0881-40fc-872b-fdc8524e79fd/realHerbs.png",
+    recure: "/__l5e/assets-v1/ce956610-e36d-48eb-98f9-070f72f063b5/recure.png",
+    castor: "/__l5e/assets-v1/a6d0241e-255b-409e-a5d4-835c77f3c4c4/castor.png",
     shilajit: U + "2026/03/shilajit-4.png",
     slimTea: U + "2025/12/Daulatrams-Slim-Tea-1.png"
   };
@@ -103,10 +103,10 @@
       { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true }
     ],
     trendingNow: [
-      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: U + "2025/12/coconut-oil.png", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
-      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/badam-rogan.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
-      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/sesame-oil.png", price: 399, rating: 4.6, reviews: 540 },
-      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: U + "2025/12/flax-seed-oil.png", price: 499, rating: 4.7, reviews: 320, tag: "new" },
+      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: "/__l5e/assets-v1/6b5005ec-2577-4dab-9880-2fd56c3d6279/coconut.jpeg", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
+      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/89c574c5-ce4a-48a3-a849-b0fc6688e3f8/badam.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
+      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/3dd872cf-f88c-4354-bf32-dbb3fbf1d5f7/sesame.jpeg", price: 399, rating: 4.6, reviews: 540 },
+      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/d27e9dd8-65d4-43b4-8f8a-807dd57eb660/flax.jpeg", price: 499, rating: 4.7, reviews: 320, tag: "new" },
       { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
       { name: "Wild Forest Honey", sizes: "315 gm", img: U + "2026/03/wild-forest-honey.png", price: 540, rating: 4.7, reviews: 410, tag: "new" },
       { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 }
