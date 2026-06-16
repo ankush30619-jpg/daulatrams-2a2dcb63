@@ -1,4 +1,6 @@
-{
+// Auto-generated authoritative product price catalog. Used server-side only.
+export type CatalogEntry = { id: string; name: string; price: number; image: string };
+export const SERVER_CATALOG: Record<string, CatalogEntry> = {
   "coconut-oil": {
     "id": "coconut-oil",
     "name": "Cold Pressed Coconut Oil — 250ml",
@@ -899,4 +901,4 @@
     "price": 1699,
     "image": "https://daulatrams.com/wp-content/uploads/2025/12/Daulatrams-Desi-Cow-Ghee-500ml-1.png"
   }
-}
+};
