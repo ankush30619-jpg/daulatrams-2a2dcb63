@@ -19,24 +19,30 @@
     mTrack.innerHTML = one + one;
   }
 
-  /* Categories */
+  /* Categories — cartoon icons in pastel-green chips */
   const cats = [
-    { name: "Men's Wellness",   img: "assets/categories/mens-wellness.jpg",   url: "shop.html?cat=mens-wellness" },
-    { name: "Women's Wellness", img: "assets/categories/womens-wellness.jpg", url: "shop.html?cat=womens-wellness" },
-    { name: "Desi Ghee",        img: "assets/categories/desi-ghee.jpg",       url: "shop.html?cat=desi-ghee" },
-    { name: "Hair Care",        img: "assets/categories/hair-care.jpg",       url: "shop.html?cat=hair-care" },
-    { name: "Skin Care",        img: "assets/categories/skin-care.jpg",       url: "shop.html?cat=skin-care" },
-    { name: "Honey",            img: "assets/categories/honey.jpg",           url: "shop.html?cat=honey" }
+    { name: "Bestsellers",       emoji: "⭐", url: "shop.html#all-products" },
+    { name: "Men\'s Wellness",    emoji: "💪", url: "shop.html?cat=mens-wellness" },
+    { name: "Women\'s Wellness",  emoji: "🌸", url: "shop.html?cat=womens-wellness" },
+    { name: "Desi Ghee",         emoji: "🧈", url: "shop.html?cat=desi-ghee" },
+    { name: "Honey",             emoji: "🍯", url: "shop.html?cat=honey" },
+    { name: "Hair Care",         emoji: "💆", url: "shop.html?cat=hair-care" },
+    { name: "Skin Care",         emoji: "🌿", url: "shop.html?cat=skin-care" },
+    { name: "Cold Pressed Oils", emoji: "🥥", url: "shop.html?cat=cold-pressed-oils" },
+    { name: "Wellness",          emoji: "🌱", url: "shop.html?cat=wellness" },
+    { name: "Weight Loss",       emoji: "🍵", url: "shop.html?cat=weight-loss" },
+    { name: "Shilajit",          emoji: "🪨", url: "shop.html?q=shilajit" },
+    { name: "Kitchen & Home",    emoji: "🏺", url: "shop.html?cat=kitchen-%26-home" }
   ];
   const catGrid = document.getElementById("cat-grid");
-  if (catGrid) catGrid.innerHTML = cats.map((c) => `
-    <a class="cat-card cat-card-photo" href="${c.url}">
-      <div class="cat-photo-wrap">
-        <img class="cat-photo" src="${c.img}" alt="${c.name}" loading="lazy" onerror="${fb}">
-      </div>
-      <div class="cat-name">${c.name}</div>
-      <div class="cat-arrow">Shop now →</div>
-    </a>`).join("");
+  if (catGrid) {
+    catGrid.classList.add("cat-cartoon-row");
+    catGrid.innerHTML = cats.map((c) => `
+      <a class="cat-cartoon-card" href="${c.url}" aria-label="${c.name}">
+        <span class="cc-chip"><span class="cc-emoji" aria-hidden="true">${c.emoji}</span></span>
+        <span class="cc-label">${c.name}</span>
+      </a>`).join("");
+  }
 
   /* New arrivals + bestsellers */
   const na = document.getElementById("new-arrivals-carousel");
@@ -89,7 +95,6 @@
     upd();
   }
 
-
   /* Testimonials */
   const testimonials = [
     { name: "Priya Sharma", city: "Delhi", avatar: U + "2026/01/Priya-Sharma.png", rating: 5, product: "Nari Kalp",
@@ -97,11 +102,11 @@
     { name: "Rohit Verma", city: "Lucknow", avatar: U + "2026/01/Rohit-Verma.png", rating: 5, product: "Shakti+ Capsules",
       text: "I was sceptical about Ayurvedic supplements, but Shakti+ proved me wrong. By the third week my stamina at the gym and through the workday improved noticeably. No jitters, no crashes." },
     { name: "Gurpreet Singh", city: "Chandigarh", avatar: U + "2026/01/Gurpreet-Singh.png", rating: 5, product: "Shakti+ Capsules",
-      text: "Trusted brand, honest formula. You can feel the purity. My father and I both take it now — that says everything about how much our family trusts Daulatram's." },
+      text: "Trusted brand, honest formula. You can feel the purity. My father and I both take it now — that says everything about how much our family trusts Daulatram\'s." },
     { name: "Megha Patil", city: "Pune", avatar: U + "2026/01/Megha-Patil.png", rating: 5, product: "Desi Cow Ghee",
       text: "The Desi Cow Ghee tastes exactly like the one we got from our village. Pure aroma, golden colour, no shortcuts. It has become a staple in my kitchen for the whole family." },
     { name: "Mahesh Joshi", city: "Jaipur", avatar: U + "2026/01/Mahesh-Joshi.png", rating: 5, product: "Pain Relief Oil",
-      text: "At 58, my knee pain used to slow me down every morning. The pain oil gives real, warm relief within minutes. Heritage knowledge that actually works — I'm grateful." }
+      text: "At 58, my knee pain used to slow me down every morning. The pain oil gives real, warm relief within minutes. Heritage knowledge that actually works — I\'m grateful." }
   ];
   const tStars = (n) => "★★★★★".slice(0, n) + "☆☆☆☆☆".slice(0, 5 - n);
   const tTrack = document.getElementById("testi-track");
@@ -123,11 +128,11 @@
     { t: "100% Natural", d: "Pure plant-based ingredients, zero chemicals, zero compromise.", i: '<path d="M11 20A7 7 0 0 1 4 13c0-5 7-11 7-11s7 6 7 11a7 7 0 0 1-7 7z"/><path d="M11 20v-9"/>' },
     { t: "Own Manufacturing", d: "Produced in our own Karnal facility under expert supervision.", i: '<path d="M3 21h18M4 21V9l5-3 5 3M14 21V9l6-3v15"/>' },
     { t: "Science Backed", d: "Ancient wisdom validated by modern research and FSSAI standards.", i: '<path d="M9 2h6M10 2v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V2"/>' },
-    { t: "3 Generations", d: "Decades of Ayurvedic expertise passed down through our family.", i: '<circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6M15 21c0-2.5 1.8-4.6 4-5"/>' },
+    { t: "3 Generations of Trust", d: "Decades of Ayurvedic expertise passed down through our family.", i: '<circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6M15 21c0-2.5 1.8-4.6 4-5"/>' },
     { t: "Pan-India Delivery", d: "Reaching 19,000+ pincodes with fast, trackable shipping.", i: '<path d="M1 3h15v13H1zM16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="18.5" cy="18.5" r="1.8"/>' },
-    { t: "Easy Returns", d: "Quality guarantee — full refund if you're not satisfied.", i: '<path d="M3 12a9 9 0 1 1 3 6.7M3 12V7M3 12h5"/>' },
+    { t: "Easy Returns", d: "Quality guarantee — full refund if you’re not satisfied.", i: '<path d="M3 12a9 9 0 1 1 3 6.7M3 12V7M3 12h5"/>' },
     { t: "Secure Payments", d: "UPI, Card, COD — 128-bit SSL encrypted checkout.", i: '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>' },
-    { t: "24/7 Support", d: "WhatsApp & phone support — we're always here for you.", i: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.4 2.5 1.2 3.4.5 4.3L8.1 9.9a16 16 0 0 0 6 6l1.9-1.5c.9-.7 1.8.1 4.3.5a2 2 0 0 1 1.7 2z"/>' }
+    { t: "24/7 Support", d: "WhatsApp & phone support — we’re always here for you.", i: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.4 2.5 1.2 3.4.5 4.3L8.1 9.9a16 16 0 0 0 6 6l1.9-1.5c.9-.7 1.8.1 4.3.5a2 2 0 0 1 1.7 2z"/>' }
   ];
   const vGrid = document.getElementById("values-grid");
   if (vGrid) vGrid.innerHTML = values.map((v) => `
@@ -140,7 +145,6 @@
   /* Ingredients list */
   const ingData = window.__INGREDIENTS || {};
   const keys = Object.keys(ingData);
-  // Helper exposed for site.js click handler
   window.renderIngredientDetail = function (d) {
     if (!d) return "";
     const visual = d.image
@@ -162,7 +166,6 @@
       <button class="ing-item${i === 0 ? " active" : ""}" data-ing="${k}">
         <span class="ing-dot"></span>${ingData[k].name}
       </button>`).join("");
-    // render first
     const d = ingData[keys[0]];
     const detail = document.getElementById("ing-detail");
     if (detail) detail.innerHTML = window.renderIngredientDetail(d);

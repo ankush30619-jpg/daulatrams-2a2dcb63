@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop Pure Ayurveda — Daulatram's</title>
 <meta name="description" content="Shop authentic Ayurvedic wellness — men's & women's wellness, hair care, skin care, desi ghee, raw honey and more. Free shipping over ₹499.">
+<link rel="canonical" href="https://daulatrams.lovable.app/site/shop.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shop Pure Ayurveda — Daulatram's">
+<meta property="og:description" content="Authentic Ayurvedic wellness — men's & women's wellness, hair, skin, desi ghee, raw honey. Free shipping over ₹499.">
+<meta property="og:url" content="https://daulatrams.lovable.app/site/shop.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,31 +43,6 @@
 </section>
 
 <main id="main-content">
-
-  <!-- ============ SHOP BY CATEGORY ============ -->
-  <section class="section shop-cats">
-    <div class="container">
-      <div class="sec-head">
-        <span class="label label-green">Shop by Category</span>
-        <h2 class="t-h2">Find What Your Body Needs</h2>
-      </div>
-      <div class="cat-card-grid" id="cat-card-grid"></div>
-    </div>
-  </section>
-
-  <!-- ============ BESTSELLERS STRIP ============ -->
-  <section class="section shop-bestsellers" style="background:var(--cream-warm);">
-    <div class="container">
-      <div class="sec-head sec-head-row">
-        <div>
-          <span class="label label-orange">★ Bestsellers</span>
-          <h2 class="t-h2">India's Favourites</h2>
-        </div>
-        <a href="#all-products" class="link-arrow">Browse all →</a>
-      </div>
-      <div class="bestsellers-strip" id="bestsellers-strip"></div>
-    </div>
-  </section>
 
   <!-- ============ STICKY TOOLBAR ============ -->
   <div class="shop-toolbar" id="all-products">
@@ -102,6 +83,20 @@
     </div>
   </section>
 
+  <!-- ============ BESTSELLERS STRIP ============ -->
+  <section class="section shop-bestsellers" style="background:var(--cream-warm);">
+    <div class="container">
+      <div class="sec-head sec-head-row">
+        <div>
+          <span class="label label-orange">★ Bestsellers</span>
+          <h2 class="t-h2">India's Favourites</h2>
+        </div>
+        <a href="#all-products" class="link-arrow">Browse all →</a>
+      </div>
+      <div class="bestsellers-strip" id="bestsellers-strip"></div>
+    </div>
+  </section>
+
   <!-- ============ WHY US TRUST SECTION ============ -->
   <section class="section shop-trust">
     <div class="container">
@@ -118,46 +113,19 @@
     </div>
   </section>
 
-  <!-- ============ TESTIMONIALS ============ -->
-  <section class="section shop-testimonials" style="background:var(--cream-deep);">
-    <div class="container">
-      <div class="sec-head">
-        <span class="label label-orange">★★★★★ 4.8 / 5</span>
-        <h2 class="t-h2">What Our Family Says</h2>
-      </div>
-      <div class="testi-row">
-        <figure class="testi-mini">
-          <div class="tm-stars">★★★★★</div>
-          <blockquote>"Veer Ved Shakti+ ne meri energy completely change kar di. 3 months me result dikha — natural, no side effects."</blockquote>
-          <figcaption><b>Rohit S.</b> · Verified Buyer · Delhi</figcaption>
-        </figure>
-        <figure class="testi-mini">
-          <div class="tm-stars">★★★★★</div>
-          <blockquote>"Amla Bhringraj oil is magic for hairfall. My grandmother used to swear by Daulatram's and now I understand why."</blockquote>
-          <figcaption><b>Priya M.</b> · Verified Buyer · Mumbai</figcaption>
-        </figure>
-        <figure class="testi-mini">
-          <div class="tm-stars">★★★★★</div>
-          <blockquote>"Pure desi cow ghee like ghar ka banaya hua. Aroma alone tells you it's the real thing."</blockquote>
-          <figcaption><b>Anita K.</b> · Verified Buyer · Bangalore</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ OFFER BANNER ============ -->
   <section class="section shop-offer">
     <div class="container">
-      <div class="offer-card" data-newsletter-wrap>
+      <div class="offer-card">
         <div class="offer-left">
           <span class="label label-orange">FIRST ORDER OFFER</span>
-          <h2>Get <em>10% OFF</em> your first order</h2>
-          <p>Join 50,000+ families on their Ayurvedic journey. Wellness tips, launches & exclusive drops.</p>
+          <h2>Get <em>10% OFF</em> on your first order</h2>
+          <p>Use code <b>POWERPLUS10</b> for Extra 10% off on your first purchase.</p>
         </div>
-        <form class="offer-form email-form" data-newsletter data-success="🎉 Check your inbox — your 10% code is on the way!">
-          <input type="email" required placeholder="Your email address">
-          <button class="btn btn-primary" type="submit">Claim 10% OFF</button>
-        </form>
+        <div class="offer-form code-form">
+          <input type="text" id="promo-code-input" value="POWERPLUS10" readonly aria-label="Promo code">
+          <button class="btn btn-primary" type="button" id="promo-copy-btn" onclick="(function(b){navigator.clipboard&&navigator.clipboard.writeText('POWERPLUS10');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy this code'},1800);})(this)">Copy this code</button>
+        </div>
       </div>
     </div>
   </section>
@@ -227,7 +195,10 @@
         <div class="pc-rating"><span class="stars">${stars}</span> ${p.rating||4.5} (${(p.reviews||0).toLocaleString('en-IN')})</div>
         <a href="product.html?id=${p.id}"><h3 class="pc-name">${p.name} <span style="font-size:0.7em;color:var(--text-muted)">${p.variant}</span></h3></a>
         <div class="pc-price"><span class="sale">₹${p.price.toLocaleString('en-IN')}</span>${p.orig?`<span class="orig">₹${p.orig.toLocaleString('en-IN')}</span>`:''} ${off?`<span class="off">${off}% OFF</span>`:''}</div>
-        <a href="product.html?id=${p.id}" class="btn btn-primary btn-block btn-sm">Order Now</a>
+        <div class="pc-cta-row">
+          <a href="product.html?id=${p.id}" class="btn btn-primary btn-sm">Order Now</a>
+          <button type="button" class="btn btn-cart-orange btn-sm" data-cart-add data-id="${p.id}" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price}" data-image="${(p.images||[])[0]||''}" data-variant="${p.variant||''}">Add to Cart</button>
+        </div>
       </div>
     </article>`;
   }
@@ -266,7 +237,7 @@
       {name:"Kitchen & Home", img:'assets/categories/honey.jpg', color:'#A4632B'},
       {name:"Weight Loss", img:'assets/categories/weight-loss.jpg', color:'#5B9B2A'}
     ];
-    catGridEl.innerHTML = cats.map(c => {
+    if(!catGridEl) return; catGridEl.innerHTML = cats.map(c => {
       const count = catalog.filter(p=>p.category===c.name).length;
       const slug = c.name.toLowerCase().replace(/['']/g,'').replace(/\s+/g,'-');
       return `<a class="cat-card cat-card-img" href="?cat=${slug}#all-products" style="--cc:${c.color}">

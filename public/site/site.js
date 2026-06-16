@@ -289,3 +289,25 @@
     }
   });
 })();
+
+/* v2 — delegated Add-to-Cart for product cards rendered via [data-cart-add] */
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest('[data-cart-add]');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const id = btn.dataset.id || '';
+  if (!id) return;
+  const item = {
+    id: id,
+    name: btn.dataset.name || id,
+    price: Number(btn.dataset.price) || 0,
+    image: btn.dataset.image || '',
+    variant: btn.dataset.variant || ''
+  };
+  try {
+    if (window.dr && window.dr.store && window.dr.store.addToCart) {
+      window.dr.store.addToCart(item);
+    }
+  } catch (err) { console.warn('cart-add failed', err); }
+});
