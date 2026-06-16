@@ -717,7 +717,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 .filter-tabs { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 44px; }
 .filter-tab {
   background: #fff; border: 1.5px solid var(--brand-green); color: var(--brand-green);
-  padding: 10px 22px; border-radius: 50px; font-weight: 600; font-size: 14.5px;
+  padding: 6px 16px; border-radius: 50px; font-weight: 600; font-size: 12.5px;
   transition: all 250ms var(--e-smooth);
 }
 .filter-tab:hover { background: rgba(91,155,42,0.08); }
