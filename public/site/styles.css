@@ -819,7 +819,10 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
    ============================================================ */
 .ingredients { background: #fff; }
 .ing-layout { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
-.ing-list { display: flex; flex-direction: column; gap: 4px; }
+.ing-list { display: flex; flex-direction: column; gap: 4px; max-height: 460px; overflow-y: auto; padding-right: 6px; scrollbar-width: thin; scrollbar-color: rgba(91,155,42,0.4) transparent; }
+.ing-list::-webkit-scrollbar { width: 6px; }
+.ing-list::-webkit-scrollbar-thumb { background: rgba(91,155,42,0.4); border-radius: 3px; }
+.ing-detail-col { position: sticky; top: 100px; }
 .ing-item {
   text-align: left; background: none; border: none; border-left: 3px solid transparent;
   padding: 14px 18px; font-weight: 600; font-size: 16.5px; color: var(--text-medium);
