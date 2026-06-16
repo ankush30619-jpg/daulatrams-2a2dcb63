@@ -1215,34 +1215,39 @@ html, body { overflow-x: clip; -webkit-text-size-adjust: 100%; }
    v2 — Cartoon category row, orange CTA, dark-bg promise cards, mobile
    ============================================================ */
 
-/* Cartoon category scroller (homepage Shop by Category) */
+/* Cartoon category row (homepage Shop by Category) — full width, no scroll */
+.cat-grid-fullwidth {
+  width: 100%;
+  padding-left: clamp(12px, 3vw, 40px);
+  padding-right: clamp(12px, 3vw, 40px);
+}
 .cat-grid.cat-cartoon-row {
   grid-template-columns: none;
-  display: flex; gap: 22px; overflow-x: auto; padding: 6px 4px 18px;
-  scroll-snap-type: x mandatory; scrollbar-width: thin;
+  display: flex; gap: clamp(8px, 1.4vw, 22px); overflow-x: visible; padding: 6px 4px 18px;
+  justify-content: space-between;
 }
-.cat-grid.cat-cartoon-row::-webkit-scrollbar { height: 6px; }
-.cat-grid.cat-cartoon-row::-webkit-scrollbar-thumb { background: rgba(11,81,50,0.25); border-radius: 50px; }
 .cat-cartoon-card {
-  flex: 0 0 auto; scroll-snap-align: start;
+  flex: 1 1 auto; min-width: 0;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
-  width: 110px; text-decoration: none; color: var(--charcoal);
+  max-width: 140px;
+  text-decoration: none; color: var(--charcoal);
   transition: transform 320ms var(--e-spring);
 }
 .cat-cartoon-card:hover { transform: translateY(-6px); }
 .cat-cartoon-card .cc-chip {
-  width: 96px; height: 96px; border-radius: 50%;
+  width: clamp(72px, 7vw, 96px); aspect-ratio: 1; border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #E8F5E0, #D4ECC8 70%, #C5E3B6);
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 8px 20px rgba(11,81,50,0.12); border: 2px solid rgba(11,81,50,0.08);
   transition: box-shadow 280ms, border-color 280ms;
 }
 .cat-cartoon-card:hover .cc-chip { box-shadow: 0 14px 28px rgba(11,81,50,0.20); border-color: var(--brand-green); }
-.cat-cartoon-card .cc-emoji { font-size: 52px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.12)); }
-.cat-cartoon-card .cc-label { font-size: 13.5px; font-weight: 600; color: var(--charcoal); text-align: center; line-height: 1.2; }
+.cat-cartoon-card .cc-emoji { font-size: clamp(36px, 3.8vw, 52px); line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.12)); }
+.cat-cartoon-card .cc-label { font-size: clamp(11px, 1.1vw, 13.5px); font-weight: 600; color: var(--charcoal); text-align: center; line-height: 1.2; }
 @media (max-width: 640px) {
-  .cat-cartoon-card { width: 88px; }
-  .cat-cartoon-card .cc-chip { width: 78px; height: 78px; }
+  .cat-grid-fullwidth { padding-left: 8px; padding-right: 8px; }
+  .cat-cartoon-card { max-width: 88px; }
+  .cat-cartoon-card .cc-chip { width: 78px; }
   .cat-cartoon-card .cc-emoji { font-size: 42px; }
   .cat-cartoon-card .cc-label { font-size: 12px; }
 }
