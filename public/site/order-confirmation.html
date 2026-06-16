@@ -21,11 +21,17 @@
 <script>
 (async function(){
   const root = document.getElementById("oc-root");
-  const num = new URLSearchParams(location.search).get("order");
+  const num = new URLSearchParams(location.search).get("order") || "";
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
   setTimeout(async ()=>{
     const sb = window.dr.auth.client(); const u = window.dr.auth.user;
     if (!u){ root.innerHTML = `<h2 class="oc-num">Thank you!</h2><p>Sign in to track your order.</p><a href="auth.html" class="btn btn-primary">Sign In</a>`; return; }
-    const { data: order } = await sb.from("orders").select("*").or(`order_number.eq.${num},id.eq.${num}`).maybeSingle();
+    // Query orders separately to avoid OR injection via PostgREST filter.
+    let query = sb.from("orders").select("*").eq("user_id", u.id);
+    // UUID-shaped → match by id; otherwise treat as order_number.
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(num);
+    query = isUuid ? query.eq("id", num) : query.eq("order_number", num);
+    const { data: order } = await query.maybeSingle();
     if (!order){ root.innerHTML = `<h2>Order not found</h2>`; return; }
     const { data: items } = await sb.from("order_items").select("*").eq("order_id", order.id);
     const addr = order.shipping_address || {};
@@ -33,12 +39,12 @@
       <div class="oc-tick">✓</div>
       <h2 style="font-family:'Cormorant Garamond',serif;color:#0B5132;font-size:34px;margin:0">Order Confirmed!</h2>
       <p style="color:#666;margin:8px 0 0">Thank you for shopping with Daulatram's.</p>
-      <div class="oc-num">${order.order_number}</div>
+      <div class="oc-num">${esc(order.order_number)}</div>
       <div class="oc-items">
-        ${(items||[]).map(i=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee5d5"><span>${i.product_name} × ${i.quantity}</span><strong>₹${(i.line_total).toLocaleString("en-IN")}</strong></div>`).join("")}
-        <div style="display:flex;justify-content:space-between;padding-top:12px;font-weight:700;color:#0B5132;font-size:18px"><span>Total</span><span>₹${order.total.toLocaleString("en-IN")}</span></div>
+        ${(items||[]).map(i=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee5d5"><span>${esc(i.product_name)} × ${i.quantity|0}</span><strong>₹${Number(i.line_total).toLocaleString("en-IN")}</strong></div>`).join("")}
+        <div style="display:flex;justify-content:space-between;padding-top:12px;font-weight:700;color:#0B5132;font-size:18px"><span>Total</span><span>₹${Number(order.total).toLocaleString("en-IN")}</span></div>
       </div>
-      <div style="text-align:left;background:#FBF7EE;border-radius:12px;padding:16px"><strong>Shipping to:</strong><br>${addr.label||""}<br>${addr.line1||""}${addr.line2?", "+addr.line2:""}<br>${addr.city||""}, ${addr.state||""} ${addr.pincode||""}<br>${addr.phone||""}</div>
+      <div style="text-align:left;background:#FBF7EE;border-radius:12px;padding:16px"><strong>Shipping to:</strong><br>${esc(addr.label||"")}<br>${esc(addr.line1||"")}${addr.line2?", "+esc(addr.line2):""}<br>${esc(addr.city||"")}, ${esc(addr.state||"")} ${esc(addr.pincode||"")}<br>${esc(addr.phone||"")}</div>
       <a href="account.html#orders" class="btn btn-primary" style="margin-top:20px">View My Orders</a>
       <a href="shop.html" class="btn btn-outline" style="margin-top:10px">Continue Shopping</a>`;
   }, 600);
