@@ -53,7 +53,16 @@
 <script>
 (function(){
   const params = new URLSearchParams(location.search);
-  const redirect = params.get("redirect") || "account.html";
+  // Validate redirect target: only same-origin relative paths allowed.
+  function safeRedirect(url, fallback){
+    if (!url) return fallback;
+    try {
+      const parsed = new URL(url, window.location.origin);
+      if (parsed.origin === window.location.origin) return parsed.pathname + parsed.search + parsed.hash;
+    } catch (e) {}
+    return fallback;
+  }
+  const redirect = safeRedirect(params.get("redirect"), "account.html");
   const $ = s => document.querySelector(s);
   const msg = $("#msg");
   function show(html, ok){ msg.innerHTML = `<div class="${ok?'ok':'err'}">${html}</div>`; }

@@ -24,10 +24,14 @@
   const root = document.getElementById("co-root");
   let addresses = [], selectedAddrId = null, payment = "cod";
 
+  // HTML escape helper for safely interpolating user/DB data into innerHTML.
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+
+  // Display-only totals (server is authoritative; recomputed on placeOrder).
   function totals(){
     const sub = window.dr.store.cartTotal();
     let disc = 0, code = null;
-    try { const c = JSON.parse(localStorage.getItem("dr-coupon")||"null"); if(c){ disc = Math.round(sub*c.percent/100); code=c.code; } } catch(e){}
+    try { const c = JSON.parse(localStorage.getItem("dr-coupon")||"null"); if(c){ disc = Math.round(sub*(c.percent||0)/100); code=c.code; } } catch(e){}
     const shipping = (sub-disc) >= 1000 ? 0 : 60;
     return { sub, disc, code, shipping, total: sub-disc+shipping };
   }
@@ -44,10 +48,10 @@
     }
     return addresses.map(a => `
       <label class="pay-opt" style="display:flex;align-items:flex-start">
-        <input type="radio" name="addr" value="${a.id}" ${a.id===selectedAddrId?"checked":""}>
+        <input type="radio" name="addr" value="${esc(a.id)}" ${a.id===selectedAddrId?"checked":""}>
         <div>
-          <strong>${a.label||"Address"}</strong>${a.is_default?' <span style="font-size:11px;color:#0B5132">DEFAULT</span>':""}
-          <div style="font-size:13px;color:#444;margin-top:4px">${a.line1}${a.line2?", "+a.line2:""}<br>${a.city}, ${a.state} ${a.pincode}<br>${a.phone||""}</div>
+          <strong>${esc(a.label||"Address")}</strong>${a.is_default?' <span style="font-size:11px;color:#0B5132">DEFAULT</span>':""}
+          <div style="font-size:13px;color:#444;margin-top:4px">${esc(a.line1)}${a.line2?", "+esc(a.line2):""}<br>${esc(a.city)}, ${esc(a.state)} ${esc(a.pincode)}<br>${esc(a.phone||"")}</div>
         </div>
       </label>`).join("");
   }
@@ -90,9 +94,9 @@
         </div>
         <aside class="cart-summary" style="position:sticky;top:140px">
           <h3>Your Order</h3>
-          ${cart.map(i=>`<div class="sum-row"><span style="max-width:60%;overflow:hidden;text-overflow:ellipsis">${i.name} × ${i.qty}</span><span>₹${(i.price*i.qty).toLocaleString("en-IN")}</span></div>`).join("")}
+          ${cart.map(i=>`<div class="sum-row"><span style="max-width:60%;overflow:hidden;text-overflow:ellipsis">${esc(i.name)} × ${i.qty|0}</span><span>₹${(i.price*i.qty).toLocaleString("en-IN")}</span></div>`).join("")}
           <div class="sum-row" style="border-top:1px solid #e6dcc4;padding-top:10px;margin-top:10px"><span>Subtotal</span><span>₹${t.sub.toLocaleString("en-IN")}</span></div>
-          ${t.disc?`<div class="sum-row" style="color:#0B5132"><span>${t.code}</span><span>−₹${t.disc.toLocaleString("en-IN")}</span></div>`:""}
+          ${t.disc?`<div class="sum-row" style="color:#0B5132"><span>${esc(t.code)}</span><span>−₹${t.disc.toLocaleString("en-IN")}</span></div>`:""}
           <div class="sum-row"><span>Shipping</span><span>${t.shipping?"₹"+t.shipping:"FREE"}</span></div>
           <div class="sum-total"><span>Total</span><span>₹${t.total.toLocaleString("en-IN")}</span></div>
           <button id="place" class="btn btn-primary btn-block" style="margin-top:14px">Place Order →</button>
@@ -118,21 +122,40 @@
   async function placeOrder(){
     const msg = document.getElementById("place-msg"); msg.textContent="";
     if (!selectedAddrId){ msg.textContent="Please select or add a shipping address."; return; }
-    const sb = window.dr.auth.client(); const u = window.dr.auth.user;
-    const cart = window.dr.store.getCart(); const t = totals();
-    const addr = addresses.find(a=>a.id===selectedAddrId);
+    const sb = window.dr.auth.client();
+    const cart = window.dr.store.getCart();
     const btn = document.getElementById("place"); btn.disabled=true; btn.textContent="Placing order…";
-    const { data: order, error } = await sb.from("orders").insert({
-      user_id: u.id, status: "pending", subtotal: t.sub, shipping: t.shipping, total: t.total,
-      shipping_address: addr, payment_method: payment
-    }).select().single();
-    if (error){ msg.textContent = error.message; btn.disabled=false; btn.textContent="Place Order →"; return; }
-    const items = cart.map(i => ({ order_id: order.id, product_id: i.id, product_name: i.name, image_url: i.image, unit_price: i.price, quantity: i.qty, line_total: i.price*i.qty }));
-    const { error: e2 } = await sb.from("order_items").insert(items);
-    if (e2){ msg.textContent = e2.message; btn.disabled=false; btn.textContent="Place Order →"; return; }
-    window.dr.store.clearCart();
-    localStorage.removeItem("dr-coupon");
-    location.href = "order-confirmation.html?order=" + encodeURIComponent(order.order_number||order.id);
+    try {
+      // Get access token to authenticate with server-side endpoint.
+      const { data: sess } = await sb.auth.getSession();
+      const token = sess && sess.session && sess.session.access_token;
+      if (!token){ msg.textContent = "Please sign in again."; btn.disabled=false; btn.textContent="Place Order →"; return; }
+      let couponCode = null;
+      try { const c = JSON.parse(localStorage.getItem("dr-coupon")||"null"); if(c) couponCode = c.code; } catch(e){}
+      // SECURITY: send only product ids + quantities + coupon code.
+      // Server validates prices, coupon, and address ownership.
+      const res = await fetch("/api/public/place-order", {
+        method: "POST",
+        headers: { "content-type": "application/json", "authorization": "Bearer "+token },
+        body: JSON.stringify({
+          items: cart.map(i => ({ id: i.id, qty: i.qty })),
+          addressId: selectedAddrId,
+          couponCode: couponCode,
+          paymentMethod: payment
+        })
+      });
+      const data = await res.json().catch(()=>({error:"Network error"}));
+      if (!res.ok || !data.ok){
+        msg.textContent = data.error || "Order failed. Please try again.";
+        btn.disabled=false; btn.textContent="Place Order →"; return;
+      }
+      window.dr.store.clearCart();
+      localStorage.removeItem("dr-coupon");
+      location.href = "order-confirmation.html?order=" + encodeURIComponent(data.orderNumber);
+    } catch (e){
+      msg.textContent = "Order failed. Please try again.";
+      btn.disabled=false; btn.textContent="Place Order →";
+    }
   }
 
   // wait for auth init

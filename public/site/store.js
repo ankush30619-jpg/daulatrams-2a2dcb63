@@ -6,6 +6,9 @@
   const CART_KEY = "dr-cart";
   const WISH_KEY = "dr-wishlist";
 
+  // HTML escape — apply to any user/DB-sourced data before innerHTML.
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+
   /* ---------------- storage ---------------- */
   function load(k){ try { return JSON.parse(localStorage.getItem(k) || "[]"); } catch(e){ return []; } }
   function save(k, v){ localStorage.setItem(k, JSON.stringify(v)); window.dispatchEvent(new CustomEvent(k+":change")); }
@@ -151,11 +154,11 @@
       el.innerHTML = `<div class="dr-empty"><div style="font-size:48px">🛒</div><p>Your cart is empty.</p><a href="shop.html" class="btn btn-primary btn-sm">Shop Now</a></div>`;
     } else {
       el.innerHTML = c.map(i => `
-        <div class="dr-mini-row" data-id="${i.id}">
-          <img src="${i.image}" alt="${i.name}" onerror="this.style.background='#f0e8d8'">
+        <div class="dr-mini-row" data-id="${esc(i.id)}">
+          <img src="${esc(i.image)}" alt="${esc(i.name)}" onerror="this.style.background='#f0e8d8'">
           <div class="dr-mini-info">
-            <div class="dr-mini-name">${i.name}</div>
-            ${i.variant?`<div class="dr-mini-var">${i.variant}</div>`:""}
+            <div class="dr-mini-name">${esc(i.name)}</div>
+            ${i.variant?`<div class="dr-mini-var">${esc(i.variant)}</div>`:""}
             <div class="dr-mini-qrow">
               <div class="dr-qty">
                 <button data-act="dec">−</button><span>${i.qty}</span><button data-act="inc">+</button>
@@ -194,12 +197,12 @@
         p.name.toLowerCase().includes(q) || (p.category||"").toLowerCase().includes(q) ||
         (p.short||"").toLowerCase().includes(q)
       ).slice(0, 8);
-      if (!list.length){ out.innerHTML = `<div class="dr-search-empty">No products found for "${q}"</div>`; return; }
+      if (!list.length){ out.innerHTML = `<div class="dr-search-empty">No products found for "${esc(q)}"</div>`; return; }
       out.innerHTML = list.map(p => `
-        <a href="product.html?id=${p.id}" class="dr-search-row">
-          <img src="${(p.images||[])[0]||""}" alt="" onerror="this.style.visibility='hidden'">
-          <div><div class="srn">${p.name}</div><div class="src">${p.category}</div></div>
-          <div class="srp">₹${p.price.toLocaleString("en-IN")}</div>
+        <a href="product.html?id=${encodeURIComponent(p.id)}" class="dr-search-row">
+          <img src="${esc((p.images||[])[0]||"")}" alt="" onerror="this.style.visibility='hidden'">
+          <div><div class="srn">${esc(p.name)}</div><div class="src">${esc(p.category)}</div></div>
+          <div class="srp">₹${Number(p.price).toLocaleString("en-IN")}</div>
         </a>`).join("");
     });
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeSearch(); });
@@ -219,10 +222,11 @@
     }
     const u = window.dr && window.dr.auth && window.dr.auth.user;
     if (u){
+      const fullName = (u.user_metadata && u.user_metadata.full_name) || (u.email||"").split("@")[0] || "User";
       m.innerHTML = `
         <div class="dr-pm-head">
-          <div class="dr-pm-av">${(u.email||"U")[0].toUpperCase()}</div>
-          <div><div class="dr-pm-name">${u.user_metadata && u.user_metadata.full_name || u.email.split("@")[0]}</div><div class="dr-pm-email">${u.email}</div></div>
+          <div class="dr-pm-av">${esc((u.email||"U")[0].toUpperCase())}</div>
+          <div><div class="dr-pm-name">${esc(fullName)}</div><div class="dr-pm-email">${esc(u.email||"")}</div></div>
         </div>
         <a href="account.html">My Account</a>
         <a href="account.html#orders">My Orders</a>
