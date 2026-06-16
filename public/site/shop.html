@@ -279,6 +279,25 @@
   renderBestsellers();
   renderGrid();
   if (urlCat) setTimeout(()=>document.getElementById('all-products').scrollIntoView({behavior:'smooth'}), 300);
+
+  /* center grid items when fewer than columns */
+  function centerGridItems(){
+    const g=document.getElementById('shop-grid');
+    if(!g)return;
+    const items=g.children.length;
+    if(!items)return;
+    const cols=getComputedStyle(g).gridTemplateColumns.split(' ').filter(x=>x&&x!=='0px').length;
+    if(items<cols){
+      g.style.justifyContent='center';
+      const maxW=Math.min(320,Math.floor(g.clientWidth/items));
+      g.style.gridTemplateColumns=`repeat(${items},minmax(200px,${maxW}px))`;
+    }else{
+      g.style.justifyContent='';
+      g.style.gridTemplateColumns='';
+    }
+  }
+  centerGridItems();
+  window.addEventListener('resize',centerGridItems);
 })();
 </script>
 
