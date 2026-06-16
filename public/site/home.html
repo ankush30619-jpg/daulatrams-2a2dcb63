@@ -509,6 +509,67 @@
 <script src="store.js"></script>
 <script src="site.js"></script>
 
+<script>
+(function(){
+  const grid=document.getElementById('home-video-grid');
+  if(!grid) return;
+  const ugcVideos=[
+    {src:'/__l5e/assets-v1/3fbad06e-ffa5-452d-8617-c27b211ba2cb/Female_1_V2.mp4', name:'Anita M.', city:'Jaipur'},
+    {src:'/__l5e/assets-v1/8f34a57d-1dde-4a22-a372-435820495cb3/Female_2_V2.mp4', name:'Kavita R.', city:'Hyderabad'},
+    {src:'/__l5e/assets-v1/ad65121a-2991-4382-a080-b5d786ed8ba3/Male_1_V2.mp4',   name:'Rajesh K.', city:'Mumbai'},
+    {src:'/__l5e/assets-v1/36b2efd2-ec0f-48b1-aea9-c8118e99fa77/Male_2_V1.mp4',   name:'Suresh P.', city:'Bangalore'}
+  ];
+  grid.innerHTML=ugcVideos.map(v=>`
+    <div class="video-card" data-vc>
+      <video class="v-media" src="${v.src}" muted playsinline loop preload="metadata" webkit-playsinline></video>
+      <div class="v-overlay"></div>
+      <button class="v-play" type="button" aria-label="Play with sound">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="v-info"><div class="v-name">${v.name}, ${v.city}</div><div class="v-stars">★★★★★</div></div>
+    </div>`).join('');
+  const vcards=grid.querySelectorAll('[data-vc]');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        const vid=en.target.querySelector('video'); if(!vid) return;
+        if(en.isIntersecting){ vid.muted=true; vid.play().catch(()=>{}); } else { vid.pause(); }
+      });
+    },{threshold:0.35});
+    vcards.forEach(c=>io.observe(c));
+  }
+  function openVideoModal(src){
+    grid.querySelectorAll('video').forEach(v=>{ try{v.pause();}catch(e){} });
+    let modal=document.getElementById('video-modal');
+    if(!modal){
+      modal=document.createElement('div');
+      modal.id='video-modal';
+      modal.innerHTML='<button class="vm-close" aria-label="Close">&times;</button><video class="vm-video" controls playsinline autoplay></video>';
+      document.body.appendChild(modal);
+      modal.addEventListener('click',(e)=>{ if(e.target===modal||e.target.classList.contains('vm-close')) closeVideoModal(); });
+      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeVideoModal(); });
+    }
+    const v=modal.querySelector('.vm-video');
+    v.src=src; v.muted=false; v.currentTime=0; v.play().catch(()=>{});
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeVideoModal(){
+    const modal=document.getElementById('video-modal'); if(!modal) return;
+    const v=modal.querySelector('.vm-video');
+    try{v.pause();}catch(e){}
+    v.removeAttribute('src'); v.load();
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  vcards.forEach(card=>{
+    const vid=card.querySelector('video');
+    const btn=card.querySelector('.v-play');
+    btn.addEventListener('click',(e)=>{ e.stopPropagation(); e.preventDefault(); openVideoModal(vid.currentSrc||vid.src); });
+  });
+})();
+</script>
+
 <!-- Tweaks (React) -->
 
 </body>
