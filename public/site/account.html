@@ -27,6 +27,8 @@
 (function(){
   const root = document.getElementById("acc-root");
   let active = (location.hash||"#dashboard").replace("#","");
+  // HTML escape — apply to all DB/user-sourced strings before innerHTML.
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
   const TABS = [
     ["dashboard","Dashboard","🏠"],
     ["profile","Profile","👤"],
@@ -87,10 +89,10 @@
     return `
       <div class="acc-hero">
         <div class="acc-hero-row">
-          <div class="acc-av">${initials(name, u.email)}</div>
+          <div class="acc-av">${esc(initials(name, u.email))}</div>
           <div class="acc-hi-text">
-            <h1>Namaste, ${name.split(" ")[0]}</h1>
-            <p>Member since ${since} · ${u.email}</p>
+            <h1>Namaste, ${esc(name.split(" ")[0])}</h1>
+            <p>Member since ${esc(since)} · ${esc(u.email)}</p>
           </div>
         </div>
         <div class="acc-stats">
@@ -151,15 +153,15 @@
         <h2>Personal Information</h2>
         <p class="sub">Apni profile details update karein.</p>
         <div style="display:flex;align-items:center;gap:18px;margin-bottom:24px;padding:18px;background:#FBF7EE;border-radius:14px">
-          <div class="acc-av" style="background:linear-gradient(135deg,#0B5132,#1A6E3E);width:64px;height:64px;font-size:24px">${initials(pr.full_name, u.email)}</div>
-          <div><div style="font-weight:600;color:#222">${pr.full_name||"Add your name"}</div><div style="font-size:13px;color:#888">${u.email}</div></div>
+          <div class="acc-av" style="background:linear-gradient(135deg,#0B5132,#1A6E3E);width:64px;height:64px;font-size:24px">${esc(initials(pr.full_name, u.email))}</div>
+          <div><div style="font-weight:600;color:#222">${esc(pr.full_name||"Add your name")}</div><div style="font-size:13px;color:#888">${esc(u.email)}</div></div>
         </div>
         <form id="pf">
           <div class="form-row">
-            <div><label>Full Name</label><input name="full_name" value="${(pr.full_name||"").replace(/"/g,'&quot;')}" placeholder="Your full name"></div>
-            <div><label>Phone</label><input name="phone" value="${(pr.phone||"").replace(/"/g,'&quot;')}" placeholder="+91 …"></div>
+            <div><label>Full Name</label><input name="full_name" value="${esc(pr.full_name||"")}" placeholder="Your full name"></div>
+            <div><label>Phone</label><input name="phone" value="${esc(pr.phone||"")}" placeholder="+91 …"></div>
           </div>
-          <div><label>Email</label><input value="${u.email}" disabled style="background:#f5efe0"></div>
+          <div><label>Email</label><input value="${esc(u.email)}" disabled style="background:#f5efe0"></div>
           <button class="btn btn-primary" style="margin-top:18px" id="pf-btn">Save Changes</button>
         </form>`;
       document.getElementById("pf").onsubmit = async e=>{ e.preventDefault();
@@ -178,13 +180,13 @@
       p.innerHTML = `<h2>My Orders</h2><p class="sub">${cache.orders.length} order${cache.orders.length===1?"":"s"} total</p>` + cache.orders.map(o=>`
         <div class="order-card">
           <div class="order-head">
-            <div><div class="order-num">${o.order_number}</div><div class="order-meta">${new Date(o.created_at).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})} · ₹${Number(o.total).toLocaleString("en-IN")} · ${o.payment_method||"COD"}</div></div>
-            <span class="order-status ${o.status}">${o.status}</span>
+            <div><div class="order-num">${esc(o.order_number)}</div><div class="order-meta">${esc(new Date(o.created_at).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}))} · ₹${Number(o.total).toLocaleString("en-IN")} · ${esc(o.payment_method||"COD")}</div></div>
+            <span class="order-status ${esc(o.status)}">${esc(o.status)}</span>
           </div>
-          <div class="order-items">${(byOrder[o.id]||[]).map(i=>`<img src="${i.image_url||""}" title="${i.product_name} × ${i.quantity}" onerror="this.style.visibility='hidden'">`).join("")}</div>
+          <div class="order-items">${(byOrder[o.id]||[]).map(i=>`<img src="${esc(i.image_url||"")}" title="${esc(i.product_name)} × ${i.quantity|0}" onerror="this.style.visibility='hidden'">`).join("")}</div>
           <div class="order-actions">
-            <button data-act="reorder" data-id="${o.id}">↻ Reorder</button>
-            <button data-act="invoice" data-id="${o.id}">⬇ Invoice</button>
+            <button data-act="reorder" data-id="${esc(o.id)}">↻ Reorder</button>
+            <button data-act="invoice" data-id="${esc(o.id)}">⬇ Invoice</button>
             <a href="contact.html">Need help?</a>
           </div>
         </div>`).join("");
@@ -202,9 +204,9 @@
       const addrs = cache.addrs;
       p.innerHTML = `<h2>Saved Addresses</h2><p class="sub">Faster checkout ke liye apne addresses save karein.</p>
         ${addrs.length?`<div class="addr-grid">${addrs.map(a=>`
-          <div class="address-card" data-id="${a.id}">
-            <div><strong style="color:#0B5132">${a.label}</strong>${a.is_default?' <span style="font-size:10px;color:#fff;background:#0B5132;padding:2px 8px;border-radius:999px;margin-left:6px">DEFAULT</span>':""}
-              <div style="font-size:13px;color:#444;margin-top:6px;line-height:1.5">${a.line1}${a.line2?", "+a.line2:""}<br>${a.city}, ${a.state} ${a.pincode}<br>${a.phone||""}</div></div>
+          <div class="address-card" data-id="${esc(a.id)}">
+            <div><strong style="color:#0B5132">${esc(a.label)}</strong>${a.is_default?' <span style="font-size:10px;color:#fff;background:#0B5132;padding:2px 8px;border-radius:999px;margin-left:6px">DEFAULT</span>':""}
+              <div style="font-size:13px;color:#444;margin-top:6px;line-height:1.5">${esc(a.line1)}${a.line2?", "+esc(a.line2):""}<br>${esc(a.city)}, ${esc(a.state)} ${esc(a.pincode)}<br>${esc(a.phone||"")}</div></div>
             <div class="addr-actions">${!a.is_default?'<button data-act="def">Make default</button>':""}<button class="danger" data-act="del">Delete</button></div>
           </div>`).join("")}</div>`:`<div class="acc-empty"><div class="em">📍</div><p>Koi saved address nahi hai.</p></div>`}
         <button id="addr-new" class="btn btn-primary" style="margin-top:18px">+ Add New Address</button>`;
@@ -225,9 +227,9 @@
       p.innerHTML = `<h2>My Wishlist</h2><p class="sub">${w.length} item${w.length===1?"":"s"} saved</p>
         <div style="margin-bottom:14px"><button id="w-all" class="btn btn-outline" style="font-size:13px;padding:8px 18px">Move All to Cart</button></div>
         <div class="wish-grid">${w.map(i=>`
-          <article class="product-card"><div class="pc-img"><a href="product.html?id=${i.id}"><img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'"></a></div>
-          <div class="pc-body"><h3 class="pc-name">${i.name}</h3><div class="pc-price"><span class="sale">₹${Number(i.price).toLocaleString("en-IN")}</span></div>
-          <div style="display:flex;gap:6px"><button class="btn btn-primary btn-sm" style="flex:1" data-w-add="${i.id}">Add to Cart</button><button class="btn btn-outline btn-sm" data-w-rm="${i.id}" title="Remove">✕</button></div></div></article>`).join("")}</div>`;
+          <article class="product-card"><div class="pc-img"><a href="product.html?id=${encodeURIComponent(i.id)}"><img src="${esc(i.image)}" alt="${esc(i.name)}" onerror="this.style.visibility='hidden'"></a></div>
+          <div class="pc-body"><h3 class="pc-name">${esc(i.name)}</h3><div class="pc-price"><span class="sale">₹${Number(i.price).toLocaleString("en-IN")}</span></div>
+          <div style="display:flex;gap:6px"><button class="btn btn-primary btn-sm" style="flex:1" data-w-add="${esc(i.id)}">Add to Cart</button><button class="btn btn-outline btn-sm" data-w-rm="${esc(i.id)}" title="Remove">✕</button></div></div></article>`).join("")}</div>`;
       p.querySelector("#w-all").onclick = ()=>{ w.forEach(i=> window.dr.store.addToCart(i,1)); toast("✓ All items moved to cart"); };
       p.querySelectorAll("[data-w-add]").forEach(b=> b.onclick=()=>{ const it=w.find(x=>x.id===b.dataset.wAdd); window.dr.store.addToCart(it,1); toast("✓ Added"); });
       p.querySelectorAll("[data-w-rm]").forEach(b=> b.onclick=()=>{ const it=w.find(x=>x.id===b.dataset.wRm); window.dr.store.toggleWish(it); renderPanel(); });
