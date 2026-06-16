@@ -167,7 +167,7 @@
 .cat-filter-pills::-webkit-scrollbar { display: none; }
 .cat-pill {
   flex-shrink: 0; background: #fff; border: 1.5px solid rgba(11,81,50,0.22); color: var(--text-medium);
-  padding: 7px 18px; border-radius: 50px; font-size: 13.5px; font-weight: 500; transition: all 220ms;
+  padding: 5px 14px; border-radius: 50px; font-size: 12px; font-weight: 500; transition: all 220ms;
 }
 .cat-pill:hover { border-color: var(--brand-green); color: var(--brand-green); }
 .cat-pill.active { background: var(--brand-green); border-color: var(--brand-green); color: #fff; }
