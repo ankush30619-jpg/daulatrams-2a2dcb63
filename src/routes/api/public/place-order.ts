@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
-import catalog from "@/lib/server-catalog.json";
+import { SERVER_CATALOG, type CatalogEntry } from "@/lib/server-catalog";
 
 const Body = z.object({
   items: z
@@ -18,8 +18,7 @@ const Body = z.object({
   paymentMethod: z.enum(["cod", "online"]).default("cod"),
 });
 
-type CatalogEntry = { id: string; name: string; price: number; image: string };
-const PRICES = catalog as Record<string, CatalogEntry>;
+const PRICES: Record<string, CatalogEntry> = SERVER_CATALOG;
 
 export const Route = createFileRoute("/api/public/place-order")({
   server: {
