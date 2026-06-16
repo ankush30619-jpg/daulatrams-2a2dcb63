@@ -1306,3 +1306,159 @@ section[style*="background:var(--deep-green)"] .value-card,
 .spot-cert.spot-cert-logo { display: inline-flex; align-items: center; gap: 10px; }
 .spot-cert.spot-cert-logo svg { width: 44px; height: 44px; }
 .spot-cert.spot-cert-logo span { font-weight: 600; font-size: 13px; color: var(--brand-green); }
+
+/* ============================================================
+   GLOBAL MOBILE OPTIMIZATION (applies to ALL pages)
+   - Prevent horizontal overflow
+   - Compact spacing & typography
+   - Bigger touch targets
+   - Stack multi-col layouts
+   ============================================================ */
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body { padding-top: 36px; font-size: 15px; }
+
+  :root {
+    --pad: 16px;
+    --section-gap: 56px;
+    --container: 100%;
+  }
+
+  .container { padding-left: 16px; padding-right: 16px; }
+  .section { padding: 48px 0; }
+
+  /* Type scale tighter on mobile */
+  .t-display { font-size: clamp(28px, 8vw, 40px); line-height: 1.15; }
+  .t-h1 { font-size: clamp(26px, 7vw, 34px); }
+  .t-h2 { font-size: clamp(22px, 6vw, 28px); }
+  .t-h3 { font-size: clamp(18px, 5vw, 22px); }
+  .t-body-lg { font-size: 16px; line-height: 1.6; }
+  .t-body { font-size: 15px; line-height: 1.6; }
+
+  .sec-head { margin-bottom: 28px; }
+  .sec-head p.sub { font-size: 14.5px; margin-top: 10px; }
+
+  /* Announcement bar shorter */
+  .announcement { height: 36px; font-size: 12px; }
+  .announcement .ann-track { gap: 28px; }
+
+  /* Header */
+  .header { top: 36px; height: 60px; }
+  .header.scrolled { height: 54px; }
+  .brand-logo img { width: 108px; }
+  .nav-actions { gap: 14px; }
+  .icon-btn { width: 28px; height: 28px; }
+  .icon-btn svg { width: 22px; height: 22px; }
+
+  /* Buttons full-width-friendly */
+  .btn { font-size: 14px; padding: 13px 22px; }
+  .btn-primary { padding: 14px 24px; }
+  .btn-secondary { padding: 12px 22px; }
+  .btn-sm { padding: 10px 18px; font-size: 13px; }
+
+  /* Hero */
+  .hero { min-height: 540px; height: auto; padding: 80px 0 60px; }
+  .hero .sub { font-size: 15px; margin-bottom: 24px; }
+  .hero-tag { font-size: 11px; padding: 7px 14px; margin-bottom: 18px; }
+  .hero-ctas { gap: 12px; margin-bottom: 28px; }
+  .hero-trust .item { font-size: 12px; padding: 6px 8px; }
+  .scroll-cue { display: none; }
+
+  /* Drawer */
+  .drawer { padding: 22px 22px 28px; }
+  .drawer-links a { font-size: 19px; padding: 12px 0; }
+
+  /* Forms */
+  input, select, textarea {
+    font-size: 16px !important; /* prevent iOS zoom */
+    min-height: 44px;
+  }
+  textarea { min-height: 100px; }
+  button, .btn { min-height: 44px; }
+
+  /* Footer */
+  .footer-main { gap: 24px; padding: 40px 0 24px !important; }
+  .footer h4, .footer .ft-title { font-size: 14px; }
+  .footer a, .footer p, .footer li { font-size: 13.5px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; font-size: 12px; }
+
+  /* Marquee/strip readability */
+  .marquee { height: 42px; font-size: 12.5px; }
+
+  /* Generic grids → stack */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; gap: 16px !important; }
+
+  /* Cards: tighter padding */
+  .card, .product-card, .feature-card, .testi-card, .value-card, .trust-card {
+    padding: 14px;
+  }
+
+  /* Tables (cart/account) → block layout */
+  .responsive-table, .cart-table, .order-table { display: block; }
+  .responsive-table thead, .cart-table thead, .order-table thead { display: none; }
+  .responsive-table tr, .cart-table tr, .order-table tr {
+    display: block; padding: 12px 0; border-bottom: 1px solid #eadfca;
+  }
+  .responsive-table td, .cart-table td, .order-table td {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    font-size: 14px; border: none;
+  }
+
+  /* Images never overflow */
+  img, video, iframe, svg { max-width: 100%; height: auto; }
+  iframe { width: 100% !important; }
+
+  /* Pre/code blocks */
+  pre { overflow-x: auto; max-width: 100%; }
+
+  /* Bestsellers / carousels horizontal scroll smoother */
+  .bestsellers-strip, .carousel, .yml-row, .video-grid.scroll-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Sticky CTAs spacing */
+  .pdp-sticky-mobile, .sticky-add-to-cart { padding: 10px 14px !important; }
+
+  /* WhatsApp float repositioned to avoid sticky CTA overlap */
+  .wa-float { bottom: 88px !important; right: 14px !important; }
+
+  /* Account / dashboard hero */
+  .acc-hero { padding: 22px 16px !important; }
+
+  /* Reduce heavy backdrop-filter blur cost on mobile */
+  .nav-center, .hero-tag { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
+
+@media (max-width: 480px) {
+  :root { --pad: 14px; --section-gap: 44px; }
+  .container { padding-left: 14px; padding-right: 14px; }
+  .section { padding: 40px 0; }
+
+  .t-display { font-size: 28px; }
+  .t-h1 { font-size: 24px; }
+  .t-h2 { font-size: 21px; }
+  .t-h3 { font-size: 18px; }
+
+  .hero { min-height: 480px; padding: 72px 0 52px; }
+  .hero h1 { margin-bottom: 16px; }
+  .hero .sub { font-size: 14.5px; }
+  .hero-ctas .btn { width: 100%; }
+
+  .brand-logo img { width: 96px; }
+  .header { height: 56px; }
+
+  .btn { font-size: 13.5px; padding: 12px 18px; }
+  .btn-block, .hero-ctas .btn { width: 100%; }
+
+  /* Drawer narrower edge spacing */
+  .drawer { padding: 18px 18px 24px; width: min(300px, 90vw); }
+}
+
+/* Tap-highlight & smooth tapping on all interactive elements */
+@media (hover: none) and (pointer: coarse) {
+  a, button, .btn, .nav-link, .icon-btn {
+    -webkit-tap-highlight-color: rgba(91,155,42,0.15);
+    touch-action: manipulation;
+  }
+}
