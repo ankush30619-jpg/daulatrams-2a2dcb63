@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://daulatrams.lovable.app/site/sitemap.xml
