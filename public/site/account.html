@@ -271,13 +271,13 @@
     const m = document.createElement("div"); m.className="dr-modal-bg";
     m.innerHTML = `<div class="dr-modal" style="max-width:560px"><h3>${addr?"Edit":"Add"} Address</h3>
       <form id="af" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <input name="label" placeholder="Label (Home/Office)" required value="${a.label||""}">
-        <input name="phone" placeholder="Phone" required value="${a.phone||""}">
-        <input name="line1" placeholder="Address line 1" required style="grid-column:1/-1" value="${a.line1||""}">
-        <input name="line2" placeholder="Address line 2 (optional)" style="grid-column:1/-1" value="${a.line2||""}">
-        <input name="city" placeholder="City" required value="${a.city||""}">
-        <input name="state" placeholder="State" required value="${a.state||""}">
-        <input name="pincode" placeholder="Pincode" required value="${a.pincode||""}">
+        <input name="label" placeholder="Label (Home/Office)" required value="${esc(a.label||"")}">
+        <input name="phone" placeholder="Phone" required value="${esc(a.phone||"")}">
+        <input name="line1" placeholder="Address line 1" required style="grid-column:1/-1" value="${esc(a.line1||"")}">
+        <input name="line2" placeholder="Address line 2 (optional)" style="grid-column:1/-1" value="${esc(a.line2||"")}">
+        <input name="city" placeholder="City" required value="${esc(a.city||"")}">
+        <input name="state" placeholder="State" required value="${esc(a.state||"")}">
+        <input name="pincode" placeholder="Pincode" required value="${esc(a.pincode||"")}">
         <label style="grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:13px;color:#555"><input type="checkbox" name="def" ${a.is_default?"checked":""}>Set as default</label>
       </form>
       <div class="row"><button class="btn btn-outline" id="af-x">Cancel</button><button class="btn btn-primary" id="af-s">Save</button></div></div>`;
