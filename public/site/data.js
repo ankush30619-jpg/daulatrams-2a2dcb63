@@ -78,7 +78,10 @@
           ${p.orig ? `<span class="orig">₹${p.orig.toLocaleString("en-IN")}</span>` : ""}
           ${off ? `<span class="off">${off}% OFF</span>` : ""}
         </div>
-        <a href="${url}" class="btn btn-primary btn-block btn-sm">Order Now</a>
+        <div class="pc-cta-row">
+          <a href="${url}" class="btn btn-primary btn-sm">Order Now</a>
+          <button type="button" class="btn btn-cart-orange btn-sm" data-cart-add data-id="${(url.match(/id=([^&]+)/)||[])[1]||''}" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price}" data-image="${p.img||''}" data-variant="${p.sizes||''}">Add to Cart</button>
+        </div>
       </div>
     </article>`;
   };
