@@ -89,16 +89,6 @@
     upd();
   }
 
-  /* UGC */
-  const ugcFiles = ["12.png","11.png","10.png","9.png","8.png","7.png","6.png","5-1.png"];
-  const ugcGrid = document.getElementById("ugc-grid");
-  if (ugcGrid) ugcGrid.innerHTML = ugcFiles.slice(0, 4).map((f) => `
-    <div class="ugc-card">
-      <img src="${U}2026/01/${f}" alt="Customer story" loading="lazy"
-        onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(160deg,#0B5132,#1A6E3E)'">
-      <div class="ugc-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-      <div class="ugc-overlay"><span class="shop-this">Shop This →</span></div>
-    </div>`).join("");
 
   /* Testimonials */
   const testimonials = [
