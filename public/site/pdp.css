@@ -584,14 +584,14 @@
 /* ====================================================== */
 
 :root{
-  --vv-choc:#2A1B12;
-  --vv-choc-2:#3A2618;
-  --vv-cream:#F5EBDD;
-  --vv-cream-2:#E8DCC8;
-  --vv-orange:#F5921D;
-  --vv-orange-2:#E07A0C;
-  --vv-gold:#D4A24A;
-  --vv-text-on-dark:rgba(245,235,221,.78);
+  --vv-choc:#0B5132;          /* deep brand green (was brown) */
+  --vv-choc-2:#0A4729;        /* deeper green */
+  --vv-cream:#FAF6EF;         /* site cream-warm */
+  --vv-cream-2:#F0E8D8;       /* site cream-deep */
+  --vv-orange:#F5921D;        /* brand orange */
+  --vv-orange-2:#D4800F;      /* hover orange */
+  --vv-gold:#D4A017;          /* saffron */
+  --vv-text-on-dark:rgba(250,246,239,.82);
 }
 
 .vv-eyebrow{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--vv-orange);margin-bottom:14px;}
