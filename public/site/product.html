@@ -391,6 +391,10 @@
   const root = document.getElementById('main-content');
   if(!p){ root.innerHTML='<div style="padding:100px 20px;text-align:center"><h2>Product not found.</h2><a href="shop.html" class="btn btn-primary" style="margin-top:20px">Browse All</a></div>'; return; }
   document.title = p.name + ' — Daulatram\'s';
+  /* hide Veer Ved Max exclusive sections on other products */
+  if(!/^veer-ved-shakti/.test(id)){
+    document.querySelectorAll('.vv-only').forEach(el => el.style.display = 'none');
+  }
   const stars5 = n => '★'.repeat(Math.round(n||4.5))+'☆'.repeat(5-Math.round(n||4.5));
   const off = p.orig ? Math.round((1-p.price/p.orig)*100) : 0;
 
