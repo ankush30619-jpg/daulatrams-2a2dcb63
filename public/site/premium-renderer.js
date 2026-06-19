@@ -2,11 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
 
-  if (!productId || !window.__PREMIUM_DATA || !window.__PREMIUM_DATA[productId]) {
+  if (!productId || !window.__PREMIUM_DATA) {
     return;
   }
 
-  const data = window.__PREMIUM_DATA[productId];
+  // Support variant IDs (e.g. desi-cow-ghee-1kg) by finding the longest matching base ID
+  const keys = Object.keys(window.__PREMIUM_DATA).sort((a, b) => b.length - a.length);
+  const baseId = keys.find(key => productId.startsWith(key));
+  
+  if (!baseId) {
+    return;
+  }
+
+  const data = window.__PREMIUM_DATA[baseId];
   const container = document.getElementById('premium-sections-container');
   if (!container) return;
 
