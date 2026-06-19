@@ -6,15 +6,15 @@
   const IMG = {
     shaktiAll: U + "2026/05/All-ings.jpg",
     shaktiBowl: U + "2026/05/bowl-ings.jpg",
-    ghee: "/__l5e/assets-v1/e7000b58-0f94-47be-90f6-4ee352f16afe/ghee.jpeg",
-    nariKalp: "/__l5e/assets-v1/4f50cd85-2c85-4fe5-a5c4-fc02bd98eb7c/nariKalp.png",
+    ghee: "https://daulatrams.lovable.app/__l5e/assets-v1/e7000b58-0f94-47be-90f6-4ee352f16afe/ghee.jpeg",
+    nariKalp: "https://daulatrams.lovable.app/__l5e/assets-v1/4f50cd85-2c85-4fe5-a5c4-fc02bd98eb7c/nariKalp.png",
     aloe: U + "2025/12/aloevera-gel-4.png",
-    vanTulsi: "/__l5e/assets-v1/9074aa15-3134-43f2-9004-94a4c2eccd04/vanTulsi.jpeg",
-    multiflora: "/__l5e/assets-v1/beeb6bb4-dde5-4a5b-8192-f7e7fd114ea8/multiflora.png",
-    amla: "/__l5e/assets-v1/599bd417-7f0b-498b-83a6-513cb209a936/amla.png",
-    realHerbs: "/__l5e/assets-v1/619d03e1-0881-40fc-872b-fdc8524e79fd/realHerbs.png",
-    recure: "/__l5e/assets-v1/ce956610-e36d-48eb-98f9-070f72f063b5/recure.png",
-    castor: "/__l5e/assets-v1/a6d0241e-255b-409e-a5d4-835c77f3c4c4/castor.png",
+    vanTulsi: "https://daulatrams.lovable.app/__l5e/assets-v1/9074aa15-3134-43f2-9004-94a4c2eccd04/vanTulsi.jpeg",
+    multiflora: "https://daulatrams.lovable.app/__l5e/assets-v1/beeb6bb4-dde5-4a5b-8192-f7e7fd114ea8/multiflora.png",
+    amla: "https://daulatrams.lovable.app/__l5e/assets-v1/599bd417-7f0b-498b-83a6-513cb209a936/amla.png",
+    realHerbs: "https://daulatrams.lovable.app/__l5e/assets-v1/619d03e1-0881-40fc-872b-fdc8524e79fd/realHerbs.png",
+    recure: "https://daulatrams.lovable.app/__l5e/assets-v1/ce956610-e36d-48eb-98f9-070f72f063b5/recure.png",
+    castor: "https://daulatrams.lovable.app/__l5e/assets-v1/a6d0241e-255b-409e-a5d4-835c77f3c4c4/castor.png",
     shilajit: U + "2026/03/shilajit-4.png",
     slimTea: U + "2025/12/Daulatrams-Slim-Tea-1.png"
   };
@@ -52,27 +52,32 @@
   };
 
   window.renderProductCard = function (p) {
+    const id = p.id || (prodUrl(p.name).match(/id=([^&]+)/)||[])[1] || "";
+    const img = (p.images && p.images[0]) || p.img || "";
+    const url = id ? "product.html?id=" + id : "shop.html";
     const off = p.orig ? Math.round((1 - p.price / p.orig) * 100) : 0;
     const badges = [];
     if (off) badges.push(`<span class="pc-badge discount">-${off}%</span>`); else badges.push("<span></span>");
-    if (p.best) badges.push(`<span class="pc-badge best">★ BESTSELLER</span>`);
+    if (p.best || p.tag === "bestseller") badges.push(`<span class="pc-badge best">★ BESTSELLER</span>`);
     else if (p.tag === "new") badges.push(`<span class="pc-badge new">NEW</span>`);
     else badges.push("<span></span>");
-    const url = prodUrl(p.name);
+    const rating = p.rating || 4.7;
+    const reviews = p.reviews || 1240;
+    const stars = "★★★★★".slice(0, Math.round(rating)) + "☆☆☆☆☆".slice(0, 5 - Math.round(rating));
     return `
     <article class="product-card">
       <div class="pc-img">
         <div class="pc-badges">${badges.join("")}</div>
-        <button class="pc-wish" aria-label="Add to wishlist">
+        <button class="pc-wish" aria-label="Add to wishlist" onclick="event.stopPropagation();event.preventDefault()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </button>
-        <a href="${url}"><img src="${p.img}" alt="${p.name}" loading="lazy"
+        <a href="${url}"><img src="${img}" alt="${p.name}" loading="lazy"
           onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#F0E8D8,#EDE0C8)'"></a>
       </div>
       <div class="pc-body">
-        <div class="pc-rating"><span class="stars">${stars(p.rating || 4.7)}</span> ${p.rating || 4.7} (${(p.reviews || 1240).toLocaleString("en-IN")})</div>
+        <div class="pc-rating"><span class="stars">${stars}</span> ${rating} (${reviews.toLocaleString("en-IN")})</div>
         <a href="${url}" class="pc-name-link"><h3 class="pc-name">${p.name}</h3></a>
-        ${p.sizes ? `<div class="pc-sizes">${p.sizes}</div>` : ""}
+        ${p.variant ? `<div class="pc-sizes">${p.variant}</div>` : p.sizes ? `<div class="pc-sizes">${p.sizes}</div>` : ""}
         <div class="pc-price">
           <span class="sale">₹${p.price.toLocaleString("en-IN")}</span>
           ${p.orig ? `<span class="orig">₹${p.orig.toLocaleString("en-IN")}</span>` : ""}
@@ -80,7 +85,7 @@
         </div>
         <div class="pc-cta-row">
           <a href="${url}" class="btn btn-primary btn-sm">Order Now</a>
-          <button type="button" class="btn btn-cart-orange btn-sm" data-cart-add data-id="${(url.match(/id=([^&]+)/)||[])[1]||''}" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price}" data-image="${p.img||''}" data-variant="${p.sizes||''}">Add to Cart</button>
+          <button type="button" class="btn btn-cart-orange btn-sm" data-cart-add data-id="${id}" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price}" data-image="${img}" data-variant="${p.variant || p.sizes || ''}">Add to Cart</button>
         </div>
       </div>
     </article>`;
@@ -106,10 +111,10 @@
       { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190, best: true }
     ],
     trendingNow: [
-      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: "/__l5e/assets-v1/6b5005ec-2577-4dab-9880-2fd56c3d6279/coconut.jpeg", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
-      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/89c574c5-ce4a-48a3-a849-b0fc6688e3f8/badam.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
-      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/3dd872cf-f88c-4354-bf32-dbb3fbf1d5f7/sesame.jpeg", price: 399, rating: 4.6, reviews: 540 },
-      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "/__l5e/assets-v1/d27e9dd8-65d4-43b4-8f8a-807dd57eb660/flax.jpeg", price: 499, rating: 4.7, reviews: 320, tag: "new" },
+      { name: "Cold Pressed Coconut Oil", sizes: "250ml / 450ml / 750ml / 1ltr", img: "https://daulatrams.lovable.app/__l5e/assets-v1/6b5005ec-2577-4dab-9880-2fd56c3d6279/coconut.jpeg", price: 449, orig: 499, rating: 4.7, reviews: 1240, tag: "new" },
+      { name: "Cold Pressed Badam Rogan", sizes: "100ml / 250ml / 500ml / 1ltr", img: "https://daulatrams.lovable.app/__l5e/assets-v1/89c574c5-ce4a-48a3-a849-b0fc6688e3f8/badam.png", price: 699, orig: 799, rating: 4.8, reviews: 980 },
+      { name: "Cold Pressed Sesame Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "https://daulatrams.lovable.app/__l5e/assets-v1/3dd872cf-f88c-4354-bf32-dbb3fbf1d5f7/sesame.jpeg", price: 399, rating: 4.6, reviews: 540 },
+      { name: "Cold Pressed Flax Seed Oil", sizes: "100ml / 250ml / 500ml / 1ltr", img: "https://daulatrams.lovable.app/__l5e/assets-v1/d27e9dd8-65d4-43b4-8f8a-807dd57eb660/flax.jpeg", price: 499, rating: 4.7, reviews: 320, tag: "new" },
       { name: "Van Tulsi Honey", sizes: "315 gm", img: IMG.vanTulsi, price: 360, rating: 4.6, reviews: 842 },
       { name: "Wild Forest Honey", sizes: "315 gm", img: U + "2026/03/wild-forest-honey.png", price: 540, rating: 4.7, reviews: 410, tag: "new" },
       { name: "Multiflora Honey", sizes: "500 gm / 1 kg", img: IMG.multiflora, price: 499, rating: 4.7, reviews: 1190 }
@@ -171,7 +176,7 @@
   };
 
   /* 14 Ancient Herbs — Veer Ved Max Shakti+ formula (bottle label) */
-  const H = "/__l5e/assets-v1";
+  const H = "https://daulatrams.lovable.app/__l5e/assets-v1";
   window.__INGREDIENTS = {
     shilajit:        { name: "Shilajit",       sanskrit: "Asphaltum punjabianum",  dose: "120 mg", image: H + "/1d887068-19fc-4858-aa5d-284a92e7f301/shilajit.jpg",       desc: "A mineral-rich resin from the Himalayas, prized in Ayurveda for restoring energy, stamina and vitality. Packed with fulvic acid and over 80 trace minerals.", tags: ["Energy", "Stamina", "Vitality"], used: "Veer Ved Max Shakti+, Shilajit Drop" },
     "semal-musli":   { name: "Semal Musli",    sanskrit: "Bombax ceiba",           dose: "50 mg",  image: H + "/7c7cfd5e-c789-4b83-872b-fe27c96c9305/semal-musli.jpg",    desc: "A traditional rejuvenating herb known to support male vitality, strength and reproductive wellness.", tags: ["Vitality", "Strength", "Vigour"], used: "Veer Ved Max Shakti+" },

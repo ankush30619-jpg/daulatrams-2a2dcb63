@@ -44,15 +44,126 @@
   }, { passive: true });
   onScroll();
 
-  /* ---------- Hero slider crossfade ---------- */
-  const slides = Array.from(document.querySelectorAll(".hero-slide"));
-  if (slides.length > 1) {
-    let si = 0;
-    setInterval(() => {
-      slides[si].classList.remove("active");
-      si = (si + 1) % slides.length;
-      slides[si].classList.add("active");
-    }, 5500);
+  /* ---------- Hero Banner Carousel ---------- */
+  const heroCarousel = document.querySelector(".hero-carousel");
+  if (heroCarousel) {
+    const slides = Array.from(heroCarousel.querySelectorAll(".hero-slide"));
+    const prevBtn = heroCarousel.querySelector(".hero-nav-btn.prev");
+    const nextBtn = heroCarousel.querySelector(".hero-nav-btn.next");
+    const dots = Array.from(heroCarousel.querySelectorAll(".hero-dot"));
+    let currentIndex = 0;
+    let autoPlayTimer = null;
+    let isTransitioning = false;
+
+    function showSlide(index, direction = "next") {
+      if (slides.length <= 1 || isTransitioning) return;
+      isTransitioning = true;
+
+      // Handle wrapping
+      let nextIndex = (index + slides.length) % slides.length;
+      if (nextIndex === currentIndex) {
+        isTransitioning = false;
+        return;
+      }
+
+      const currentSlide = slides[currentIndex];
+      const nextSlide = slides[nextIndex];
+
+      // Remove any leftover classes
+      slides.forEach(s => s.classList.remove("slide-next-out", "slide-prev-out"));
+
+      // Set the transition direction class on current slide
+      if (direction === "next") {
+        currentSlide.classList.add("slide-next-out");
+      } else {
+        currentSlide.classList.add("slide-prev-out");
+      }
+      
+      // Deactivate current slide
+      currentSlide.classList.remove("active");
+
+      // Activate next slide
+      nextSlide.classList.add("active");
+
+      // Update dots
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === nextIndex);
+      });
+
+      // Update current index
+      currentIndex = nextIndex;
+
+      // Allow new transitions after the transition completes
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 1000);
+    }
+
+    function nextSlide() {
+      showSlide(currentIndex + 1, "next");
+    }
+
+    function prevSlide() {
+      showSlide(currentIndex - 1, "prev");
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(nextSlide, 5000); // 5 seconds autoplay
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        if (idx === currentIndex) return;
+        const direction = idx > currentIndex ? "next" : "prev";
+        showSlide(idx, direction);
+        startAutoPlay();
+      });
+    });
+
+    // Touch support for mobile swipe
+    let startX = 0;
+    heroCarousel.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    heroCarousel.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 50) { // Swipe threshold
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+      startAutoPlay();
+    }, { passive: true });
+
+    // Start
+    startAutoPlay();
   }
 
   /* ---------- Scroll reveal ---------- */
@@ -148,19 +259,30 @@
   });
 
   /* ---------- Filter tabs ---------- */
-  const filterData = window.__CONCERN_DATA || {};
   const tabsWrap = document.querySelector(".filter-tabs");
   const concernGrid = document.querySelector("#concern-grid");
   if (tabsWrap && concernGrid) {
+    const MAP = {
+      "hair-care": "Hair Care",
+      "skin-care": "Skin Care",
+      "mens-wellness": "Men's Wellness",
+      "womens-wellness": "Women's Wellness",
+      "weight-loss": "Weight Loss",
+      "desi-ghee": "Desi Ghee",
+      "honey": "Honey"
+    };
     tabsWrap.addEventListener("click", (e) => {
       const tab = e.target.closest(".filter-tab");
       if (!tab) return;
       tabsWrap.querySelectorAll(".filter-tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
       const key = tab.dataset.tab;
+      const catName = MAP[key] || key;
+      const catalog = window.__CATALOG || [];
+      const filtered = catalog.filter(p => (p.category || '').toLowerCase() === catName.toLowerCase());
       concernGrid.style.opacity = "0";
       setTimeout(() => {
-        concernGrid.innerHTML = (filterData[key] || []).map(window.renderProductCard).join("");
+        concernGrid.innerHTML = filtered.slice(0, 8).map(window.renderProductCard).join("");
         concernGrid.style.opacity = "1";
       }, 220);
     });
@@ -249,7 +371,7 @@
     panel = document.createElement("div");
     panel.id = "page-transition";
     panel.setAttribute("aria-hidden", "true");
-    panel.innerHTML = '<span class="pt-mark"><img src="/__l5e/assets-v1/8b91c49d-e362-4b9e-8d22-d4250fc957c2/daulatrams-logo.png" alt="Daulatram\u2019s" /></span>';
+    panel.innerHTML = '<span class="pt-mark"><img src="https://daulatrams.lovable.app/__l5e/assets-v1/8b91c49d-e362-4b9e-8d22-d4250fc957c2/daulatrams-logo.png" alt="Daulatram\u2019s" /></span>';
     document.body.appendChild(panel);
   }
 

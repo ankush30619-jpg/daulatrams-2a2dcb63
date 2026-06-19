@@ -20,12 +20,11 @@
 /* Gallery */
 .pdp-gallery2 { position: sticky; top: 116px; }
 .pdp-main-wrap {
-  background:#fff; border-radius:24px; overflow:hidden;
+  background:#ffffff; border-radius:24px; overflow:hidden;
   box-shadow: 0 6px 40px rgba(11,81,50,0.10);
-  aspect-ratio:1; display:flex; align-items:center; justify-content:center; padding:16px;
+  aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:0;
   position:relative;
 }
-.pdp-main-wrap { background:#fff linear-gradient(135deg,#FAF6EF,#F0E8D8); }
 .pdp-main-wrap img { width:100%; height:100%; object-fit:contain; transition:transform 400ms; min-height:0; }
 .pdp-main-wrap img:hover { transform:scale(1.06); }
 .pdp-badge-tl { position:absolute; top:14px; left:14px; }
@@ -36,7 +35,7 @@
   border:2px solid transparent; overflow:hidden; cursor:pointer; transition:border-color 200ms;
 }
 .pdp-thumb2.active, .pdp-thumb2:hover { border-color:var(--brand-green); }
-.pdp-thumb2 img { width:100%; height:100%; object-fit:cover; }
+.pdp-thumb2 img { width:100%; height:100%; object-fit:contain; padding:4px; }
 
 /* Right col */
 .pdp-info { display:flex; flex-direction:column; gap:0; }
@@ -296,12 +295,12 @@
 /* ============ PDP mobile polish ============ */
 @media (max-width: 860px) {
   .pdp-gallery2 { position: static; }
-  .pdp-main-wrap { aspect-ratio: 1; }
+  .pdp-main-wrap { aspect-ratio: 3/4; }
   .pdp-thumbrow { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
   .pdp-thumb2 { flex: 0 0 64px; }
 }
 @media (max-width: 640px) {
-  .pdp-hero { padding: 18px 0 24px; }
+  .pdp-hero { padding: 18px 0 20px !important; }
   .pdp-title { font-size: 26px; line-height: 1.15; }
   .pdp-price2 .sale { font-size: 28px; }
 }
@@ -373,7 +372,7 @@
 .trust-legacy-badges { display:flex; gap:18px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
 .tlb {
   width:96px; height:96px; border-radius:50%; overflow:hidden;
-  background-image:url("/__l5e/assets-v1/e2871d64-845d-4bce-a5d5-15b792c03898/cert-badges.png");
+  background-image:url("https://daulatrams.lovable.app/__l5e/assets-v1/e2871d64-845d-4bce-a5d5-15b792c03898/cert-badges.png");
   background-size:520% auto;
   background-repeat:no-repeat;
   background-color:#0b5132;
@@ -513,7 +512,7 @@
 .fp-card:hover { transform:translateY(-8px); box-shadow:0 20px 48px rgba(11,81,50,0.18); border-color:var(--brand-green); }
 .fp-disc { position:absolute; top:12px; left:12px; z-index:3; background:var(--brand-orange); color:#fff; font-family:var(--font-label); font-weight:700; font-size:12px; padding:5px 10px; border-radius:50px; box-shadow:0 4px 12px rgba(245,146,29,0.35); }
 .fp-tag  { position:absolute; top:12px; right:12px; z-index:3; background:#fff; color:var(--brand-green); font-family:var(--font-label); font-weight:700; font-size:11px; padding:5px 10px; border-radius:50px; box-shadow:0 4px 12px rgba(0,0,0,0.10); border:1px solid rgba(11,81,50,0.10); }
-.fp-img  { aspect-ratio:1; background:linear-gradient(135deg,var(--cream-warm),var(--parchment)); display:flex; align-items:center; justify-content:center; padding:18px; overflow:hidden; }
+.fp-img  { aspect-ratio:3/4; background:#ffffff; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden; }
 .fp-img img { width:100%; height:100%; object-fit:contain; transition:transform 480ms var(--e-smooth); }
 .fp-card:hover .fp-img img { transform:scale(1.08); }
 .fp-body { padding:16px 18px 20px; display:flex; flex-direction:column; gap:6px; flex:1; }
@@ -555,8 +554,19 @@
 /* Ingredient image fit */
 .ing-card2 .ic-img img { width:100%; height:100%; object-fit:cover; display:block; }
 /* Trust legacy banner (single image) */
-.trust-legacy-banner{display:block;width:100%;background:#1a7a3a;}
-.trust-legacy-banner img{display:block;width:100%;height:auto;}
+.trust-legacy-banner{display:block;width:100%;background:#1a7a3a;margin-top:-20px;padding:0;position:relative;z-index:2;}
+.trust-legacy-banner img{display:block;width:100%;height:auto;margin:0;padding:0;border:none;}
+
+/* Tighten and eliminate spacing gaps around the trust legacy banner */
+.pdp-hero-inner {
+  padding-bottom: 20px !important;
+}
+.featured-picks-sec {
+  padding-top: 0 !important;
+}
+.vv-darkband {
+  padding-top: 0 !important;
+}
 
 /* Real brand logo chips */
 .pdp-pay .pay-logo{
@@ -951,4 +961,8 @@ body.vv-has-promobar #main-content{padding-top:152px !important;}
   .rating-sum-sec,.video-sec,.htu-sec,.family-sec,
   .faq-sec,.featured-picks-sec,.yml-sec,.trust-legacy{padding:36px 0 !important;}
   .vv-sec-head{margin:0 auto 20px !important;}
+}
+
+@media (min-width: 861px) {
+  .satc2, .satc2.vis { display: none !important; }
 }

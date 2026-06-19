@@ -21,44 +21,77 @@
 
   /* Categories — cartoon icons in pastel-green chips */
   const cats = [
-    { name: "Bestsellers",       emoji: "⭐", url: "shop.html#all-products" },
-    { name: "Men\'s Wellness",    emoji: "💪", url: "shop.html?cat=mens-wellness" },
-    { name: "Women\'s Wellness",  emoji: "🌸", url: "shop.html?cat=womens-wellness" },
-    { name: "Desi Ghee",         emoji: "🧈", url: "shop.html?cat=desi-ghee" },
-    { name: "Honey",             emoji: "🍯", url: "shop.html?cat=honey" },
-    { name: "Hair Care",         emoji: "💆", url: "shop.html?cat=hair-care" },
-    { name: "Skin Care",         emoji: "🌿", url: "shop.html?cat=skin-care" },
-    { name: "Cold Pressed Oils", emoji: "🥥", url: "shop.html?cat=cold-pressed-oils" },
-    { name: "Wellness",          emoji: "🌱", url: "shop.html?cat=wellness" },
-    { name: "Weight Loss",       emoji: "🍵", url: "shop.html?cat=weight-loss" },
-    { name: "Shilajit",          emoji: "🪨", url: "shop.html?q=shilajit" },
-    { name: "Kitchen & Home",    emoji: "🏺", url: "shop.html?cat=kitchen-%26-home" }
+    { name: "Bestsellers",       image: "assets/categories/bestsellers.png", url: "shop.html#all-products" },
+    { name: "Men\'s Wellness",    image: "assets/categories/cat_item9.png", url: "shop.html?cat=mens-wellness" },
+    { name: "Women\'s Wellness",  image: "assets/categories/cat_item10.png", url: "shop.html?cat=womens-wellness" },
+    { name: "Desi Ghee",         image: "assets/categories/cat_item4.png", url: "shop.html?cat=desi-ghee" },
+    { name: "Honey",             image: "assets/categories/cat_item1.png", url: "shop.html?cat=honey" },
+    { name: "Hair Care",         image: "assets/categories/cat_item2.png", url: "shop.html?cat=hair-care" },
+    { name: "Skin Care",         image: "assets/categories/cat_item7.png", url: "shop.html?cat=skin-care" },
+    { name: "Cold Pressed Oils", image: "assets/categories/cat_item3.png", url: "shop.html?cat=cold-pressed-oils" },
+    { name: "Wellness",          image: "assets/categories/cat_item8.png", url: "shop.html?cat=wellness" },
+    { name: "Weight Loss",       image: "assets/categories/cat_item6.png", url: "shop.html?cat=weight-loss" },
+    { name: "Shilajit",          image: "assets/categories/cat_item5.png", url: "shop.html?q=shilajit" },
+    { name: "Kitchen & Home",    image: "assets/categories/kitchen-home.png", url: "shop.html?cat=kitchen-%26-home" }
   ];
   const catGrid = document.getElementById("cat-grid");
   if (catGrid) {
     catGrid.classList.add("cat-cartoon-row");
     catGrid.innerHTML = cats.map((c) => `
       <a class="cat-cartoon-card" href="${c.url}" aria-label="${c.name}">
-        <span class="cc-chip"><span class="cc-emoji" aria-hidden="true">${c.emoji}</span></span>
+        <span class="cc-chip">
+          <img class="cc-img" src="${c.image}" alt="${c.name}" loading="lazy" onerror="this.style.display='none'" />
+        </span>
         <span class="cc-label">${c.name}</span>
       </a>`).join("");
   }
 
+  const catalog = window.__CATALOG || [];
+  const getProductsByIds = (ids) => {
+    return ids.map(id => catalog.find(p => p.id === id)).filter(Boolean);
+  };
+
   /* New arrivals + bestsellers */
   const na = document.getElementById("new-arrivals-carousel");
-  if (na) na.innerHTML = (P.newArrivals || []).map(rpc).join("");
+  if (na) {
+    const ids = ["veer-ved-shakti-60", "veer-ved-shakti-30", "van-tulsi-honey", "multiflora-honey", "amla-bhringraj-oil", "natural-aloevera-gel", "real-herbs-oil", "slim-tea"];
+    na.innerHTML = getProductsByIds(ids).map(rpc).join("");
+  }
+  
   const bs = document.getElementById("bestsellers-carousel") || document.getElementById("bestsellers-grid");
-  if (bs) bs.innerHTML = (P.bestsellers || []).map(rpc).join("");
+  if (bs) {
+    const ids = ["veer-ved-shakti-60", "veer-ved-shakti-30", "desi-cow-ghee", "nari-kalp", "van-tulsi-honey", "multiflora-honey"];
+    bs.innerHTML = getProductsByIds(ids).map(rpc).join("");
+  }
 
   /* Trending Now + Wellness Essentials carousels */
   const tn = document.getElementById("trending-now-carousel");
-  if (tn) tn.innerHTML = (P.trendingNow || []).map(rpc).join("");
+  if (tn) {
+    const ids = ["coconut-oil", "badam-rogan", "sesame-oil", "flax-seed-oil", "van-tulsi-honey", "wild-forest-honey", "multiflora-honey"];
+    tn.innerHTML = getProductsByIds(ids).map(rpc).join("");
+  }
+  
   const we = document.getElementById("wellness-essentials-carousel");
-  if (we) we.innerHTML = (P.wellnessEssentials || []).map(rpc).join("");
+  if (we) {
+    const ids = ["veer-ved-shakti-30", "shilajit-drop", "ashwagandha-shilajit-capsule", "moringa-capsules", "nari-kalp", "spirulina-capsule"];
+    we.innerHTML = getProductsByIds(ids).map(rpc).join("");
+  }
 
   /* Concern default tab */
   const cg = document.getElementById("concern-grid");
-  if (cg) cg.innerHTML = (window.__CONCERN_DATA["hair-care"] || []).map(rpc).join("");
+  if (cg) {
+    const MAP = {
+      "hair-care": "Hair Care",
+      "skin-care": "Skin Care",
+      "mens-wellness": "Men's Wellness",
+      "womens-wellness": "Women's Wellness",
+      "weight-loss": "Weight Loss",
+      "desi-ghee": "Desi Ghee",
+      "honey": "Honey"
+    };
+    const filtered = catalog.filter(p => (p.category || '').toLowerCase() === "hair care");
+    cg.innerHTML = filtered.slice(0, 8).map(rpc).join("");
+  }
 
   /* Spotlight ingredient pills — 14 ancient herbs with thumbnails */
   const pillWrap = document.getElementById("ingredient-pills");

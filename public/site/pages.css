@@ -189,10 +189,10 @@
 /* Gallery */
 .pdp-gallery { display: flex; flex-direction: column; gap: 12px; }
 .pdp-main-img {
-  background: #fff; border-radius: 20px; aspect-ratio: 1; overflow: hidden;
+  background: #fff; border-radius: 20px; aspect-ratio: 3/4; overflow: hidden;
   box-shadow: var(--shadow-card); display: flex; align-items: center; justify-content: center;
 }
-.pdp-main-img img { width: 100%; height: 100%; object-fit: contain; padding: 20px; transition: transform 400ms var(--e-smooth); }
+.pdp-main-img img { width: 100%; height: 100%; object-fit: contain; padding: 0; transition: transform 400ms var(--e-smooth); }
 .pdp-main-img img:hover { transform: scale(1.06); }
 .pdp-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
 .pdp-thumb {
@@ -479,7 +479,7 @@
 @media (max-width: 980px)  { .shop-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 @media (max-width: 640px)  { .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
 @media (max-width: 480px)  { .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
-.shop-grid .product-card .pc-img { aspect-ratio: 1; }
+.shop-grid .product-card .pc-img { aspect-ratio: 3/4; }
 .shop-grid .product-card .pc-name { font-size: 16px; }
 .shop-grid .product-card .pc-price .sale { font-size: 18px; }
 .shop-grid .product-card .pc-price .orig { font-size: 14px; }
@@ -498,27 +498,94 @@
 
 /* Stretched toolbar: full width, pills wrap & stretch */
 .shop-toolbar .tb-inner {
-  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; flex-wrap: nowrap;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; flex-wrap: nowrap;
   max-width: none;
 }
-.shop-toolbar .count { padding-left: 4px; }
+.shop-toolbar .count { padding-left: 4px; font-weight: 600; color: var(--brand-green); }
 .cat-filter-pills {
   justify-self: stretch;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  align-content: center;
   overflow-x: visible;
+  gap: 8px 10px;
 }
 .cat-pill {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-align: center;
-  min-width: max-content;
   padding: 6px 14px;
-  font-size: 12.5px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 30px;
+  background: #fcfdfe;
+  border: 1.5px solid rgba(11,81,50,0.12);
+  color: var(--charcoal);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.sort-select { justify-self: end; }
+.cat-pill .pill-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.22s ease;
+}
+.cat-pill .pill-icon {
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-pill:hover {
+  background: #fff;
+  border-color: var(--brand-green);
+  color: var(--brand-green);
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(11,81,50,0.08);
+}
+.cat-pill:hover .pill-img {
+  transform: scale(1.18);
+}
+.cat-pill.active {
+  background: var(--brand-green);
+  border-color: var(--brand-green);
+  color: #fff;
+  font-weight: 600;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 14px rgba(11,81,50,0.2);
+}
+.sort-select {
+  justify-self: end;
+  background-color: #fcfdfe;
+  border: 1.5px solid rgba(11,81,50,0.12);
+  font-weight: 500;
+}
 @media (max-width: 760px) {
-  .shop-toolbar .tb-inner { grid-template-columns: 1fr; }
-  .cat-filter-pills { order: 2; justify-content: flex-start; }
+  .shop-toolbar .tb-inner { grid-template-columns: 1fr; gap: 12px; }
+  .cat-filter-pills {
+    order: 2;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 6px 14px;
+    margin: 0 -18px;
+    gap: 8px;
+  }
+  .cat-filter-pills::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-pill {
+    padding: 5px 12px;
+    font-size: 12.5px;
+  }
   .sort-select { order: 3; justify-self: stretch; }
 }
 

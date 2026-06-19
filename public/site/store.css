@@ -17,7 +17,7 @@
 .dr-mini-close:hover{background:#e88e54;color:#fff;transform:rotate(90deg)}
 .dr-mini-body{flex:1;overflow-y:auto;padding:8px 0}
 .dr-mini-row{display:grid;grid-template-columns:64px 1fr 30px;gap:14px;align-items:center;padding:16px 24px;border-bottom:1px solid #f3ecdc}
-.dr-mini-row img{width:64px;height:64px;object-fit:contain;background:#FBF7EE;border-radius:10px;padding:6px}
+.dr-mini-row img{width:64px;height:64px;object-fit:contain;background:#ffffff;border-radius:10px;padding:6px;border:1px solid #f3ecdc}
 .dr-mini-info{min-width:0}
 .dr-mini-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;color:#222;line-height:1.3;margin-bottom:2px}
 .dr-mini-var{font-size:11px;color:#888;letter-spacing:.04em;margin-bottom:6px}
@@ -46,7 +46,7 @@
 .dr-search-results{max-height:60vh;overflow-y:auto;padding:8px 0}
 .dr-search-row{display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center;padding:14px 24px;text-decoration:none;color:#222;border-bottom:1px solid #f3ecdc;transition:background .2s}
 .dr-search-row:hover{background:#FBF7EE}
-.dr-search-row img{width:54px;height:54px;object-fit:contain;background:#FBF7EE;border-radius:10px;padding:5px}
+.dr-search-row img{width:54px;height:54px;object-fit:contain;background:#ffffff;border-radius:10px;padding:5px;border:1px solid #f3ecdc}
 .srn{font-weight:600;font-size:14px}
 .src{font-size:12px;color:#888}
 .srp{font-weight:700;color:#0B5132}
@@ -100,7 +100,7 @@
 .cart-items{background:#fff;border-radius:16px;padding:8px 0;border:1px solid #eee5d5}
 .cart-row{display:grid;grid-template-columns:90px 1fr auto auto;gap:18px;align-items:center;padding:18px 22px;border-bottom:1px solid #f3ecdc}
 .cart-row:last-child{border-bottom:none}
-.cart-row img{width:90px;height:90px;object-fit:contain;background:#FBF7EE;border-radius:10px;padding:6px}
+.cart-row img{width:90px;height:90px;object-fit:contain;background:#ffffff;border-radius:10px;padding:6px;border:1px solid #f3ecdc}
 .cart-row .ci-name{font-weight:600;font-size:15px;color:#222;margin-bottom:4px}
 .cart-row .ci-var{font-size:12px;color:#888;margin-bottom:8px}
 .cart-row .ci-each{font-size:12px;color:#666}
@@ -179,6 +179,7 @@
   #dr-mini{width:100%;max-width:100%}
   .page-shell{padding-top:120px}
   .page-title{font-size:32px}
+  .wish-grid{grid-template-columns:repeat(2,1fr);gap:12px}
 }
 
 /* ============================================================

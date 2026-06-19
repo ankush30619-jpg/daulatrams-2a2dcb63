@@ -49,17 +49,17 @@
     <div class="container tb-inner">
       <span class="count" id="prod-count">Loading...</span>
       <div class="cat-filter-pills" id="cat-pills">
-        <button class="cat-pill active" data-cat="all">All</button>
-        <button class="cat-pill" data-cat="Men's Wellness">Men's Wellness</button>
-        <button class="cat-pill" data-cat="Women's Wellness">Women's Wellness</button>
-        <button class="cat-pill" data-cat="Hair Care">Hair Care</button>
-        <button class="cat-pill" data-cat="Skin Care">Skin Care</button>
-        <button class="cat-pill" data-cat="Desi Ghee">Desi Ghee</button>
-        <button class="cat-pill" data-cat="Honey">Honey</button>
-        <button class="cat-pill" data-cat="Cold Pressed Oils">Cold Pressed Oils</button>
-        <button class="cat-pill" data-cat="Wellness">Wellness</button>
-        <button class="cat-pill" data-cat="Kitchen & Home">Kitchen &amp; Home</button>
-        <button class="cat-pill" data-cat="Weight Loss">Weight Loss</button>
+        <button class="cat-pill active" data-cat="all"><span class="pill-icon">🌿</span>All</button>
+        <button class="cat-pill" data-cat="Men's Wellness"><img src="assets/categories/cat_item9.png" alt="" class="pill-img">Men's Wellness</button>
+        <button class="cat-pill" data-cat="Women's Wellness"><img src="assets/categories/cat_item10.png" alt="" class="pill-img">Women's Wellness</button>
+        <button class="cat-pill" data-cat="Hair Care"><img src="assets/categories/cat_item2.png" alt="" class="pill-img">Hair Care</button>
+        <button class="cat-pill" data-cat="Skin Care"><img src="assets/categories/cat_item7.png" alt="" class="pill-img">Skin Care</button>
+        <button class="cat-pill" data-cat="Desi Ghee"><img src="assets/categories/cat_item4.png" alt="" class="pill-img">Desi Ghee</button>
+        <button class="cat-pill" data-cat="Honey"><img src="assets/categories/cat_item1.png" alt="" class="pill-img">Honey</button>
+        <button class="cat-pill" data-cat="Cold Pressed Oils"><img src="assets/categories/cat_item3.png" alt="" class="pill-img">Cold Pressed Oils</button>
+        <button class="cat-pill" data-cat="Wellness"><img src="assets/categories/cat_item8.png" alt="" class="pill-img">Wellness</button>
+        <button class="cat-pill" data-cat="Kitchen & Home"><img src="assets/categories/kitchen-home.png" alt="" class="pill-img">Kitchen &amp; Home</button>
+        <button class="cat-pill" data-cat="Weight Loss"><img src="assets/categories/cat_item6.png" alt="" class="pill-img">Weight Loss</button>
       </div>
       <select class="sort-select" id="sort-sel">
         <option value="default">Sort: Featured</option>
@@ -158,21 +158,41 @@
   const CAT_SLUG_MAP = {
     'mens-wellness': "Men's Wellness",
     'womens-wellness': "Women's Wellness",
-    'hair-care': 'Hair Care',
-    'skin-care': 'Skin Care',
-    'desi-ghee': 'Desi Ghee',
-    'honey': 'Honey',
-    'weight-loss': 'Weight Loss'
+    'hair-care': "Hair Care",
+    'skin-care': "Skin Care",
+    'desi-ghee': "Desi Ghee",
+    'honey': "Honey",
+    'weight-loss': "Weight Loss",
+    'cold-pressed-oils': "Cold Pressed Oils",
+    'wellness': "Wellness",
+    'kitchen-home': "Kitchen & Home",
+    'kitchen-and-home': "Kitchen & Home",
+    'kitchen-&-home': "Kitchen & Home",
+    'kitchen-%26-home': "Kitchen & Home"
   };
   const urlCat = params.get('cat');
-  if (urlCat) activeCat = CAT_SLUG_MAP[urlCat] || urlCat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+  if (urlCat) activeCat = CAT_SLUG_MAP[urlCat] || CAT_SLUG_MAP[urlCat.toLowerCase()] || urlCat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
   const urlQ = params.get('q');
   if (urlQ) searchQ = urlQ.toLowerCase();
+
+  // Prefill the search input field on load
+  const searchInput = document.querySelector('.sh-search input');
+  if (searchInput && urlQ) {
+    searchInput.value = urlQ;
+  }
 
   window.__SHOP_SEARCH = function(q){
     searchQ = (q||'').toLowerCase();
     activeCat = 'all';
     pills.forEach(p=>p.classList.toggle('active', p.dataset.cat==='all'));
+    
+    // Update URL query parameters
+    if (searchQ) {
+      history.pushState({}, '', '?q=' + encodeURIComponent(searchQ) + '#all-products');
+    } else {
+      history.pushState({}, '', 'shop.html#all-products');
+    }
+    
     renderGrid();
     document.getElementById('all-products').scrollIntoView({behavior:'smooth', block:'start'});
   };
@@ -221,21 +241,22 @@
     emptyEl.style.display = 'none';
     grid.innerHTML = items.map(cardHTML).join('');
     grid.querySelectorAll('.product-card').forEach((el,i)=>{el.style.transitionDelay=(i*60)+'ms';el.style.opacity='1';});
+    centerGridItems();
   }
 
   function renderCategoryCards() {
     const catalog = window.__CATALOG || [];
     const cats = [
-      {name:"Men's Wellness", img:'assets/categories/mens-wellness.jpg', color:'#0B5132'},
-      {name:"Women's Wellness", img:'assets/categories/womens-wellness.jpg', color:'#B85A8C'},
-      {name:"Hair Care", img:'assets/categories/hair-care.jpg', color:'#7A5530'},
-      {name:"Skin Care", img:'assets/categories/skin-care.jpg', color:'#D08E54'},
-      {name:"Desi Ghee", img:'assets/categories/desi-ghee.jpg', color:'#E0A93C'},
-      {name:"Honey", img:'assets/categories/honey.jpg', color:'#C8821C'},
-      {name:"Cold Pressed Oils", img:'assets/categories/desi-ghee.jpg', color:'#9B7B2C'},
-      {name:"Wellness", img:'assets/categories/mens-wellness.jpg', color:'#0B5132'},
-      {name:"Kitchen & Home", img:'assets/categories/honey.jpg', color:'#A4632B'},
-      {name:"Weight Loss", img:'assets/categories/weight-loss.jpg', color:'#5B9B2A'}
+      {name:"Men's Wellness", img:'assets/categories/cat_item9.png', color:'#0B5132'},
+      {name:"Women's Wellness", img:'assets/categories/cat_item10.png', color:'#B85A8C'},
+      {name:"Hair Care", img:'assets/categories/cat_item2.png', color:'#7A5530'},
+      {name:"Skin Care", img:'assets/categories/cat_item7.png', color:'#D08E54'},
+      {name:"Desi Ghee", img:'assets/categories/cat_item4.png', color:'#E0A93C'},
+      {name:"Honey", img:'assets/categories/cat_item1.png', color:'#C8821C'},
+      {name:"Cold Pressed Oils", img:'assets/categories/cat_item3.png', color:'#9B7B2C'},
+      {name:"Wellness", img:'assets/categories/cat_item8.png', color:'#0B5132'},
+      {name:"Kitchen & Home", img:'assets/categories/kitchen-home.png', color:'#A4632B'},
+      {name:"Weight Loss", img:'assets/categories/cat_item6.png', color:'#5B9B2A'}
     ];
     if(!catGridEl) return; catGridEl.innerHTML = cats.map(c => {
       const count = catalog.filter(p=>p.category===c.name).length;
@@ -250,7 +271,7 @@
       a.addEventListener('click',(e)=>{
         e.preventDefault();
         const cat = a.getAttribute('href').match(/cat=([^#&]+)/)[1];
-        const display = cat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+        const display = CAT_SLUG_MAP[cat] || cat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
         activeCat = display;
         pills.forEach(p=>p.classList.toggle('active', p.dataset.cat.toLowerCase()===display.toLowerCase()));
         history.pushState({}, '', '?cat='+cat+'#all-products');
@@ -271,7 +292,19 @@
     else if(p.dataset.cat.toLowerCase()===activeCat.toLowerCase()) { pills.forEach(x=>x.classList.remove('active')); p.classList.add('active'); }
     p.addEventListener('click',()=>{
       pills.forEach(x=>x.classList.remove('active')); p.classList.add('active');
-      activeCat = p.dataset.cat; searchQ=''; renderGrid();
+      activeCat = p.dataset.cat;
+      searchQ = '';
+      if (searchInput) searchInput.value = '';
+      
+      // Update URL query parameters
+      if (activeCat === 'all') {
+        history.pushState({}, '', 'shop.html#all-products');
+      } else {
+        const slug = Object.keys(CAT_SLUG_MAP).find(key => CAT_SLUG_MAP[key].toLowerCase() === activeCat.toLowerCase()) || activeCat.toLowerCase().replace(/['']/g,'').replace(/\s+/g,'-');
+        history.pushState({}, '', '?cat=' + slug + '#all-products');
+      }
+      
+      renderGrid();
     });
   });
   sortSel.addEventListener('change', renderGrid);
@@ -284,6 +317,8 @@
   function centerGridItems(){
     const g=document.getElementById('shop-grid');
     if(!g)return;
+    g.style.justifyContent='';
+    g.style.gridTemplateColumns='';
     const items=g.children.length;
     if(!items)return;
     const cols=getComputedStyle(g).gridTemplateColumns.split(' ').filter(x=>x&&x!=='0px').length;
@@ -291,9 +326,6 @@
       g.style.justifyContent='center';
       const maxW=Math.min(320,Math.floor(g.clientWidth/items));
       g.style.gridTemplateColumns=`repeat(${items},minmax(200px,${maxW}px))`;
-    }else{
-      g.style.justifyContent='';
-      g.style.gridTemplateColumns='';
     }
   }
   centerGridItems();
