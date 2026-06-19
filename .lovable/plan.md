@@ -1,66 +1,73 @@
-# Rebuild PDP for `veer-ved-shakti-30` to match Rasayanam reference exactly
+## Scope
 
-The target page is `product.html?id=veer-ved-shakti-30` (Veer Ved Max Shakti+ — 30 Capsules). We copy the reference layout 1:1, but populate with Daulatram's Veer Ved Max copy and freshly generated photography.
+Applies ONLY to product.html when `id` starts with `veer-ved-shakti` (existing `.vv-only` gate). All other SKUs keep the current layout untouched.
 
-## Section order (top → bottom, exact mirror of reference)
+Files touched:
+- `public/site/product.html` — new sections + sticky bars
+- `public/site/pdp.css` — new styles, bump cache version to `pdp-vv-5`
+- `public/site/assets/pdp-vv/*` — regenerate / add images (Gemini)
+- No `data.js` schema changes; prices read from existing catalog (₹2,495 / 30 caps, ₹5,270 / 60 caps). Add a derived 90-cap price in the pack selector UI only (computed, no catalog change).
 
-1. **Sticky header** (unchanged)
-2. **Hero buy box** — vertical thumb rail · large product shot · title + 4.8★ rating + "1,842 verified ratings" · benefit chip strip (All-Day Energy / Better Stamina / Josh & Vitality / 100% Ayurvedic) · **2 pack variant cards** (30 Caps default / 60 Caps with "MOST POPULAR" ribbon + free Shilajit gift) · ₹2,495 price + SAVE ₹704 (22% OFF) · qty stepper · BUY NOW + Add to Cart · trust icons row (Free Ship ₹1000+ · FSSAI · Secure Pay · Easy Returns) · payment logo strip
-3. **Dark band "T-BOOSTER FOR PEAK PERFORMANCE"** — full-bleed dark lifestyle photo (male hand holding bottle) on left, headline + 3 icon pillars on right: All-Day Energy · Stamina & Strength · Josh & Vitality
-4. **"EVERY MAN HAS FELT THIS, BUT RARELY SAYS IT"** — 4 mood-photo cards on cream: Low Energy · Poor Recovery · Low Drive · Constant Fatigue, with "Reclaim Your Vitality →" CTA
-5. **Dark band "NOT ALL T-BOOSTERS ARE BUILT EQUAL"** — left photo (capsules + raw herbs), right 3 check-bullet differentiators: 14 Time-Tested Herbs · 3rd Generation Ayurveda · FSSAI Approved Manufacturing
-6. **Mega-stat "100,000+"** — full-bleed dark, single huge number + "Men trust Daulatram's every month"
-7. **Dark "THE FEARLESS MOST MEN NOTICE"** — 3 chocolate cards with orange circular icons: Sharper Drive · Stronger Stamina · Better Recovery
-8. **"SUPPORT THAT SHOWS UP EVERYWHERE"** — 3 tall lifestyle cards (gym / desk / bedroom) with caption overlays
-9. **"See what people say about us"** — 4 dark video testimonial cards in a carousel (reuse existing `assets/videos/*`)
-10. **"WHAT'S INSIDE — AND WHY IT MATTERS"** — horizontal hero herb shot + ingredient chips for all 14 herbs (uses existing `assets/herbs/*.jpg`)
-11. **Dark "BACKED BY SCIENCE · PROVEN BY PEOPLE"** — 4 stat tiles: 70% felt more energy · 30% better stamina · 23.3% improved recovery · 26% increased vitality (with "in 90 days, self-reported" subline)
-12. **Cream band "We don't just sell capsules…"** — capsule-on-powder hero photo left, brand promise + Order CTA right
-13. **FAQ split** — dark left column with bottle photo + "FAQ", right cream accordion (8 Q&A pulled from existing data)
-14. **Verified reviews** — rating summary header (4.8 + bars) + 5 review cards
-15. **"Explore Our Range"** — 4-card product carousel (reuse You-May-Also-Like)
-16. **"Expert Wellness Ambassadors"** — 3 doctor/expert cards on cream
-17. **Footer + orange "TOWARDS A BETTER YOU" strip** (unchanged)
+## New page structure (top → bottom, Veer Ved only)
 
-## Files to change
+1. **Sticky top promo bar** — saffron strip: "🔥 Buy 2 Get 1 FREE · Free shipping ₹999+ · 90-day money back". Dismissible (sessionStorage).
+2. **Hero / above-the-fold buy box** (replaces current hero block on this SKU)
+   - Left: main product image + 4 thumbnails + 1 video-placeholder thumb (swipeable on mobile).
+   - Right:
+     - Breadcrumb · rating chip `★ 4.7 · 12,480 Verified Reviews · 1 Lakh+ Men`
+     - H1 product name + sub `Natural T-Booster · 14 Ayurvedic Herbs · 30/60 Caps`
+     - Price: strike MRP, sale price, red `SAVE x%` badge, tax/shipping line
+     - Pack selector tabs: `30 Caps ₹2,495` · `60 Caps ₹5,270 (POPULAR)` · `90 Caps ₹7,499 (BEST VALUE)` — switching 30↔60 navigates to that SKU; 90 routes to 60 + qty hint (no SKU yet).
+     - Urgency block: rolling 24h countdown (per-visitor `localStorage`, resets each day) + static `Only 47 units left at this price`
+     - Qty stepper
+     - Primary CTA full-width: `🛒 ADD TO CART — ₹<price>` (wires to existing `data-cart-add`)
+     - Secondary CTA outline: `⚡ BUY NOW`
+     - Guarantee strip: 90-Day MBG · Free Ship · FSSAI · 100% Ayurvedic
+     - Payment icons row (reuse existing pay assets)
+3. **Trust banner** — keep existing 3rd-gen / FSSAI / ISO band.
+4. **The Quiet Struggle (problem)** — keep existing 4-card grid; swap to new realistic photo set (4 new Gemini images).
+5. **The Solution intro** — "14 ancient herbs. One modern capsule." + 3-column icon strip + new lifestyle capsule shot.
+6. **Comparison table** — Veer Ved Shakti+ vs Other Brands (6 rows: herbs, shilajit, heritage, certification, steroids, MBG).
+7. **Ingredients deep dive** — 6 featured herbs with dosages (Shilajit 40mg, Ashwagandha 300mg, Gokshura 250mg, Safed Musli 200mg, Kaunch Beej 150mg, Vidarikand 150mg) + `View all 14 ingredients` accordion. Reuse existing `/assets/herbs/*.jpg` images.
+8. **How to Use (NEW)** — 3-step visual (2 caps · after meals · 90 days) + 4-milestone timeline graphic (Week 1-2 / 3-4 / Month 2 / Month 3). New timeline infographic image.
+9. **Proof block (consolidated)** — top stat bar + tabbed UI: Text Reviews / WhatsApp / Video. Reuse existing WhatsApp + video assets; add 3 featured text reviews.
+10. **Doctor endorsement** — keep card, add full quote in blockquote. Reuse existing doctor headshot.
+11. **The Guarantee** — full-bleed dark band with shield/badge graphic + CTA `START YOUR 90-DAY TRIAL — ₹<price>`. New badge image.
+12. **FAQ (filled)** — 6 accordions covering safety, timeline, stacking, pack difference, COD, refund.
+13. **Cross-sell** — keep existing "Complete Your Stack" (max 3, compact).
+14. **Sticky bottom CTA bar** — already exists; restyle with thumbnail + name + price + ATC, visible on mobile only.
 
-- `public/site/product.html` — replace section markup with the 17-section structure above (keep existing hero buy-box JS, variant logic, sticky ATC, breadcrumbs, gallery init)
-- `public/site/pdp.css` — append new section styles:
-  - `.pdp-darkband` (chocolate `#2A1B12`, cream type, orange accent rule)
-  - `.pdp-pillars`, `.pdp-problems-grid`, `.pdp-differentiator`, `.pdp-megastat`, `.pdp-benefits-dark`, `.pdp-lifestyle`, `.pdp-video-dark`, `.pdp-ingredient-strip`, `.pdp-science-stats`, `.pdp-brand-promise`, `.pdp-faq-split`, `.pdp-ambassadors`
-  - Hero refinement: vertical thumb rail at ≥1024px, "MOST POPULAR" ribbon on variant card, compact benefit chips row
-  - Mobile breakpoints: 1024 / 720 / 480
-- `public/site/data.js` — add 6 content arrays scoped to Veer Ved Max:
-  - `VV_PROBLEMS` (4), `VV_DIFFERENTIATORS` (3), `VV_BENEFITS_DARK` (3), `VV_LIFESTYLE` (3), `VV_SCIENCE_STATS` (4), `VV_AMBASSADORS` (3)
-- `public/site/catalog.js` — adjust default-variant logic so PDP opens with **30 Caps** selected when `id=veer-ved-shakti-30`
-- No backend / route changes
+Non–Veer-Ved SKUs: all 14 new sections are inside `.vv-only`, hidden via existing toggle script. Default sections that were shown for all SKUs (current generic hero/specs/reviews) get a complementary `.vv-hide` class so they hide on Veer Ved, keeping that page focused.
 
-## Images to generate (Gemini, via `imagegen--generate_image` premium tier)
+## Images to generate (Gemini, green/saffron/cream theme — matches site colors)
 
-All saved into `public/site/assets/pdp-vv/` then uploaded with `lovable-assets` so the markup uses CDN URLs. Each prompt specifies warm cinematic light, deep-chocolate/cream palette, FSSAI-approved Indian Ayurvedic aesthetic, no on-image text.
+Regenerate/replace these under `public/site/assets/pdp-vv/`:
+- `hero-bottle.jpg` — bottle on dark wood with shilajit/ashwagandha/gokshura, warm golden hour (new, replaces broken hero)
+- `hero-thumb-1..4.jpg` — label closeup, capsules flatlay, herbs flatlay, lifestyle (4 new)
+- `problem-fatigue.jpg` — tired man at desk with coffee (regenerate realistic)
+- `problem-stamina.jpg` — runner stopped, hands on knees (regenerate)
+- `problem-confidence.jpg` — couple silhouette on bed (regenerate)
+- `problem-drive.jpg` — blank whiteboard scene (regenerate)
+- `solution-capsules.jpg` — open bottle, capsules + herbs, soft morning light (new)
+- `timeline-90day.jpg` — 4-milestone infographic, dark + saffron accents (new)
+- `guarantee-badge.png` — 90-day MBG gold seal on dark green, transparent bg (new)
 
-1. `hero-darkband.jpg` (16:9) — strong Indian man's hand holding amber Veer Ved Max bottle, moody chocolate background, golden rim light
-2. `problem-low-energy.jpg`, `problem-poor-recovery.jpg`, `problem-low-drive.jpg`, `problem-fatigue.jpg` (4:3) — desaturated portraits of Indian men in their 30s expressing each state
-3. `differentiator-capsules.jpg` (4:3) — open capsules spilling onto raw shilajit + ashwagandha roots, dark velvet surface
-4. `benefit-drive.jpg`, `benefit-stamina.jpg`, `benefit-recovery.jpg` (1:1) — symbolic close-ups (heart-rate band on wrist / running shoes mid-stride / man stretching at sunrise)
-5. `lifestyle-gym.jpg`, `lifestyle-work.jpg`, `lifestyle-home.jpg` (3:4) — same male model, three contexts: gym push-up, focused at desk, with partner at home (tasteful)
-6. `brand-promise-capsule.jpg` (16:9) — single amber capsule lying on golden herb powder, soft daylight
-7. `faq-bottle.jpg` (3:4) — Veer Ved Max bottle on dark wood with subtle herb sprigs, vertical
-8. `ambassador-1.jpg`, `ambassador-2.jpg`, `ambassador-3.jpg` (1:1) — three credible Indian wellness experts (Ayurvedic doctor in white coat / male fitness coach / yoga teacher) headshots
+Keep existing lifestyle-energy / stamina / confidence images for the 90-day ritual cards.
 
-Total: **15 generated images**. Existing `assets/herbs/*`, `assets/videos/*`, `assets/pdp/veerved-primary.png`, and payment logos are reused as-is.
+## Urgency / countdown details
 
-## Build order
+- Pure client-side, per-visitor 24h rolling timer stored in `localStorage` (`vv_offer_end`). On expiry, hide the timer (no fake reset loop user can detect).
+- Stock-left line is static copy ("Only 47 units left") — not wired to backend.
 
-1. Generate the 15 Gemini images into `public/site/assets/pdp-vv/`, upload each via `lovable-assets create`, save `.asset.json` pointers, delete the raw binaries
-2. Add the 6 content arrays to `data.js`
-3. Append all new section CSS to `pdp.css`
-4. Rewrite `product.html` body with the 17-section structure, wiring asset URLs and data arrays
-5. Patch `catalog.js` default-variant selector to honour `?id=veer-ved-shakti-30`
-6. Verify on the preview: scroll the whole PDP at desktop (1280) + mobile (390) viewports
+## Cache busting
 
-## Out of scope
+- Bump CSS link in product.html from `pdp-vv-4` → `pdp-vv-5`.
 
-- Landing page (`home.html`) restyle — handled in a follow-up, this pass is PDP-only
-- Catalog schema changes, checkout flow, backend code
-- New video shoots — existing WhatsApp/video testimonials reused
+## Out of scope (call out so user can request later)
+
+- No real inventory wiring (stock count is copy only).
+- No new 90-cap SKU in catalog (`data.js` unchanged); the pack tab is UI only.
+- No backend/DB changes.
+- Other product pages and other site pages unchanged.
+
+After approval I'll execute uploads + edits in batched parallel calls (images first, then HTML/CSS).
