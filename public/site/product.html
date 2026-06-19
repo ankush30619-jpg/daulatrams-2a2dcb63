@@ -451,6 +451,7 @@
   if(!/^veer-ved-shakti/.test(id)){
     document.querySelectorAll('.vv-only').forEach(el => el.style.display = 'none');
   }
+  const isVV = /^veer-ved-shakti/.test(id);
   const stars5 = n => '★'.repeat(Math.round(n||4.5))+'☆'.repeat(5-Math.round(n||4.5));
   const off = p.orig ? Math.round((1-p.price/p.orig)*100) : 0;
 
