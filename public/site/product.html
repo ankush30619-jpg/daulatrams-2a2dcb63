@@ -7,13 +7,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=pdp-vv-4">
-<link rel="stylesheet" href="pages.css?v=pdp-vv-4">
+<link rel="stylesheet" href="styles.css?v=pdp-vv-5">
+<link rel="stylesheet" href="pages.css?v=pdp-vv-5">
 <link rel="stylesheet" href="store.css">
-<link rel="stylesheet" href="pdp.css?v=pdp-vv-4">
+<link rel="stylesheet" href="pdp.css?v=pdp-vv-5">
 </head>
 <body>
 <script>document.documentElement.classList.add('js-anim'); window.ACTIVE_NAV = 'shop';</script>
+
+<!-- ===== VV STICKY TOP PROMO BAR (toggled on for Veer Ved by script) ===== -->
+<div id="vv-promobar" class="vv-only vv-promobar" hidden>
+  <div class="vv-promobar-inner">
+    <span class="vv-pb-item">🔥 <strong>Buy 2, Get 1 FREE</strong></span>
+    <span class="vv-pb-sep">·</span>
+    <span class="vv-pb-item">🚚 Free Shipping ₹999+</span>
+    <span class="vv-pb-sep">·</span>
+    <span class="vv-pb-item">🔄 90-Day Money Back</span>
+    <button class="vv-pb-close" type="button" aria-label="Dismiss">×</button>
+  </div>
+</div>
 
 <main id="main-content" style="padding-top:116px;">
 
@@ -185,6 +197,55 @@
     </div>
   </section>
 
+  <!-- ===== COMPARISON TABLE ===== -->
+  <section class="vv-only vv-compare">
+    <div class="container">
+      <div class="vv-sec-head">
+        <span class="vv-eyebrow dark">SIDE BY SIDE</span>
+        <h2 class="vv-h2 dark">Not All T-Boosters Are <em>Created Equal</em>.</h2>
+      </div>
+      <div class="vv-compare-wrap">
+        <table class="vv-compare-table">
+          <thead>
+            <tr><th></th><th class="vc-us">Veer Ved Shakti+</th><th class="vc-them">Other Brands</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Herbs</td><td class="vc-us">14 classical Ayurvedic herbs</td><td class="vc-them">3–4 basic herbs</td></tr>
+            <tr><td>Shilajit</td><td class="vc-us">Real Shilajit + Bhasmas</td><td class="vc-them">Synthetic extracts</td></tr>
+            <tr><td>Heritage</td><td class="vc-us">3rd generation · 60+ years</td><td class="vc-them">New brand, no track record</td></tr>
+            <tr><td>Certification</td><td class="vc-us">FSSAI + ISO 9001</td><td class="vc-them">Often uncertified</td></tr>
+            <tr><td>Steroids</td><td class="vc-us">Zero. 100% Ayurvedic.</td><td class="vc-them">Often undisclosed</td></tr>
+            <tr><td>Money Back</td><td class="vc-us">90 days · no questions</td><td class="vc-them">Usually none</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW TO USE — 90-DAY RITUAL ===== -->
+  <section class="vv-only vv-howto">
+    <div class="container">
+      <div class="vv-sec-head">
+        <span class="vv-eyebrow dark">YOUR DAILY 2-MINUTE RITUAL</span>
+        <h2 class="vv-h2 dark">Simple to Take. <em>Built to Last 90 Days.</em></h2>
+      </div>
+      <div class="vv-howto-steps">
+        <div class="vv-htstep"><div class="vh-num">01</div><div class="vh-ico">💊</div><h3>Take 2 capsules</h3><p>Morning or evening — whichever fits your day.</p></div>
+        <div class="vv-htstep"><div class="vh-num">02</div><div class="vh-ico">🥛</div><h3>After meals</h3><p>With water or warm milk for best absorption.</p></div>
+        <div class="vv-htstep"><div class="vh-num">03</div><div class="vh-ico">📅</div><h3>Every day for 90 days</h3><p>Consistency is what unlocks the real change.</p></div>
+      </div>
+      <div class="vv-timeline">
+        <img src="/site/assets/pdp-vv/timeline-90day.jpg" alt="90-day results timeline" loading="lazy">
+        <div class="vv-timeline-rows">
+          <div><span>Week 1–2</span><p>Better sleep, less fatigue.</p></div>
+          <div><span>Week 3–4</span><p>Energy levels noticeably up.</p></div>
+          <div><span>Month 2</span><p>Stamina and drive returning.</p></div>
+          <div><span>Month 3</span><p>You feel like yourself again.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== BENEFITS DARK BAND ===== -->
   <section class="vv-only vv-benefits-dark">
     <div class="container">
@@ -339,19 +400,23 @@
     </div>
   </section>
 
-  <!-- ===== BRAND PROMISE BAND ===== -->
+  <!-- ===== BRAND PROMISE / GUARANTEE BAND ===== -->
   <section class="vv-only vv-promise">
     <div class="container vv-promise-inner">
+      <div class="vv-promise-badge">
+        <img src="/site/assets/pdp-vv/guarantee-badge.png" alt="90-Day Money Back Guarantee" loading="lazy">
+      </div>
       <div class="vv-promise-copy">
         <span class="vv-eyebrow">OUR PROMISE TO YOU</span>
-        <h2 class="vv-h2">90 Days. Real Results. Or Your <em>Money Back</em>.</h2>
-        <p>We're so confident in Veer Ved Max that if you don't feel a real difference in your energy, stamina and drive within 90 days — we'll refund every rupee. No questions.</p>
+        <h2 class="vv-h2">We Put Our Money Where Our <em>Mouth Is.</em></h2>
+        <p>Try Veer Ved Shakti+ for 90 days. If you don't feel more energy, stamina and drive — we'll refund every single rupee. No questions asked.</p>
         <div class="vv-promise-row">
           <div class="vp-stat"><strong>FSSAI</strong><span>Approved</span></div>
           <div class="vp-stat"><strong>ISO 9001</strong><span>Certified</span></div>
           <div class="vp-stat"><strong>100%</strong><span>Ayurvedic</span></div>
           <div class="vp-stat"><strong>Made in</strong><span>India</span></div>
         </div>
+        <button class="vv-btn-cta" style="margin-top:22px" onclick="document.getElementById('buy-btn').click()">Start Your 90-Day Trial — <span id="vv-promise-price"></span> →</button>
       </div>
     </div>
   </section>
@@ -386,6 +451,7 @@
   if(!/^veer-ved-shakti/.test(id)){
     document.querySelectorAll('.vv-only').forEach(el => el.style.display = 'none');
   }
+  const isVV = /^veer-ved-shakti/.test(id);
   const stars5 = n => '★'.repeat(Math.round(n||4.5))+'☆'.repeat(5-Math.round(n||4.5));
   const off = p.orig ? Math.round((1-p.price/p.orig)*100) : 0;
 
@@ -765,6 +831,126 @@
       }
     },3800);
   });
+
+  /* ============================================ */
+  /* ===== VEER VED EXCLUSIVE HERO ENHANCEMENTS = */
+  /* ============================================ */
+  if(isVV){
+    /* --- Show sticky promo bar (sessionStorage dismiss) --- */
+    const pb = document.getElementById('vv-promobar');
+    if(pb && !sessionStorage.getItem('vv_pb_dismissed')){
+      pb.hidden = false;
+      document.body.classList.add('vv-has-promobar');
+      pb.querySelector('.vv-pb-close').addEventListener('click', ()=>{
+        pb.hidden = true;
+        document.body.classList.remove('vv-has-promobar');
+        sessionStorage.setItem('vv_pb_dismissed','1');
+      });
+    }
+
+    /* --- Replace hero gallery with the new dedicated product set --- */
+    const heroImgs = [
+      '/site/assets/pdp-vv/hero-bottle.jpg',
+      '/site/assets/pdp-vv/hero-thumb-1.jpg',
+      '/site/assets/pdp-vv/hero-thumb-2.jpg',
+      '/site/assets/pdp-vv/hero-thumb-3.jpg',
+      '/site/assets/pdp-vv/hero-thumb-4.jpg'
+    ];
+    const mi2 = document.getElementById('main-img2');
+    if(mi2){ mi2.src = heroImgs[0]; mi2.alt = p.name; }
+    const tr2 = document.getElementById('thumb-row');
+    if(tr2){
+      tr2.innerHTML = heroImgs.map((src,i)=>`<div class="pdp-thumb2${i===0?' active':''}" data-img="${src}"><img src="${src}" alt="${p.name} view ${i+1}" loading="lazy"></div>`).join('');
+      tr2.querySelectorAll('.pdp-thumb2').forEach(t=>t.addEventListener('click',()=>{
+        tr2.querySelectorAll('.pdp-thumb2').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active'); mi2.src=t.dataset.img;
+      }));
+    }
+
+    /* --- Replace badge chips with high-trust signals --- */
+    const hb = document.getElementById('h-badges');
+    if(hb){
+      hb.innerHTML = `
+        <span class="pdp-chip vv-trust-chip">★ 4.7/5 · ${(p.reviews||12480).toLocaleString('en-IN')} Verified</span>
+        <span class="pdp-chip vv-trust-chip">👥 1 Lakh+ Men Trust This</span>
+      `;
+    }
+
+    /* --- Add 90-Day MBG to the trust strip near CTA (prepend) --- */
+    const trust = document.querySelector('.pdp-trust2');
+    if(trust){
+      const mbg = document.createElement('div');
+      mbg.className = 'pdp-ti vv-mbg-chip';
+      mbg.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 1 3 6.7M3 12V7M3 12h5"/><path d="m9 12 2 2 4-4"/></svg><strong>90-Day Money Back</strong>';
+      trust.insertBefore(mbg, trust.firstChild);
+    }
+
+    /* --- Inject urgency block (countdown + stock left) above qty --- */
+    const qty = document.querySelector('.pdp-qty2');
+    if(qty){
+      const urg = document.createElement('div');
+      urg.className = 'vv-urgency';
+      urg.innerHTML = `
+        <div class="vv-urg-row vv-urg-timer">
+          <span class="vv-urg-ico">🕐</span>
+          <span class="vv-urg-label">Offer ends in</span>
+          <span class="vv-urg-clock"><b id="vv-h">--</b>:<b id="vv-m">--</b>:<b id="vv-s">--</b></span>
+        </div>
+        <div class="vv-urg-row vv-urg-stock">
+          <span class="vv-urg-ico">⚡</span>
+          <span>Only <strong>47 units</strong> left at this price</span>
+        </div>`;
+      qty.parentNode.insertBefore(urg, qty);
+
+      /* rolling 24h timer per visitor */
+      const KEY = 'vv_offer_end';
+      let end = parseInt(localStorage.getItem(KEY)||'0',10);
+      const now = Date.now();
+      if(!end || end < now){ end = now + 24*60*60*1000; localStorage.setItem(KEY, String(end)); }
+      const elH=document.getElementById('vv-h'), elM=document.getElementById('vv-m'), elS=document.getElementById('vv-s');
+      const pad = n => String(n).padStart(2,'0');
+      function tick(){
+        const ms = end - Date.now();
+        if(ms<=0){ urg.querySelector('.vv-urg-timer').style.display='none'; return; }
+        const h=Math.floor(ms/3600000), m=Math.floor(ms/60000)%60, s=Math.floor(ms/1000)%60;
+        elH.textContent=pad(h); elM.textContent=pad(m); elS.textContent=pad(s);
+      }
+      tick(); setInterval(tick,1000);
+    }
+
+    /* --- Override product tagline for Veer Ved --- */
+    const tagEl = document.getElementById('h-tag');
+    if(tagEl) tagEl.textContent = 'Natural T-Booster · 14 Ayurvedic Herbs · '+(p.variant||'');
+
+    /* --- Inject guarantee strip price into promise CTA --- */
+    const pp = document.getElementById('vv-promise-price');
+    if(pp) pp.textContent = '₹'+p.price.toLocaleString('en-IN');
+
+    /* --- Override FAQ list with conversion-tuned questions --- */
+    const vvFaqs = [
+      {q:'Is this safe? Any side effects?', a:'100% Ayurvedic, no steroids, no known side effects when used as directed. Consult your doctor if you are on prescription medication.'},
+      {q:'How long until I see results?', a:'Most men notice better sleep and a small energy lift in 2–3 weeks. Stamina and drive return through Month 2. Peak results appear by Month 3 — which is exactly why we offer 90 days to try it.'},
+      {q:'Can I take it with other supplements or protein?', a:'Yes. There are no known contraindications with standard supplements, multivitamins or whey protein.'},
+      {q:'30-cap vs 60-cap vs 90-cap — which should I buy?', a:'For a real test, go with the 60-cap (full 30-day cycle) or the 90-cap bundle (best per-capsule value and complete 45-day cycle).'},
+      {q:'Is Cash on Delivery available?', a:'Yes — COD is available across India at checkout.'},
+      {q:'What if it doesn\'t work for me?', a:'Full 90-day money-back guarantee, no questions asked. Email us, and we will refund every rupee.'}
+    ];
+    const fg = document.getElementById('faq-grid');
+    if(fg){
+      fg.innerHTML = vvFaqs.map((f,i)=>`
+        <div class="faq-item">
+          <div class="faq-q" data-i="${i}"><span>${f.q}</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p>${f.a}</p></div>
+        </div>`).join('');
+      fg.querySelectorAll('.faq-q').forEach(q=>{
+        q.addEventListener('click',()=>{
+          const isO=q.classList.contains('open');
+          fg.querySelectorAll('.faq-q').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open');});
+          if(!isO){q.classList.add('open');q.nextElementSibling.classList.add('open');}
+        });
+      });
+    }
+  }
 })();
 </script>
 
