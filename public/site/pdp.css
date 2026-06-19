@@ -875,3 +875,80 @@ body.vv-has-promobar #main-content{padding-top:152px !important;}
   .vv-promise-row{justify-content:center;}
   .vv-promise-copy p{margin-left:auto;margin-right:auto;}
 }
+
+/* ====================================================== */
+/* ===== VEER VED — COMPACT PASS (pdp-vv-6) ============ */
+/* Tighter vertical rhythm, less blank space everywhere   */
+/* ====================================================== */
+.vv-darkband,
+.vv-problems,
+.vv-differ,
+.vv-megastat,
+.vv-benefits-dark,
+.vv-lifestyle,
+.vv-promise,
+.vv-compare,
+.vv-howto{padding:56px 0 !important;}
+
+.vv-sec-head{margin:0 auto 28px !important;}
+.vv-h2{font-size:clamp(26px,3.4vw,40px) !important; margin:0 0 12px !important;}
+.vv-lead{font-size:15px !important; line-height:1.55 !important; margin:0 0 18px !important;}
+.vv-eyebrow{margin-bottom:10px !important; font-size:11px !important;}
+
+.vv-darkband-inner,
+.vv-differ-inner{gap:40px !important;}
+.vv-pillars{gap:10px !important; margin-top:20px !important;}
+.vv-pillar{padding:12px 16px !important;}
+.vv-differ-list{gap:12px !important; margin-top:16px !important;}
+
+.vv-megastat-inner{gap:36px !important;}
+.vv-mega-copy p{margin-bottom:18px !important;}
+
+.vv-problems-grid{gap:18px !important;}
+.vv-problem h3{margin:14px 18px 6px !important; font-size:20px !important;}
+.vv-problem p{margin:0 18px 16px !important;}
+
+.vv-benefits-grid{gap:18px !important;}
+.vv-benefit{padding:24px 22px !important;}
+.vv-benefit h3{font-size:22px !important; margin:0 0 8px !important;}
+.vv-benefit p{font-size:14px !important;}
+
+.vv-lifestyle-grid{gap:18px !important;}
+.vv-life-card{aspect-ratio:4/5 !important;}
+.vv-life-card figcaption{padding:18px 18px 16px !important;}
+.vv-life-card h3{font-size:22px !important;}
+
+.vv-compare-wrap{margin-top:8px !important;}
+.vv-compare-table th, .vv-compare-table td{padding:10px 12px !important; font-size:14px !important;}
+
+.vv-howto-steps{gap:18px !important;}
+.vv-htstep{padding:20px !important;}
+.vv-htstep .vh-ico{font-size:32px !important; margin:4px 0 8px !important;}
+.vv-timeline{margin-top:24px !important;}
+
+.vv-promise-inner{gap:32px !important;}
+.vv-promise-copy p{margin-bottom:16px !important;}
+
+/* Legacy non-vv sections on PDP — tighten too */
+.problems-sec,
+.doctor-sec,
+.ingredients-sec,
+.wa-sec,
+.rating-sum-sec,
+.video-sec,
+.htu-sec,
+.family-sec,
+.faq-sec,
+.featured-picks-sec,
+.yml-sec,
+.trust-legacy{padding:48px 0 !important;}
+
+@media(max-width:760px){
+  .vv-darkband,.vv-problems,.vv-differ,.vv-megastat,
+  .vv-benefits-dark,.vv-lifestyle,.vv-promise,
+  .vv-compare,.vv-howto{padding:40px 0 !important;}
+  .problems-sec,.doctor-sec,.ingredients-sec,.wa-sec,
+  .rating-sum-sec,.video-sec,.htu-sec,.family-sec,
+  .faq-sec,.featured-picks-sec,.yml-sec,.trust-legacy{padding:36px 0 !important;}
+  .vv-sec-head{margin:0 auto 20px !important;}
+}
