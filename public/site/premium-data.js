@@ -2,7 +2,7 @@ window.__PREMIUM_DATA = {
   "veer-ved-shakti": {
     theme: "dark",
     darkband: {
-      image: "/site/assets/pdp-vv/solution-capsules.jpg",
+      image: "/site/assets/pdp-vv/vvmax-hero-main.jpg",
       eyebrow: "A T-BOOSTER FOR PEAK PERFORMANCE",
       h2: "Reclaim Your <em>Prime</em>.",
       lead: "Veer Ved Max is the only T-Booster crafted with pure Himalayan Shilajit, Swarna Bhasma, and 12 premium Ayurvedic herbs.",
@@ -24,7 +24,7 @@ window.__PREMIUM_DATA = {
       ]
     },
     differ: {
-      image: "/site/assets/pdp-vv/capsules-hero.jpg",
+      image: "/site/assets/pdp-vv/vvmax-ingredients.jpg",
       eyebrow: "THE DAULATRAM'S DIFFERENCE",
       h2: "Not All T-Boosters Are <em>Built Equal</em>.",
       list: [
