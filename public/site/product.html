@@ -607,7 +607,8 @@
     const save = combo - bundlePrice;
     return {a:p, b, combo, bundlePrice, save, disc:Math.round(disc*100)};
   });
-  document.getElementById('bundle-grid').innerHTML = bundles.map(bd=>`
+  const bgEl = document.getElementById('bundle-grid');
+  if (bgEl) bgEl.innerHTML = bundles.map(bd=>`
     <div class="bundle-card">
       <div class="bundle-imgs">
         <img src="${bd.a.images[0]}" alt="${bd.a.name}">

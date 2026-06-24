@@ -180,6 +180,9 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll(".sr, .sr-stagger").forEach((el) => srObserver.observe(el));
+  window.observeSR = function(root) {
+    (root || document).querySelectorAll(".sr, .sr-stagger").forEach(function(el) { srObserver.observe(el); });
+  };
 
   /* ---------- Count up ---------- */
   const countObserver = new IntersectionObserver((entries) => {

@@ -2,7 +2,7 @@ window.__PREMIUM_DATA = {
   "veer-ved-shakti": {
     theme: "dark",
     darkband: {
-      image: "/site/assets/pdp-vv/vmax-hero-jar.jpg",
+      image: "/site/assets/pdp-vv/hero-darkband.jpg",
       eyebrow: "A T-BOOSTER FOR PEAK PERFORMANCE",
       h2: "Reclaim Your <em>Prime</em>.",
       lead: "Veer Ved Max is the only T-Booster crafted with pure Himalayan Shilajit, Swarna Bhasma, and 12 premium Ayurvedic herbs.",
@@ -20,7 +20,7 @@ window.__PREMIUM_DATA = {
         { img: "/site/assets/pdp-vv/problem-fatigue.jpg", title: "Tired by 4pm.", desc: "That mid-day crash that no coffee can fix anymore." },
         { img: "/site/assets/pdp-vv/problem-stamina.jpg", title: "Stamina just isn't there.", desc: "The gym feels harder. So does the climb up the stairs." },
         { img: "/site/assets/pdp-vv/problem-confidence.jpg", title: "Quiet evenings at home.", desc: "That spark with your partner feels far away." },
-        { img: "/site/assets/pdp-vv/problem-drive.jpg", title: "Drive is missing.", desc: "The fire to chase, build, win — somehow it's dim." }
+        { img: "/site/assets/pdp-vv/problem-drive.jpg", title: "Drive is missing.", desc: "The fire to chase, build, win ï¿½ somehow it's dim." }
       ]
     },
     differ: {

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`).join('') : '';
 
     html += `
-    <section class="premium-darkband sr">
+    <section class="premium-darkband">
       <div class="container premium-darkband-inner">
         <div class="premium-darkband-img">
           <img src="${d.image}" alt="${d.h2.replace(/<[^>]*>?/gm, '')}" loading="lazy">
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </article>`).join('') : '';
 
     html += `
-    <section class="premium-problems sr">
+    <section class="premium-problems">
       <div class="container">
         <div class="premium-sec-head">
           <span class="premium-eyebrow dark">${p.eyebrow}</span>
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <li><span class="vd-check">✓</span><div><strong>${l.strong}</strong> ${l.text}</div></li>`).join('') : '';
 
     html += `
-    <section class="premium-differ sr">
+    <section class="premium-differ">
       <div class="container premium-differ-inner">
         <div class="premium-differ-img">
           <img src="${d.image}" alt="${d.h2.replace(/<[^>]*>?/gm, '')}" loading="lazy">
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (data.megastat) {
     const m = data.megastat;
     html += `
-    <section class="premium-megastat sr">
+    <section class="premium-megastat">
       <div class="container premium-megastat-inner">
         <div class="premium-mega-num">${m.num}</div>
         <div class="premium-mega-copy">
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </tr>`).join('') : '';
 
     html += `
-    <section class="premium-compare sr">
+    <section class="premium-compare">
       <div class="container">
         <div class="premium-sec-head">
           <span class="premium-eyebrow dark">${c.eyebrow}</span>
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     html += `
-    <section class="premium-howto sr">
+    <section class="premium-howto">
       <div class="container">
         <div class="premium-sec-head">
           <span class="premium-eyebrow dark">${h.eyebrow}</span>
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`).join('') : '';
 
     html += `
-    <section class="premium-benefits-dark sr">
+    <section class="premium-benefits-dark">
       <div class="container">
         <div class="premium-sec-head light">
           <span class="premium-eyebrow light">${b.eyebrow}</span>
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </figure>`).join('') : '';
 
     html += `
-    <section class="premium-lifestyle sr">
+    <section class="premium-lifestyle">
       <div class="container">
         <div class="premium-sec-head">
           <span class="premium-eyebrow dark">${l.eyebrow}</span>
@@ -223,4 +223,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   container.innerHTML = html;
+  if (typeof window.observeSR === 'function') window.observeSR(container);
 });
