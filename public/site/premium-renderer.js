@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
+  const productId = urlParams.get('id') || 'veer-ved-shakti-60';
 
   if (!productId || !window.__PREMIUM_DATA) {
     return;
