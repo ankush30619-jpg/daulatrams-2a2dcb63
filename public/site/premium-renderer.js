@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const pillarsHtml = d.pillars ? d.pillars.map(p => `
       <div class="premium-pillar">
         <div class="vp-num">${p.num}</div>
-        <strong>${p.t}</strong>
-        <span>${p.d}</span>
+        <strong class="vp-t">${p.t}</strong>
+        <span class="vp-d">${p.d}</span>
       </div>`).join('') : '';
 
     html += `
