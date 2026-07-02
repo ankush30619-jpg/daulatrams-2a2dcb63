@@ -137,10 +137,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (data.howto) {
     const h = data.howto;
-    const stepsHtml = h.steps ? h.steps.map(s => `
+    const stepsHtml = h.steps ? h.steps.map(s =>
+      `
       <div class="premium-htstep">
         <div class="vh-num">${s.num}</div>
-        <div class="vh-ico">${s.ico}</div>
+        <div class="vh-ico">${s.title.charAt(0)}</div>
         <h3>${s.title}</h3>
         <p>${s.desc}</p>
       </div>`).join('') : '';
@@ -150,17 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const tl = h.timeline;
       timelineHtml = `
       <div class="premium-timeline">
-        <div class="vt-img">
-          <img src="${tl.img}" alt="Timeline" loading="lazy">
-        </div>
-        <div class="vt-content">
-          <h3>The Timeline</h3>
-          <div class="vt-grid">
-            <div class="vt-point"><strong>${tl.w1.t}</strong><p>${tl.w1.d}</p></div>
-            <div class="vt-point"><strong>${tl.w3.t}</strong><p>${tl.w3.d}</p></div>
-            <div class="vt-point"><strong>${tl.m2.t}</strong><p>${tl.m2.d}</p></div>
-            <div class="vt-point"><strong>${tl.m3.t}</strong><p>${tl.m3.d}</p></div>
-          </div>
+        <img src="${tl.img}" alt="90-day timeline" loading="lazy">
+        <div class="premium-timeline-rows">
+          <div><span>${tl.w1.t}</span><p>${tl.w1.d}</p></div>
+          <div><span>${tl.w3.t}</span><p>${tl.w3.d}</p></div>
+          <div><span>${tl.m2.t}</span><p>${tl.m2.d}</p></div>
+          <div><span>${tl.m3.t}</span><p>${tl.m3.d}</p></div>
         </div>
       </div>`;
     }

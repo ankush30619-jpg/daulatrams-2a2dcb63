@@ -851,10 +851,10 @@ body.premium-has-promobar #main-content{padding-top:152px !important;}
   font-weight:700; color:var(--theme-dark-1); background:rgba(245,235,221,0.55);
   width:140px;
 }
-.premium-compare-table tbody td.vc-us{color:var(--theme-dark-1); font-weight:600;}
-.premium-compare-table tbody td.vc-us::before{content:"✓  "; color:#0B5132; font-weight:800;}
-.premium-compare-table tbody td.vc-them{color:#8a7866;}
-.premium-compare-table tbody td.vc-them::before{content:"✗  "; color:#c0392b; font-weight:800;}
+.premium-compare-table tbody td.vc-us{color:var(--theme-dark-1); font-weight:600; padding-left:10px;}
+.premium-compare-table tbody td.vc-us::before{content:"\2713  "; color:#0B5132; font-weight:800;}
+.premium-compare-table tbody td.vc-them{color:#8a7866; padding-left:10px;}
+.premium-compare-table tbody td.vc-them::before{content:"\2715  "; color:#c0392b; font-weight:800;}
 .premium-compare-table tbody tr:last-child td{border-bottom:0;}
 @media(max-width:640px){
   .premium-compare-table{font-size:13px;}
@@ -881,7 +881,14 @@ body.premium-has-promobar #main-content{padding-top:152px !important;}
   padding:5px 14px; border-radius:50px; letter-spacing:.05em;
   box-shadow:0 6px 18px -6px rgba(245,146,29,0.6);
 }
-.premium-htstep .vh-ico{font-size:42px; margin:8px 0 12px;}
+.premium-htstep .vh-ico{
+  width:64px; height:64px; border-radius:50%;
+  background:linear-gradient(135deg, var(--theme-accent-1), var(--theme-dark-1));
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  margin:8px auto 14px; font-size:26px; font-weight:800;
+  font-family:'Space Grotesk',sans-serif;
+  box-shadow:0 8px 24px -8px rgba(11,81,50,0.4);
+}
 .premium-htstep h3{font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--theme-dark-1); margin:0 0 8px; font-weight:600;}
 .premium-htstep p{font-size:14px; color:#6b5a4a; line-height:1.55; margin:0;}
 @media(max-width:720px){.premium-howto-steps{grid-template-columns:1fr; max-width:400px;}}
@@ -892,6 +899,7 @@ body.premium-has-promobar #main-content{padding-top:152px !important;}
   box-shadow:0 16px 48px -20px rgba(0,0,0,0.4);
 }
 .premium-timeline img{display:block; width:100%; height:auto; object-fit:cover;}
+.premium-timeline h3{color:var(--premium-cream); font-family:'Cormorant Garamond',serif; font-size:22px; margin:0 0 12px; padding:20px 22px 0; font-weight:600;}
 .premium-timeline-rows{
   display:grid; grid-template-columns:repeat(4,1fr);
   background:var(--theme-dark-2);
