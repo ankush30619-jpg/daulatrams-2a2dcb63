@@ -176,9 +176,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (data.benefitsDark) {
     const b = data.benefitsDark;
-    const bensHtml = b.benefits ? b.benefits.map(ben => `
+    const safeIcons = ['\u2736', '\u25C6', '\u2665', '\u2605', '\u25B2', '\u25CF'];
+    const bensHtml = b.benefits ? b.benefits.map((ben, i) => `
       <div class="premium-benefit">
-        <div class="vb-ico">${ben.ico}</div>
+        <div class="vb-ico">${safeIcons[i % safeIcons.length]}</div>
         <h3>${ben.title}</h3>
         <p>${ben.desc}</p>
       </div>`).join('') : '';

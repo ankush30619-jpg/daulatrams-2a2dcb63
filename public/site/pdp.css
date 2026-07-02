@@ -732,7 +732,7 @@
 .premium-benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;position:relative;}
 .premium-benefit{background:linear-gradient(180deg,rgba(245,235,221,.07) 0%,rgba(245,235,221,.02) 100%);border:1px solid rgba(245,235,221,.1);border-radius:18px;padding:38px 32px;transition:.3s ease;}
 .premium-benefit:hover{transform:translateY(-4px);border-color:rgba(245,146,29,.4);}
-.vb-ico{width:60px;height:60px;border-radius:14px;background:rgba(245,146,29,.15);display:grid;place-items:center;font-size:30px;margin-bottom:22px;}
+.vb-ico{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,rgba(245,146,29,.25),rgba(245,146,29,.1));display:grid;place-items:center;font-size:28px;margin-bottom:22px;color:var(--premium-gold);border:1px solid rgba(245,146,29,.3);}
 .premium-benefit h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--premium-cream);margin:0 0 12px;}
 .premium-benefit p{font-size:15px;line-height:1.65;color:var(--premium-text-on-dark);margin:0;}
 
