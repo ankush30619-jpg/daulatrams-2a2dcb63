@@ -1238,7 +1238,7 @@ html, body { overflow-x: clip; -webkit-text-size-adjust: 100%; }
   flex: 0 0 auto; min-width: 0;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
   width: 100%;
-  max-width: 120px;
+  max-width: 155px;
   text-decoration: none; color: var(--charcoal);
   transition: transform 350ms var(--e-spring);
 }
@@ -1283,20 +1283,20 @@ html, body { overflow-x: clip; -webkit-text-size-adjust: 100%; }
     grid-template-columns: none;
     grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
-    grid-auto-columns: 88px;
+    grid-auto-columns: 110px;
     overflow-x: auto;
     gap: 16px 12px;
     padding: 10px 4px 18px;
     justify-content: flex-start;
   }
   .cat-cartoon-card { 
-    width: 88px; 
+    width: 110px; 
   }
   .cat-cartoon-card .cc-chip {
-    width: 88px;
-    height: 88px;
+    width: 110px;
+    height: 110px;
   }
-  .cat-cartoon-card .cc-label { font-size: 11px; }
+  .cat-cartoon-card .cc-label { font-size: 12px; }
 }
 
 /* Orange brand button (Add to Cart) */
