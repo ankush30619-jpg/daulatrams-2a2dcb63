@@ -19,20 +19,20 @@
     mTrack.innerHTML = one + one;
   }
 
-  /* Categories — cartoon icons in pastel-green chips */
+  /* Categories — real product preview images */
   const cats = [
-    { name: "Bestsellers",       image: "assets/categories/bestsellers.png", url: "shop.html#all-products" },
-    { name: "Men\'s Wellness",    image: "assets/categories/cat_item9.png", url: "shop.html?cat=mens-wellness" },
-    { name: "Women\'s Wellness",  image: "assets/categories/cat_item10.png", url: "shop.html?cat=womens-wellness" },
-    { name: "Desi Ghee",         image: "assets/categories/cat_item4.png", url: "shop.html?cat=desi-ghee" },
-    { name: "Honey",             image: "assets/categories/cat_item1.png", url: "shop.html?cat=honey" },
-    { name: "Hair Care",         image: "assets/categories/cat_item2.png", url: "shop.html?cat=hair-care" },
-    { name: "Skin Care",         image: "assets/categories/cat_item7.png", url: "shop.html?cat=skin-care" },
-    { name: "Cold Pressed Oils", image: "assets/categories/cat_item3.png", url: "shop.html?cat=cold-pressed-oils" },
-    { name: "Wellness",          image: "assets/categories/cat_item8.png", url: "shop.html?cat=wellness" },
-    { name: "Weight Loss",       image: "assets/categories/cat_item6.png", url: "shop.html?cat=weight-loss" },
-    { name: "Shilajit",          image: "assets/categories/cat_item5.png", url: "shop.html?q=shilajit" },
-    { name: "Kitchen & Home",    image: "assets/categories/kitchen-home.png", url: "shop.html?cat=kitchen-%26-home" }
+    { name: "Bestsellers",       image: "assets/products/desi-cow-ghee.jpg", url: "shop.html#all-products" },
+    { name: "Men\'s Wellness",    image: "assets/products/veer-ved-shakti-60.jpg", url: "shop.html?cat=mens-wellness" },
+    { name: "Women\'s Wellness",  image: "assets/products/nari-kalp.jpg", url: "shop.html?cat=womens-wellness" },
+    { name: "Desi Ghee",         image: "assets/products/a2-cow-desi-ghee.jpg", url: "shop.html?cat=desi-ghee" },
+    { name: "Honey",             image: "assets/products/van-tulsi-honey.jpg", url: "shop.html?cat=honey" },
+    { name: "Hair Care",         image: "assets/products/real-herbs-oil.jpg", url: "shop.html?cat=hair-care" },
+    { name: "Skin Care",         image: "assets/products/natural-aloevera-gel.jpg", url: "shop.html?cat=skin-care" },
+    { name: "Cold Pressed Oils", image: "assets/products/coconut-oil.jpg", url: "shop.html?cat=cold-pressed-oils" },
+    { name: "Wellness",          image: "assets/products/moringa-capsules.jpg", url: "shop.html?cat=wellness" },
+    { name: "Weight Loss",       image: "assets/products/slim-tea.jpg", url: "shop.html?cat=weight-loss" },
+    { name: "Shilajit",          image: "assets/products/shilajit-drop.jpg", url: "shop.html?q=shilajit" },
+    { name: "Kitchen & Home",    image: "assets/products/desi-gud.jpg", url: "shop.html?cat=kitchen-%26-home" }
   ];
   const catGrid = document.getElementById("cat-grid");
   if (catGrid) {
@@ -64,17 +64,23 @@
     bs.innerHTML = getProductsByIds(ids).map(rpc).join("");
   }
 
-  /* Trending Now + Wellness Essentials carousels */
-  const tn = document.getElementById("trending-now-carousel");
-  if (tn) {
-    const ids = ["coconut-oil", "badam-rogan", "sesame-oil", "flax-seed-oil", "van-tulsi-honey", "wild-forest-honey", "multiflora-honey"];
-    tn.innerHTML = getProductsByIds(ids).map(rpc).join("");
+  /* 3 Categories carousels: Men's Wellness, Hair Care, Skin Care */
+  const mwc = document.getElementById("mens-wellness-carousel");
+  if (mwc) {
+    const ids = ["veer-ved-shakti-60", "veer-ved-shakti-30", "shilajit-drop", "ashwagandha-shilajit-capsule", "ashwagandha-latte"];
+    mwc.innerHTML = getProductsByIds(ids).map(rpc).join("");
   }
-  
-  const we = document.getElementById("wellness-essentials-carousel");
-  if (we) {
-    const ids = ["veer-ved-shakti-30", "shilajit-drop", "ashwagandha-shilajit-capsule", "moringa-capsules", "nari-kalp", "spirulina-capsule"];
-    we.innerHTML = getProductsByIds(ids).map(rpc).join("");
+
+  const hcc = document.getElementById("hair-care-carousel");
+  if (hcc) {
+    const ids = ["real-herbs-oil", "amla-bhringraj-oil", "red-onion-and-black-seed-oil", "recure-oil", "red-onion-blackseed-shampoo", "amla-bhringraj-shampoo", "recure-shampoo"];
+    hcc.innerHTML = getProductsByIds(ids).map(rpc).join("");
+  }
+
+  const scc = document.getElementById("skin-care-carousel");
+  if (scc) {
+    const ids = ["natural-aloevera-gel", "kumkumadi-serum", "vitamin-c-serum", "night-face-serum", "tea-tree-serum", "charcoal-facewash", "rose-face-pack", "natural-rose-water"];
+    scc.innerHTML = getProductsByIds(ids).map(rpc).join("");
   }
 
   /* Concern default tab */

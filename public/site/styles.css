@@ -1242,26 +1242,26 @@ html, body { overflow-x: clip; -webkit-text-size-adjust: 100%; }
 
 .cat-cartoon-card .cc-chip {
   width: 100%; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #F5FBF0 0%, #E3F2D9 65%, #CEEAC0 100%);
+  background: #ffffff;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 24px rgba(11,81,50,0.10); border: 2px solid rgba(11,81,50,0.06);
+  box-shadow: 0 8px 24px rgba(11,81,50,0.08); border: 1.5px solid rgba(11,81,50,0.06);
   transition: box-shadow 350ms var(--e-smooth), border-color 350ms, background 350ms;
   overflow: hidden;
 }
 .cat-cartoon-card:hover .cc-chip { 
-  box-shadow: 0 16px 36px rgba(91,155,42,0.22); 
+  box-shadow: 0 12px 32px rgba(11,81,50,0.15); 
   border-color: var(--brand-green);
-  background: radial-gradient(circle at 30% 30%, #FFFFFF 0%, #EAF6E1 65%, #DAF1CC 100%);
+  background: #ffffff;
 }
 
 .cat-cartoon-card .cc-img {
-  width: 78%;
-  height: 78%;
+  width: 90%;
+  height: 90%;
   object-fit: contain;
   transition: transform 450ms var(--e-spring);
 }
 .cat-cartoon-card:hover .cc-img {
-  transform: scale(1.15) rotate(3deg); /* Premium scale & slight tilt animation */
+  transform: scale(1.08) rotate(2deg); /* Premium scale & slight tilt animation */
 }
 
 .cat-cartoon-card .cc-label { 
