@@ -35,11 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     html += `
     <section class="premium-darkband">
-      <div class="container premium-darkband-inner">
-        <div class="premium-darkband-img">
-          <img src="${d.image}" alt="${d.h2.replace(/<[^>]*>?/gm, '')}" loading="lazy">
-        </div>
-        <div class="premium-darkband-copy">
+      <div class="container">
+        <div class="premium-darkband-copy" style="max-width:700px;margin:0 auto;text-align:center;">
           <span class="premium-eyebrow">${d.eyebrow}</span>
           <h2 class="premium-h2">${d.h2}</h2>
           <p class="premium-lead">${d.lead}</p>
