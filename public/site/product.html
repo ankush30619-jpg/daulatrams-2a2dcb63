@@ -461,6 +461,34 @@
   }
   document.getElementById('ing-cards').innerHTML=ingHTML||'<p style="text-align:center;color:var(--text-muted);">See packaging for full ingredient list.</p>';
 
+  /* Ingredients carousel — auto-scroll left to right, loop, pause on touch */
+  (function(){
+    const track = document.getElementById('ing-cards');
+    if(!track) return;
+    let paused = false;
+    let isDragging = false, startX = 0, scrollStart = 0;
+
+    track.addEventListener('touchstart', ()=>{ paused = true; }, {passive:true});
+    track.addEventListener('touchend',   ()=>{ setTimeout(()=>{ paused = false; }, 1500); }, {passive:true});
+
+    /* drag-to-scroll on desktop */
+    track.addEventListener('mousedown', e=>{ isDragging=true; startX=e.pageX; scrollStart=track.scrollLeft; paused=true; });
+    window.addEventListener('mouseup',  ()=>{ isDragging=false; setTimeout(()=>{ paused=false; },1500); });
+    window.addEventListener('mousemove',e=>{ if(!isDragging) return; track.scrollLeft = scrollStart-(e.pageX-startX); });
+
+    setInterval(()=>{
+      if(paused) return;
+      const card = track.querySelector('.ing-card2');
+      if(!card) return;
+      const step = card.getBoundingClientRect().width + 14;
+      if(track.scrollLeft + track.clientWidth + 2 >= track.scrollWidth){
+        track.scrollTo({left:0, behavior:'smooth'});
+      } else {
+        track.scrollBy({left:step, behavior:'smooth'});
+      }
+    }, 2200);
+  })();
+
   /* WHATSAPP REVIEWS — real chat screenshots */
   const waShots=[
     'https://daulatrams.lovable.app/__l5e/assets-v1/289be58f-767a-4f50-90a6-2d573f619dc8/wa-19.jpg',
