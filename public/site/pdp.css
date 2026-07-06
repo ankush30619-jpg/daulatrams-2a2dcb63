@@ -715,7 +715,7 @@
 .premium-differ-list strong{color:var(--premium-cream);font-weight:600;display:block;font-size:16px;margin-bottom:2px;}
 
 /* ---- MEGASTAT ---- */
-.premium-megastat{background:linear-gradient(135deg,var(--theme-accent-1) 0%,var(--theme-accent-2) 100%);padding:96px 0;color:#fff;position:relative;overflow:hidden;}
+.premium-megastat{background:linear-gradient(135deg,var(--theme-accent-1) 0%,var(--theme-accent-2) 100%);padding:40px 0;color:#fff;position:relative;overflow:hidden;}
 .premium-megastat::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(255,255,255,.18),transparent 55%);pointer-events:none;}
 .premium-megastat-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center;position:relative;}
 .premium-mega-num{font-family:'Cormorant Garamond',serif;font-size:clamp(96px,16vw,200px);line-height:.9;font-weight:600;color:#fff;letter-spacing:-.04em;}
