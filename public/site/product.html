@@ -378,10 +378,18 @@
 
   /* mobile sticky */
   const satc=document.getElementById('satc2');
-  if(window.IntersectionObserver){
-    const obs=new IntersectionObserver(([e])=>satc.classList.toggle('vis',!e.isIntersecting),{threshold:0});
-    obs.observe(document.getElementById('buy-btn'));
-  }
+  (function(){
+    let buyBtnHidden = false;
+    const SCROLL_THRESHOLD = 700;
+    function updateSatc(){
+      satc.classList.toggle('vis', buyBtnHidden && window.scrollY > SCROLL_THRESHOLD);
+    }
+    if(window.IntersectionObserver){
+      const obs = new IntersectionObserver(([e])=>{ buyBtnHidden = !e.isIntersecting; updateSatc(); },{threshold:0});
+      obs.observe(document.getElementById('buy-btn'));
+    }
+    window.addEventListener('scroll', updateSatc, {passive:true});
+  })();
   /* ---- DYNAMIC SECTIONS by category ---- */
   const cat=p.category.toLowerCase();
   const isMens=cat.includes("men");
