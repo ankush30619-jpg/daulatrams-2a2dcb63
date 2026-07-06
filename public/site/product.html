@@ -95,8 +95,8 @@
             </div>
           </div>
           <div class="pdp-cta-row2">
-            <button class="btn-buynow" id="buy-btn">BUY NOW — ORDER TODAY →</button>
-            <button class="btn-cart2" id="cart-btn">Add to Cart</button>
+            <button class="btn-buynow pdp-buynow-hide" id="buy-btn">BUY NOW — ORDER TODAY →</button>
+            <button class="btn-cart2 btn-cart2-primary" id="cart-btn">Add to Cart</button>
           </div>
 
           <!-- Trust -->
@@ -150,7 +150,7 @@
         <h2 class="t-h2" style="color:var(--charcoal);margin-bottom:12px;" id="doc-title"></h2>
         <p style="font-size:16px;color:var(--text-medium);line-height:1.75;margin-bottom:20px;" id="doc-desc"></p>
         <div class="benefit-list2" id="doc-benefits"></div>
-        <button class="btn-buynow" style="max-width:280px;margin-top:20px;" onclick="document.getElementById('buy-btn').click()">Order Now — Limited Stock →</button>
+        <button class="btn-cart2 doctor-atc-btn" onclick="document.getElementById('cart-btn').click()">Add to Cart</button>
       </div>
     </div>
   </section>
@@ -184,7 +184,7 @@
         <div class="rb2-row"><span class="lbl">2★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
         <div class="rb2-row"><span class="lbl">1★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
         <div style="margin-top:28px;">
-          <button class="btn-buynow" onclick="document.getElementById('buy-btn').click()">BUY NOW — <span id="sum-price2"></span> →</button>
+          <button class="btn-cart2" style="width:100%;padding:14px 24px;font-size:16px;" onclick="document.getElementById('cart-btn').click()">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -242,8 +242,7 @@
 
 <!-- Mobile sticky ATC -->
 <div class="satc2" id="satc2">
-  <div style="flex:1;min-width:0;"><div class="sn" id="sn2"></div><div class="sp" id="sp2"></div></div>
-  <button class="btn-buynow sb" onclick="document.getElementById('buy-btn').click()">Buy Now</button>
+  <button class="btn-cart2 satc2-atc" onclick="document.getElementById('cart-btn').click()">Add to Cart</button>
 </div>
 
 <div id="tweaks-root"></div>
@@ -622,6 +621,26 @@
         <a href="product.html?id=${bd.b.id}" class="btn btn-primary" style="width:100%;text-align:center;margin-top:12px;">Add Bundle to Cart</a>
       </div>
     </div>`).join('');
+
+  /* Ingredients carousel auto-scroll on mobile */
+  (function(){
+    const ing = document.getElementById('ing-cards');
+    if(!ing) return;
+    let paused = false;
+    ing.addEventListener('touchstart', ()=>paused=true, {passive:true});
+    ing.addEventListener('touchend', ()=>setTimeout(()=>paused=false, 2000), {passive:true});
+    setInterval(()=>{
+      if(window.innerWidth > 860 || paused) return;
+      const card = ing.querySelector('.ing-card2');
+      if(!card) return;
+      const step = card.getBoundingClientRect().width + 12;
+      if(ing.scrollLeft + ing.clientWidth + 4 >= ing.scrollWidth){
+        ing.scrollTo({left:0, behavior:'smooth'});
+      } else {
+        ing.scrollBy({left:step, behavior:'smooth'});
+      }
+    }, 2500);
+  })();
 
   /* Carousel arrows + autoplay */
   document.querySelectorAll('.carousel-arrow').forEach(btn=>{
