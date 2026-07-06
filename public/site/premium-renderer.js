@@ -141,19 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`).join('') : '';
 
     let timelineHtml = '';
-    if (h.timeline) {
-      const tl = h.timeline;
-      timelineHtml = `
-      <div class="premium-timeline">
-        <img src="${tl.img}" alt="90-day timeline" loading="lazy">
-        <div class="premium-timeline-rows">
-          <div><span>${tl.w1.t}</span><p>${tl.w1.d}</p></div>
-          <div><span>${tl.w3.t}</span><p>${tl.w3.d}</p></div>
-          <div><span>${tl.m2.t}</span><p>${tl.m2.d}</p></div>
-          <div><span>${tl.m3.t}</span><p>${tl.m3.d}</p></div>
-        </div>
-      </div>`;
-    }
 
     html += `
     <section class="premium-howto">
@@ -190,28 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>`;
   }
 
-  if (data.lifestyle) {
-    const l = data.lifestyle;
-    const cardsHtml = l.cards ? l.cards.map(c => `
-      <figure class="premium-life-card">
-        <img src="${c.img}" alt="${c.title}" loading="lazy">
-        <figcaption>
-          <span class="vl-tag">${c.tag}</span>
-          <h3>${c.title}</h3>
-        </figcaption>
-      </figure>`).join('') : '';
-
-    html += `
-    <section class="premium-lifestyle">
-      <div class="container">
-        <div class="premium-sec-head">
-          <span class="premium-eyebrow dark">${l.eyebrow}</span>
-          <h2 class="premium-h2 dark">${l.h2}</h2>
-        </div>
-        <div class="premium-lifestyle-grid">${cardsHtml}</div>
-      </div>
-    </section>`;
-  }
 
   container.innerHTML = html;
   if (typeof window.observeSR === 'function') window.observeSR(container);
