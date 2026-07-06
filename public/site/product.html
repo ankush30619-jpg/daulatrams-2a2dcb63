@@ -85,6 +85,14 @@
             <span></span>
           </div>
 
+          <!-- Urgency bar -->
+          <div class="conv-urgency-bar">
+            <span class="conv-fire">🔥</span>
+            <span id="conv-viewers"><strong>47 men</strong> viewing this right now</span>
+            <span class="conv-dot">·</span>
+            <span class="conv-stock">Only <strong>23 left</strong> at this price</span>
+          </div>
+
           <!-- Qty + CTAs -->
           <div class="pdp-qty2">
             <span class="lbl">Qty</span>
@@ -96,7 +104,14 @@
           </div>
           <div class="pdp-cta-row2">
             <button class="btn-buynow" id="buy-btn">BUY NOW — ORDER TODAY →</button>
-            <button class="btn-cart2" id="cart-btn">Add to Cart</button>
+            <button class="btn-cart2 btn-cart2-main" id="cart-btn">🛒 Add to Cart</button>
+          </div>
+
+          <!-- CTA micro-copy -->
+          <div class="conv-microcopy">
+            <span>✓ Free Shipping above ₹1000</span>
+            <span>✓ 90-Day Money Back</span>
+            <span>✓ COD Available</span>
           </div>
 
           <!-- Trust -->
@@ -183,8 +198,9 @@
         <div class="rb2-row"><span class="lbl">3★</span><div class="bar"><div class="fill" style="width:5%"></div></div><span class="pct">5%</span></div>
         <div class="rb2-row"><span class="lbl">2★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
         <div class="rb2-row"><span class="lbl">1★</span><div class="bar"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
-        <div style="margin-top:28px;">
-          <button class="btn-buynow" onclick="document.getElementById('buy-btn').click()">BUY NOW — <span id="sum-price2"></span> →</button>
+        <div style="margin-top:20px;">
+          <button class="btn-cart2 btn-cart2-main" style="width:100%;" onclick="document.getElementById('cart-btn').click()">🛒 Add to Cart — <span id="sum-price2"></span></button>
+          <p style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;margin-top:8px;">✓ 90-Day Money Back &nbsp;·&nbsp; ✓ Free Shipping ✓ COD</p>
         </div>
       </div>
     </div>
