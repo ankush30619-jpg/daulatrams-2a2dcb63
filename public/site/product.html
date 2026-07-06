@@ -378,8 +378,6 @@
 
   /* mobile sticky */
   const satc=document.getElementById('satc2');
-  document.getElementById('sn2').textContent=p.name+' · '+p.variant;
-  document.getElementById('sp2').textContent='₹'+p.price.toLocaleString('en-IN');
   if(window.IntersectionObserver){
     const obs=new IntersectionObserver(([e])=>satc.classList.toggle('vis',!e.isIntersecting),{threshold:0});
     obs.observe(document.getElementById('buy-btn'));
