@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="premium-eyebrow">${m.eyebrow}</span>
           <h3>${m.h3}</h3>
           <p>${m.p}</p>
-          <button class="premium-btn-cta" onclick="document.getElementById('cart-btn').click()">Add to Cart</button>
+          <button class="premium-btn-cta" onclick="document.getElementById('buy-btn').click()">BUY NOW</button>
         </div>
       </div>
     </section>`;
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (h.timeline) {
       const tl = h.timeline;
       timelineHtml = `
-      <div class="premium-timeline premium-timeline-hidden">
+      <div class="premium-timeline">
         <img src="${tl.img}" alt="90-day timeline" loading="lazy">
         <div class="premium-timeline-rows">
           <div><span>${tl.w1.t}</span><p>${tl.w1.d}</p></div>
