@@ -184,9 +184,9 @@
 .prob-card .p-sub { font-size:12.5px; color:var(--text-muted); line-height:1.5; }
 
 /* ===== DOCTOR ENDORSEMENT ===== */
-.doctor-sec { background:var(--cream-deep); padding:80px 0; }
-.doctor-inner { display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,5vw,80px); align-items:center; }
-@media(max-width:760px){ .doctor-inner{grid-template-columns:1fr;} }
+.doctor-sec { background:var(--cream-deep); padding:36px 0; }
+.doctor-inner { display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,48px); align-items:center; }
+@media(max-width:760px){ .doctor-inner{grid-template-columns:1fr;gap:16px;} }
 .doctor-img-wrap { position:relative; }
 .doctor-img-wrap img { width:100%; border-radius:24px; box-shadow:0 10px 48px rgba(11,81,50,0.18); object-fit:cover; max-height:520px; }
 .doctor-placeholder {
