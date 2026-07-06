@@ -75,11 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     html += `
     <section class="premium-differ">
-      <div class="container premium-differ-inner">
-        <div class="premium-differ-img">
-          <img src="${d.image}" alt="${d.h2.replace(/<[^>]*>?/gm, '')}" loading="lazy">
-        </div>
-        <div class="premium-differ-copy">
+      <div class="container">
+        <div class="premium-differ-copy" style="max-width:700px;margin:0 auto;">
           <span class="premium-eyebrow">${d.eyebrow}</span>
           <h2 class="premium-h2">${d.h2}</h2>
           <ul class="premium-differ-list">${listHtml}</ul>
