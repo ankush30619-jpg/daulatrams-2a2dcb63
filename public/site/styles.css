@@ -67,9 +67,6 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   padding-top: 40px; /* announcement bar */
-  overflow-x: hidden;
-  max-width: 100vw;
-  position: relative;
 }
 
 img { display: block; max-width: 100%; }
@@ -1086,7 +1083,7 @@ html[data-anim="off"] .spot-img, html[data-anim="off"] .badge-circle, html[data-
    MOBILE-FIRST POLISH (≤ 768px)
    Added: tap targets, spacing, typography, sticky bars, safe-area
    ============================================================ */
-html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
 
 @media (max-width: 768px) {
   :root {
