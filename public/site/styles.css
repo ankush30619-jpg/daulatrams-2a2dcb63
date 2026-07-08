@@ -398,7 +398,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 
 .hero-banner.sticky-hero {
   position: sticky;
-  top: 106px; /* Pins flush with the scrolled header */
+  top: 66px; /* 66px from body content area = 106px from viewport (body has 40px padding-top) */
   z-index: 0;
 }
 
@@ -918,7 +918,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
    FOOTER
    ============================================================ */
 .footer { background: var(--deep-green); color: #fff; position: relative; z-index: 2; }
-.footer-newsletter { background: var(--deep-green-2); padding: 40px 0; }
+.footer-newsletter { background: var(--deep-green-2); padding: 40px 0; overflow: hidden; }
 .footer-newsletter .fn-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
 .footer-newsletter h3 { font-family: var(--font-heading); font-weight: 500; font-size: 26px; }
 .footer-newsletter p { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 4px; }
@@ -949,7 +949,7 @@ html.js-anim .hero:not(.revealed) .reveal-up { transform: translateY(30px); }
 .footer-bottom .fb-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,0.5); }
 .footer-pay { display: flex; gap: 8px; flex-wrap: wrap; }
 .footer-pay span { background: rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 10px; font-family: var(--font-label); font-size: 11px; font-weight: 600; }
-@media (max-width: 900px) { .footer-main { grid-template-columns: 1fr 1fr; } .footer-newsletter .fn-inner { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 900px) { .footer-main { grid-template-columns: 1fr 1fr; } .footer-newsletter .fn-inner { flex-direction: column; align-items: stretch; } }
 @media (max-width: 520px) { .footer-main { grid-template-columns: 1fr; } }
 
 /* ============================================================
@@ -1083,7 +1083,7 @@ html[data-anim="off"] .spot-img, html[data-anim="off"] .badge-circle, html[data-
    MOBILE-FIRST POLISH (≤ 768px)
    Added: tap targets, spacing, typography, sticky bars, safe-area
    ============================================================ */
-html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
 
 @media (max-width: 768px) {
   :root {
@@ -1213,7 +1213,7 @@ html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   /* Keep the sticky scroll-stacking effect on mobile, pinned just
      below the header so the page-flow slides up over it. */
   .hero-banner.sticky-hero {
-    top: 102px;
+    top: 66px; /* 66px from body content area = 102px from viewport (body has 36px padding-top on mobile) */
     z-index: 0;
   }
 }
