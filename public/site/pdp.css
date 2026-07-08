@@ -78,7 +78,8 @@
 @media(max-width:860px){ .pdp-hero-inner{grid-template-columns:1fr;} }
 
 /* Gallery */
-.pdp-gallery2 { position: sticky; top: 116px; }
+.pdp-gallery2 { position: sticky; top: 116px; min-width: 0; width: 100%; }
+.pdp-info { min-width: 0; width: 100%; }
 .pdp-main-wrap {
   background:#ffffff; border-radius:24px; overflow:hidden;
   box-shadow: 0 6px 40px rgba(11,81,50,0.10);
