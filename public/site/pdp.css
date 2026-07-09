@@ -646,22 +646,22 @@
 /* Ingredient image fit */
 .ing-card2 .ic-img img { width:100%; height:100%; object-fit:cover; display:block; }
 /* Trust legacy banner (single image) */
-.trust-legacy-banner{display:block;width:100%;background:#1a7a3a;margin-top:-20px;padding:0;position:relative;z-index:2;}
-.trust-legacy-banner img{display:block;width:100%;height:auto;margin:0;padding:0;border:none;}
-.tlb-mobile-text{display:none;}
-@media(max-width:640px){
-  .tlb-desktop-img{display:none;}
-  .tlb-mobile-text{
-    display:block;
-    text-align:center;
-    padding:18px 24px;
-    color:#fff;
-    font-family:'Cormorant Garamond',serif;
-    font-size:clamp(18px,5vw,24px);
-    font-weight:600;
-    line-height:1.4;
-    letter-spacing:0.01em;
-  }
+.trust-legacy-banner{
+  display:block; width:100%; background:#1a5c2e;
+  margin-top:-20px; padding:22px 24px; position:relative; z-index:2;
+  text-align:center;
+}
+.tlb-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(17px,2.4vw,26px);
+  font-weight:600; line-height:1.5; color:rgba(255,255,255,0.88);
+  letter-spacing:0.01em; max-width:860px; margin:0 auto;
+}
+.tlb-hl{
+  color:#FFD27A; font-style:italic; font-weight:700;
+}
+.tlb-hl2{
+  color:#a8e6b0; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-style:normal;
 }
 
 /* Tighten and eliminate spacing gaps around the trust legacy banner */
