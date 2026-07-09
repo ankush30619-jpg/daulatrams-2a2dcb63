@@ -180,4 +180,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
   container.innerHTML = html;
   if (typeof window.observeSR === 'function') window.observeSR(container);
+
+  // Mobile problems carousel — auto-scroll + dots
+  if (window.innerWidth <= 640) {
+    const grid = container.querySelector('.premium-problems-grid');
+    if (grid) {
+      const cards = Array.from(grid.querySelectorAll('.premium-problem'));
+      if (cards.length > 1) {
+        // Inject dot indicators
+        const dotsEl = document.createElement('div');
+        dotsEl.className = 'pp-dots';
+        dotsEl.innerHTML = cards.map((_,i) => `<div class="pp-dot${i===0?' active':''}"></div>`).join('');
+        grid.parentElement.appendChild(dotsEl);
+        const dots = Array.from(dotsEl.querySelectorAll('.pp-dot'));
+
+        let current = 0;
+        let timer;
+
+        function goTo(idx) {
+          current = (idx + cards.length) % cards.length;
+          grid.scrollTo({ left: cards[current].offsetLeft, behavior: 'smooth' });
+          dots.forEach((d,i) => d.classList.toggle('active', i === current));
+        }
+
+        function next() { goTo(current + 1); }
+
+        function startAuto() { timer = setInterval(next, 2000); }
+        function stopAuto() { clearInterval(timer); }
+
+        startAuto();
+
+        // Pause on touch, resume after
+        grid.addEventListener('touchstart', stopAuto, { passive: true });
+        grid.addEventListener('touchend', () => {
+          stopAuto();
+          // Snap to nearest card after swipe
+          setTimeout(() => {
+            const scrollLeft = grid.scrollLeft;
+            let nearest = 0, minDist = Infinity;
+            cards.forEach((c,i) => {
+              const dist = Math.abs(c.offsetLeft - scrollLeft);
+              if (dist < minDist) { minDist = dist; nearest = i; }
+            });
+            current = nearest;
+            dots.forEach((d,i) => d.classList.toggle('active', i === current));
+            startAuto();
+          }, 300);
+        }, { passive: true });
+      }
+    }
+  }
 });
