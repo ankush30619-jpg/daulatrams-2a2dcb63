@@ -648,6 +648,21 @@
 /* Trust legacy banner (single image) */
 .trust-legacy-banner{display:block;width:100%;background:#1a7a3a;margin-top:-20px;padding:0;position:relative;z-index:2;}
 .trust-legacy-banner img{display:block;width:100%;height:auto;margin:0;padding:0;border:none;}
+.tlb-mobile-text{display:none;}
+@media(max-width:640px){
+  .tlb-desktop-img{display:none;}
+  .tlb-mobile-text{
+    display:block;
+    text-align:center;
+    padding:18px 24px;
+    color:#fff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(18px,5vw,24px);
+    font-weight:600;
+    line-height:1.4;
+    letter-spacing:0.01em;
+  }
+}
 
 /* Tighten and eliminate spacing gaps around the trust legacy banner */
 .pdp-hero-inner {
