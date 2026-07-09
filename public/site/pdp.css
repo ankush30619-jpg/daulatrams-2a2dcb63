@@ -262,11 +262,11 @@
 .rating-big { font-family:var(--font-label); font-weight:700; font-size:clamp(32px,5vw,56px); color:#fff; line-height:1; }
 .rating-stars-big { font-size:22px; color:var(--saffron); letter-spacing:2px; margin:2px 0; }
 .rating-count { font-size:12px; color:rgba(255,255,255,0.65); margin-bottom:0; }
-.rating-bars2 { max-width:280px; margin:10px auto 0; }
-.rb2-row { display:flex; align-items:center; gap:10px; margin-bottom:5px; }
+.rating-bars2 { max-width:280px; margin:16px auto 0; width:100%; }
+.rb2-row { display:flex !important; align-items:center !important; gap:10px; margin-bottom:8px; width:100%; }
 .rb2-row .lbl { color:rgba(255,255,255,0.75); font-size:13px; width:24px; flex-shrink:0; text-align:right; }
-.rb2-row .bar { flex:1; height:8px; background:rgba(255,255,255,0.15); border-radius:50px; overflow:hidden; }
-.rb2-row .fill { height:100%; background:var(--brand-orange); border-radius:50px; }
+.rb2-row .bar { flex:1 !important; display:block !important; height:8px !important; background:rgba(255,255,255,0.18) !important; border-radius:50px; overflow:hidden; min-width:60px; }
+.rb2-row .fill { display:block !important; height:8px !important; background:#F5921D !important; border-radius:50px; }
 .rb2-row .pct { color:rgba(255,255,255,0.65); font-size:12px; width:32px; flex-shrink:0; }
 
 /* ===== VIDEO REVIEWS ===== */
