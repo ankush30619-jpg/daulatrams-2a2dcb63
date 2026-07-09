@@ -364,7 +364,7 @@
   /* rating summary */
   document.getElementById('sum-score').textContent=p.rating||4.5;
   document.getElementById('sum-cnt').textContent='Based on '+(p.reviews||0).toLocaleString('en-IN')+' verified ratings';
-  document.getElementById('sum-price2').textContent='₹'+p.price.toLocaleString('en-IN');
+  const sp2=document.getElementById('sum-price2'); if(sp2) sp2.textContent='₹'+p.price.toLocaleString('en-IN');
 
   /* mobile sticky */
   const satc=document.getElementById('satc2');
