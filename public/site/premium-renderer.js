@@ -85,21 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>`;
   }
 
-  if (data.megastat) {
-    const m = data.megastat;
-    html += `
-    <section class="premium-megastat">
-      <div class="container premium-megastat-inner">
-        <div class="premium-mega-num">${m.num}</div>
-        <div class="premium-mega-copy">
-          <span class="premium-eyebrow">${m.eyebrow}</span>
-          <h3>${m.h3}</h3>
-          <p>${m.p}</p>
-          <button class="premium-btn-cta" onclick="document.getElementById('buy-btn').click()">BUY NOW</button>
-        </div>
-      </div>
-    </section>`;
-  }
+  // megastat section removed
 
   if (data.compare) {
     const c = data.compare;
@@ -135,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `
       <div class="premium-htstep">
         <div class="vh-num">${s.num}</div>
-        <div class="vh-ico">${s.title.charAt(0)}</div>
         <h3>${s.title}</h3>
         <p>${s.desc}</p>
       </div>`).join('') : '';
@@ -155,27 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>`;
   }
 
-  if (data.benefitsDark) {
-    const b = data.benefitsDark;
-    const safeIcons = ['\u2736', '\u25C6', '\u2665', '\u2605', '\u25B2', '\u25CF'];
-    const bensHtml = b.benefits ? b.benefits.map((ben, i) => `
-      <div class="premium-benefit">
-        <div class="vb-ico">${safeIcons[i % safeIcons.length]}</div>
-        <h3>${ben.title}</h3>
-        <p>${ben.desc}</p>
-      </div>`).join('') : '';
-
-    html += `
-    <section class="premium-benefits-dark">
-      <div class="container">
-        <div class="premium-sec-head light">
-          <span class="premium-eyebrow light">${b.eyebrow}</span>
-          <h2 class="premium-h2 light">${b.h2}</h2>
-        </div>
-        <div class="premium-benefits-grid">${bensHtml}</div>
-      </div>
-    </section>`;
-  }
+  // benefitsDark section removed
 
 
   container.innerHTML = html;

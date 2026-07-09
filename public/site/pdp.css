@@ -1031,9 +1031,12 @@ body.premium-has-promobar #main-content{padding-top:152px !important;}
 .premium-compare-wrap{margin-top:8px !important;}
 .premium-compare-table th, .premium-compare-table td{padding:10px 12px !important; font-size:14px !important;}
 
-.premium-howto-steps{gap:18px !important;}
-.premium-htstep{padding:20px !important;}
-.premium-htstep .vh-ico{font-size:32px !important; margin:4px 0 8px !important;}
+.premium-howto-steps{gap:14px !important;}
+.premium-htstep{padding:14px 16px 14px !important;}
+.premium-htstep .vh-ico{display:none !important;}
+.premium-htstep h3{font-size:15px !important; margin:8px 0 4px !important;}
+.premium-htstep p{font-size:12.5px !important; line-height:1.4 !important;}
+.premium-htstep .vh-num{font-size:11px !important; padding:3px 10px !important; top:-11px !important;}
 .premium-timeline{margin-top:24px !important;}
 
 .premium-promise-inner{gap:32px !important;}
